@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@500&family=Signika+Negative:wght@500&display=swap');
+
+.back-div{
+    background-color: rgb(216, 214, 214);
+}
+.forma{
+    display: flex;
+    flex-direction: column;
+    width:650px;
+    height: 480px;
+    margin-left:290px;
+    margin-top:70px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 10px 10px 10px black;
+}
+
+
+.log-h{
+    width: 400px;
+    margin-left:120px ;
+    padding-left: 125px;
+    padding-bottom: 10px;
+    color:black;
+    font-size: 25px;
+    font-family: 'Work Sans', sans-serif;
+    margin-bottom: 30px;
+    margin-top: 50px;
+    font-weight: 500;
+    border-bottom: 2px solid rgb(245, 149, 164);
+}
+
+.loginform{
+    display: flex;
+    flex-direction: column;
+    margin-left: 160px;
+    margin-top: 10px;
+}
+
+
+.input-f{
+    margin-bottom: 20px;
+    height:43px;
+    width:270px;
+    border-color: rgb(248, 248, 248);
+    border-radius: 3px;
+    text-size-adjust: 10px;
+    margin-left: 28px;
+    padding: 12px 15px;
+}
+
+
+.buton{
+    width:195px;
+    height:50px;
+    border: 2px;
+    border-radius: 40px;
+    margin-left: 60px;
+    font-size:20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background-color: #000000;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 500;
+    color:white;
+    margin-top: 15px;
+}
+
+.buton:hover {
+    background-color: rgb(245, 149, 164);
+    color: white;
+    transition: 3ms;
+}
+
+.text-p{
+    font-size: 14px;
+    font-weight: 300;
+    color: black; 
+    line-height: 20px;
+    margin-left: 170px;
+}
+
+.text-p2{
+    font-size: 14px;
+    font-weight: 300;
+    color: black; 
+    margin-left: 260px;
+    line-height: 20px;
+}
+
+.registerbutton{
+    position: relative;
+    left: 95px;
+    width:250px;
+    border:none;
+    background-color: white;
+    font-family: 'Work Sans', sans-serif;
+    text-decoration: none;
+    margin-top: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: black;
+    font-weight: 500;
+}
+
+.registerbutton:hover {
+    color: rgb(245, 149, 164);
+ }
+
+.errorLogin{
+  font-size: 15px;
+  color:red;
+  margin-left:85px;
+}
+
+
+

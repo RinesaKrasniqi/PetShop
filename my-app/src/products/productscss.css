@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@500&family=Signika+Negative:wght@500&display=swap');
+
+
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box; 
+    text-decoration: none;  
+}
+
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+.card-back{
+    width: 204px;
+    padding: 0;
+    margin: 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.card{
+    width: 100%;
+    text-align: center;
+    position: relative;
+    top:10px;
+    bottom: 20px;
+    border-radius: 7px;
+}
+
+.fotoja-div, .fotoja{
+      width:180px;
+      height:auto;
+      margin-top: 10px;
+}
+
+main, .card, .image {
+     width:100%;
+     height:100%;
+     object-fit: cover;
+}
+
+main, .card, .caption{
+    padding-left: 14px;
+    text-align: left; 
+    height: 25%;
+    margin:0;
+    font-family: 'DynaPuff', cursive;
+    font-family: 'Signika Negative', sans-serif; 
+}
+
+
+.caption, .product_name{
+    font-size: 12px;
+    margin-top:4px;
+    color: black;
+    
+}
+
+
+.discount{
+  text-decoration: line-through ;
+  color: red;
+  font-family: 'DynaPuff', cursive;
+  font-family: 'Signika Negative', sans-serif; 
+}
+
+.caption, .instock{
+    font-size: 12px;
+    margin-top:4px;
+    color: black;
+}
+
+.caption, .price{
+    font-size: 12px;
+    margin-top:4px;
+    color: black;
+}
+
+.caption, .rate{
+    display:column;
+}
+
+.products-button{
+    padding: 0.5em;
+    cursor:pointer;
+    font-weight: bold;
+    position: relative;
+    top: 60px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 19px;
+}
+
+.purchase{
+    width:100px;
+    margin-right:10px;
+    margin-left: 5px;
+    border:none;
+    height:30px;
+    margin-bottom: 5px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #163786;
+    font-weight: bolder;
+    font-family: 'DynaPuff', cursive;
+    font-family: 'Signika Negative', sans-serif; 
+    
+}
+
+.add{
+    width:40px;
+    border:none;
+    height:30px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,352 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+/*font-family: 'Dancing Script', cursive;*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+/*font-family: 'Poppins', sans-serif;*/
+
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&display=swap');
+/*font-family: 'Work Sans', sans-serif;*/
+
+/*Food text*/
+.text-container{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.food-container{
+    width: 100%;
+    margin: 20px;
+}
+.food-h4{
+    letter-spacing: 1px;
+    font-size: 40px;
+    font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    line-height: 50px;
+    color: #212529;
+}
+
+.h4-i{
+    font-family: 'Dancing Script', cursive;
+    font-size: 40px;
+    font-weight: 700;
+    color: #212529;
+}
+
+.divider{
+    background-color: #212529;
+    width: 50px;
+    height: 4px;
+    margin-left: 160px;
+    margin-top: 14px;
+    margin-bottom: 14px;
+}
+
+.food-p{
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    left: 10px;
+}
+
+/*Toys text*/
+.toys-container{
+    width: 100%;
+    margin: 20px;
+}
+.toys-h4{
+    letter-spacing: 1px;
+    font-size: 40px;
+    font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    line-height: 50px;
+    color: #212529;
+}
+.h4-ii{
+    font-family: 'Dancing Script', cursive;
+    font-size: 40px;
+    font-weight: 700;
+    color: #212529;
+}
+.toyes-p{
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    left: 10px;
+}
+/*Accessories text*/
+.accessories-container{
+    width: 100%;
+    margin: 20px;
+}
+.accessories-h4{
+    letter-spacing: 1px;
+    font-size: 40px;
+    font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    line-height: 50px;
+    color: #212529;
+}
+
+.h4-iii{
+    font-family: 'Dancing Script', cursive;
+    font-size: 40px;
+    font-weight: 700;
+    color: #212529;
+}
+.accessories-p{
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    left: 10px;
+}
+
+
+/*Second-container*/
+
+.second-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 90px;
+}
+
+.food-img-container{
+    width: 100%;
+    height: auto;
+}
+.food-back{
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+.food-info-container{
+    width: 100%;
+    background-color: rgb(244, 234, 250);
+}
+
+.food-h4-conatiner{
+    position: relative;
+    left: 50px;
+    top: 30px;
+    font-size: 2rem;
+    font-family: 'Poppins', sans-serif;
+    width: 400px;
+}
+
+.food-p-conatiner{
+    font-family: 'Poppins', sans-serif;
+    margin-left: 50px;
+    margin-right: 90px;
+    margin-top: 30px;
+}
+
+.food-p2-conatiner{
+    font-family: 'Poppins', sans-serif;
+    margin-left: 50px;
+    margin-right: 70px;
+    margin-top: 10px;
+}
+
+.food-button-conatiner{
+  width: 150px;
+  height: 40px;
+  color: #1b221e;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 1px;
+  font-family: 'Poppins', sans-serif;
+  background-color: transparent;
+  border: 1px solid #1b221e;
+  margin-left: 50px;
+  margin-top: 10px;
+}
+
+.food-button-conatiner:hover{
+    background-color: #1b221e;
+    color: white;
+}
+
+
+/* Third-Container */
+
+.third-h4{
+    margin-top: 80px;
+    margin-bottom: 50px;
+    font-size: 25px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    margin-left: 20px;
+    color: rgb(247, 135, 152);
+}
+
+.third-container{
+    display: flex;
+    margin-left: 100px;
+}
+
+.dog-third-container{
+    width: 100%;
+    height: auto;
+}
+.dog-third{
+    width: 150px;
+}
+
+.p-third{
+    font-size: 25px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    margin-left: 47px;
+    margin-top: 20px;
+    color: rgb(252, 111, 132);
+}
+
+.cat-third-container{
+    width: 100%;
+    height: auto;
+}
+.cat-third{
+    width: 150px;
+}
+
+.fish-third-container{
+    width: 100%;
+    height: auto;
+}
+.fish-third{
+    width: 150px;
+}
+
+.pony-third-container{
+    width: 100%;
+    height: auto;
+}
+.pony-third{
+    width: 150px;
+}
+
+/*Fourth-container*/
+
+.fourth-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 100px;
+}
+
+.toy-img-container{
+    width: 100%;
+    height: auto;
+}
+.toy-back{
+    max-width: 100%;
+    max-height: 400px;
+    display: block;
+}
+
+.toy-info-container{
+    width: 3000px;
+    background-color: rgb(244, 234, 250);
+}
+
+.toy-h4-conatiner{
+    position: relative;
+    left: 50px;
+    top: 30px;
+    font-size: 2rem;
+    font-family: 'Poppins', sans-serif;
+    width: 400px;
+}
+
+.toy-p-conatiner{
+    font-family: 'Poppins', sans-serif;
+    margin-left: 50px;
+    margin-right: 90px;
+    margin-top: 30px;
+}
+
+.toy-p2-conatiner{
+    font-family: 'Poppins', sans-serif;
+    margin-left: 50px;
+    margin-right: 70px;
+    margin-top: 10px;
+}
+
+.toy-button-conatiner{
+  width: 150px;
+  height: 40px;
+  color: #1b221e;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 1px;
+  font-family: 'Poppins', sans-serif;
+  background-color: transparent;
+  border: 1px solid #1b221e;
+  margin-left: 50px;
+  margin-top: 10px;
+}
+
+.toy-button-conatiner:hover{
+    background-color: #1b221e;
+    color: white;
+}
+
+
+/* Fifth-container*/
+
+.fifth-container {
+    margin-top: 100px;
+    margin-left: 30px;
+}
+
+.card-cat{
+    width: 200px;
+    height: 320px;
+    background-color: rgb(239, 236, 236);
+    border-radius: 2px;
+    border: white;
+    box-shadow: 8px 11px 8px rgb(245, 149, 164);
+}
+
+.cat-card-slider{
+    width: 200px;
+}
+
+.h2-card-slider{
+    margin-top: 3px;
+    margin-left: 58px;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.p-card-slider{
+    margin-top: 4px;
+    margin-left: 70px;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.p-d-card-slider{
+    margin-left: 40px;
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 5px;
+}
+
+.p-b-card-slider{
+    background-color: black;
+    height: 50px;
+    margin-top: 10px;
+}
+
+.b-card-slider{
+    background-color: black;
+    border: black;
+    color: white;
+    width: 200px;
+    height: 50px;
+    padding-bottom: 15px;
+}
+.p-b-card-slider .b-card-slider:hover{
+    background-color: #1b221e;
+
+}

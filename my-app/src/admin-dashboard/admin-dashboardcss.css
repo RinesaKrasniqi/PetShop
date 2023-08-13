@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@500&family=Signika+Negative:wght@500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.back-dash{
+    display: flex;
+    flex-direction: row;
+    width: 1200px;
+    height: 160px;
+    border-radius:16px;
+}
+
+.first-div-a{
+    background-color: #121111;
+    width:240px;
+    height: 600px;
+    color: white;
+}
+
+.Admin-Dash-Title{
+    padding-bottom: 16px;
+    border-bottom:1px solid #333232;
+    color: #ffeded;
+}
+
+.FaHome{
+    position: relative;
+    left: 25px;
+    top: 15px;
+    font-weight: 600;
+    font-size: large;
+    font-family: 'Work Sans', sans-serif;
+}
+.elements{
+    padding-top: 10px;
+    padding-left: 5px;
+    border-bottom:1px solid #333232;
+}
+.elements-1{
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.link{
+    margin-left: 10px;
+    font-family: 'Work Sans', sans-serif;
+    text-decoration: none;
+    font-size: 17px;
+    color: #ffeded;
+}
+.link:hover{
+    color: #ffa6a6;
+    cursor: sspointer;
+}
+
+.elements-2{
+    display: flex;
+    position: relative;
+    top: 60px; 
+}
+.amdin-logout{
+    width: 25px;
+    margin-left: 4px;
+}
+.a-d-logout{
+    padding-left: 5px;
+    position: relative;
+    font-family: 'Work Sans', sans-serif;
+    text-decoration: none;
+    font-size: 17px;
+    color: #ffeded;
+    background-color: #121111;
+    border: 1px solid #121111;
+}
+
+.a-d-logout:hover{
+    color: #ffa6a6;
+    cursor: pointer;
+}
+
+/*Small table*/
+
+.both-back{
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+}
+
+.user-div-nr{
+    display: flex;
+    width: 250px;
+    height: 110px;
+    background-color: #efeded;
+    color: black;
+    font-weight: 600;
+    font-family: 'Work Sans', sans-serif;
+    border-radius: 15px;
+    margin-top: 25px;
+    margin-left: 40px;
+}
+.acc-dash{
+    width: 60px;
+    height: 50px;
+    background-color: #f9bebe;
+    border-radius: 10px;
+    position: relative;
+    bottom: 15px;
+    left: 17px;
+ }
+
+.acc-dash-pic{
+    width: 25px;
+    margin-left: 17px;
+    margin-top: 10px;
+}
+
+.acc-dash-p{
+    position: relative;
+    left: 70px;
+    top: 40px;
+    width: 90px;
+    font-size: larger;
+}
+.acc-dash-pp{
+    position: relative;
+    top: 65px;
+    left: 15px;
+    font-size: 20px;
+    color: #f39797;
+}
+
+/*User list*/
+
+.user-h2{ 
+    position: relative;
+    top:100px;
+    left: 45px;
+    font-weight: 600;
+    font-family: 'Work Sans', sans-serif;
+}
+.user{
+    width: 900px;
+    background-color: #ebe4e4;
+    border-radius: 15px;
+    position: relative;
+    top:100px;
+    left: 45px;
+}
+
+.user .user-table  {
+    width: 100%;
+    padding: 15px;
+ }
+
+
+.user-table .user-head .user-tr .user-td{
+    font-weight: 600;
+    font-family: 'Work Sans', sans-serif;
+}
+
+
+.bottom-table{
+    padding-top: 20px;
+}
+.bottom-table .bottom-tr .bottom-td{
+    padding-top: 20px;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.upd-btn{
+    background: none;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: medium;
+    font-family: 'Work Sans', sans-serif;
+    padding-top: 20px;
+    color: #fd6e6e;
+    cursor: pointer;
+    border:white;
+}
+
+.dlt-btn{
+    position: relative;
+    left: 110px;
+    background: none;
+    text-decoration: none;
+    border:white;
+    font-weight: 600;
+    font-size: medium;
+    font-family: 'Work Sans', sans-serif;
+    padding-top: 20px;
+    color: #fa3838;
+    cursor: pointer;
+}
+
+
+/*Product dash*/
+.elements-3{
+    display: flex;
+    position: relative;
+    top:4px;
+}
+.add-product-img{
+    width: 24px;
+
+}
+
+.add-product{
+    position: relative;
+    left: 8px;
+    font-family: 'Work Sans', sans-serif;
+    text-decoration: none;
+    font-size: 17px;
+    color: #ffeded;
+    background-color: #121111;
+    border: 1px solid #121111;
+}
+
+.add-product:hover{
+    color: #ffa6a6;
+    cursor: pointer;
+}
+
+.dltt-btn{
+    position: relative;
+    background: none;
+    text-decoration: none;
+    border:white;
+    font-weight: 600;
+    font-size: medium;
+    font-family: 'Work Sans', sans-serif;
+    padding-top: 20px;
+    color: #fa3838;
+    cursor: pointer;
+}

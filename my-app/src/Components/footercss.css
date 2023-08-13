@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@500&family=Signika+Negative:wght@500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.back {
+    display: flex;
+    background-color: black;
+    position: relative;
+    top: 110px;
+    height: 380px;
+    margin-top: 20px;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+}
+
+
+.info {
+   position: relative;
+   top: 20px;
+   left: 180px;
+   width: 400px;
+   height: 350px;
+}
+
+.info .logo-f {
+    position: relative;
+    top: 95px;
+    left: 40px;
+    width: 60px;
+}
+
+.info .info-h2{
+    margin-top: 120px;
+    margin-left: 45px;
+    font-family: 'DynaPuff', cursive;
+    font-family: 'Signika Negative', sans-serif;  
+    font-weight: 300;
+    color: white;
+    font-size: 16px;
+}
+
+.icon-info img {
+    position: relative;
+    left: 45px;
+    margin-top: 30px;
+    width: 30px;
+    margin-right: 20px;
+}
+
+.rights {
+    font-family: 'DynaPuff', cursive;
+    font-family: 'Signika Negative', sans-serif;  
+    font-weight: 300;
+    color: white;
+    font-size: 16px;
+    margin-left: 45px;
+    margin-top: 25px;
+}
+.map {
+    position: relative;
+    top: 110px;
+    left: 300px;
+    width: 400px;
+    height: 240px;
+   
+ }
+ .map iframe{
+    width: 400px;
+    height: 100%;
+    border-radius: 20px;
+    border: white;
+    box-shadow: 6px 10px rgb(63, 61, 61);
+}
+

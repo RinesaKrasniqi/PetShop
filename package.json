@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "mssql": "^9.1.1",
+    "react-icons": "^4.8.0"
+  }
+}

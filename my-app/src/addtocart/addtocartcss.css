@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@500&family=Signika+Negative:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} 
+
+.cart-container{
+    width: 500px;
+    height: 300px;
+    margin-left: 450px;
+    margin-top: 110px;
+}
+
+.FaCartPlus1{
+    margin-left: 50px;
+}
+
+.p-cart{
+    align-items: center;
+    margin-right: 40px;
+    margin-top: 30px;
+    margin-left: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.button-conatiner{
+    width: 200px;
+    height: 50px;
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 1px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fd384f;
+    margin-left: 100px;
+    margin-top: 25px;
+    border: 1px solid white;
+    border-radius:22px;
+  }
+  
+  .button-conatiner:hover{
+      background-color: #ffa2ad;
+      color: #fd384f;
+  }
+  
+  
+
