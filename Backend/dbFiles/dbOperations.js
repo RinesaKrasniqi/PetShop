@@ -17,6 +17,7 @@ const getLoginDetails= async()=> {
     }
 }
 
+
 const editUs = async (Client_id) => {
     try {
       let pool = await sql.connect(config);
