@@ -1,5 +1,5 @@
 var config={
-    user:"Rinesa",
+    user:"Margita",
     password: "123",
     server: "DISCORD\\SQLEXPRESS",
     database : "ProjektiLAB1",
