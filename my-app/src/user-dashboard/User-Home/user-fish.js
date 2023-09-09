@@ -67,9 +67,9 @@ function Fish(){
     {pro.map((product,index)=>(
          <div key={product.Product_id} className='card-back'>
 
-         <Link to='/shop'><div class="card">
+        <div className="card">
         <div class='fotoja-div'>
-        <img class='fotoja' src="./Img/fishfood.jpg" ></img>
+        <Link to='/shop'><img class='fotoja' src="./Img/fishfood.jpg" ></img></Link>
         </div>
 
        <div class="caption">
@@ -93,8 +93,7 @@ function Fish(){
        <motion.button class='purchase'whileHover={{scale:1.1}} >Purchase</motion.button>
        <motion.button class='add' whileHover={{scale:1.1}}  onClick={() => handleAddToCart(product.Product_id)}><i class="FaCartPlus"><FaCartPlus  size={'20px'}/></i></motion.button>
        </div>
-       </div></Link>
-
+       </div>
        </div>
   ))}
   </div>
