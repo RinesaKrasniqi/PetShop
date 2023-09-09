@@ -22,7 +22,7 @@ function UserHeader() {
             <ul class="dropdown-u">
                 <li><Link to='/user-dog'>dog</Link></li>
                 <li><Link to='/user-cat' >cat</Link></li>
-                <li><Link to='/fish'>fish</Link></li>
+                <li><Link to='/user-fish'>fish</Link></li>
                 <li><Link to='/pony'>pony</Link></li>
             </ul>
            </li> 

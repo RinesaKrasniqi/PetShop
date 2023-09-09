@@ -25,6 +25,8 @@ import UserCart from './user-dashboard/User-Cart/user-cart.js';
 import UserHome from './user-dashboard/User-Home/user-home.js';
 import UserDog from './user-dashboard/User-Home/user-dog.js';
 import UserCat from './user-dashboard/User-Home/user-cat.js';
+import UserFish from './user-dashboard/User-Home/user-fish.js';
+import UserPony from './user-dashboard/User-Home/user-pony';
 import UserPurchased from './user-dashboard/User-Purchased/user-purchased.js';
 
 
@@ -136,6 +138,14 @@ const router = createBrowserRouter([
   {
     path: "user-cat",
     element: <div><UserCat/></div>
+  },
+  {
+    path: "user-fish",
+    element: <div><UserFish/></div>
+  },
+  {
+    path: "user-pony",
+    element: <div><UserPony/></div>
   },
   {
     path: "/users/edit/:Client_id",
