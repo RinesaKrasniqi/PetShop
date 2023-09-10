@@ -11,6 +11,9 @@ const app= express();
 app.use(express.json());
 const bodyParser = require("body-parser");
 
+const { check, validationResult } = require('express-validator');
+
+
 var cors = require('cors')
 app.use(cors())
 const { connect } = require('http2');
