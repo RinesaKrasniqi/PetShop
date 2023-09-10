@@ -128,22 +128,22 @@ function UserHome() {
 
 
         <div className='dog-third-container'>
-            <motion.div  whileHover={{y : -15}}><Link to='/dog'><img src='./Img/dog-third.png' className='dog-third'></img></Link></motion.div>
+            <motion.div  whileHover={{y : -15}}><Link to='/user-dog'><img src='./Img/dog-third.png' className='dog-third'></img></Link></motion.div>
             <p className='p-third'>DOG</p>
         </div>
 
         <div className='cat-third-container'>
-            <motion.div  whileHover={{y : -15}}><Link to='/cat'><img src='./Img/cat-third.png' className='cat-third'></img></Link></motion.div>
+            <motion.div  whileHover={{y : -15}}><Link to='/user-cat'><img src='./Img/cat-third.png' className='cat-third'></img></Link></motion.div>
             <p className='p-third'>CAT</p>
         </div>
 
         <div className='fish-third-container'>
-            <motion.div  whileHover={{y : -15}}><Link to='/fish'><img src='./Img/fish-third.png' className='fish-third'></img></Link></motion.div>
+            <motion.div  whileHover={{y : -15}}><Link to='/user-fish'><img src='./Img/fish-third.png' className='fish-third'></img></Link></motion.div>
             <p className='p-third'>FISH</p>
         </div>
 
         <div className='pony-third-container'>
-            <motion.div  whileHover={{y : -15}}><Link to='/pony'><img src='./Img/pony-third.png' className='pony-third'></img></Link></motion.div>
+            <motion.div  whileHover={{y : -15}}><Link to='/user-pony'><img src='./Img/pony-third.png' className='pony-third'></img></Link></motion.div>
             <p className='p-third'>PONY</p>
         </div>
       </div>

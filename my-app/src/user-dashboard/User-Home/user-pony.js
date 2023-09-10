@@ -10,7 +10,8 @@ import  Footer from '../../Components/footer.js';
 import axios from 'axios';
 var Link = require('react-router-dom').Link
 
-function UserCat(){
+function Pony(){
+
    const [pro,setPro]=useState([]);
    const [Product_id, setProduct_id] = useState("");
    const [Name, setName] = useState("");
@@ -20,15 +21,12 @@ function UserCat(){
    const [nr_of_stars, setStars] = useState("");
    const [Price_before_discount, setDiscount] = useState("");
    const [Category, setCategory] = useState("");
-
-
-   const LoadCat=async()=>{
-      const response= await axios.get('http://localhost:5000/product/cat');
+   
+   const LoadPony=async()=>{
+      const response= await axios.get('http://localhost:5000/product/pony');
       console.log(response.data);
       setPro(response.data)
     }
-
-    
     const handleAddToCart = async (productId) => {
       const selectedProduct = pro.find((product) => product.Product_id === productId);
     
@@ -53,24 +51,23 @@ function UserCat(){
       }
     };
   
+  
     useEffect(()=>{
-      LoadCat();
+      LoadPony();
     },[]);
-
 
     return(
       <div>
          <div>
             <UserHeader/>
          </div>
-
          <div className='product-container'>
     {pro.map((product,index)=>(
          <div key={product.Product_id} className='card-back'>
 
-         <div class="card" >
+        <div className="card">
         <div class='fotoja-div'>
-        <Link to='/shop'><img class='fotoja' src="./Img/cat-bag.jpg" ></img></Link>
+        <Link to='/shop'><img class='fotoja' src="./Img/horsefood.jpg" ></img></Link>
         </div>
 
        <div class="caption">
@@ -95,8 +92,8 @@ function UserCat(){
        <motion.button class='add' whileHover={{scale:1.1}}  onClick={() => handleAddToCart(product.Product_id)}><i class="FaCartPlus"><FaCartPlus  size={'20px'}/></i></motion.button>
        </div>
        </div>
-      </div> 
- ))}
+       </div>
+  ))}
   </div>
        <div>
       <Footer/>
@@ -105,4 +102,4 @@ function UserCat(){
     );
 }
 
-export default UserCat;
+export default Pony;

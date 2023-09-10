@@ -10,7 +10,8 @@ import  Footer from '../../Components/footer.js';
 import axios from 'axios';
 var Link = require('react-router-dom').Link
 
-function UserCat(){
+function Fish(){
+
    const [pro,setPro]=useState([]);
    const [Product_id, setProduct_id] = useState("");
    const [Name, setName] = useState("");
@@ -20,15 +21,13 @@ function UserCat(){
    const [nr_of_stars, setStars] = useState("");
    const [Price_before_discount, setDiscount] = useState("");
    const [Category, setCategory] = useState("");
-
-
-   const LoadCat=async()=>{
-      const response= await axios.get('http://localhost:5000/product/cat');
+   
+   const LoadFish=async()=>{
+      const response= await axios.get('http://localhost:5000/product/fish');
       console.log(response.data);
       setPro(response.data)
     }
 
-    
     const handleAddToCart = async (productId) => {
       const selectedProduct = pro.find((product) => product.Product_id === productId);
     
@@ -53,10 +52,10 @@ function UserCat(){
       }
     };
   
+  
     useEffect(()=>{
-      LoadCat();
+      LoadFish();
     },[]);
-
 
     return(
       <div>
@@ -68,9 +67,9 @@ function UserCat(){
     {pro.map((product,index)=>(
          <div key={product.Product_id} className='card-back'>
 
-         <div class="card" >
+        <div className="card">
         <div class='fotoja-div'>
-        <Link to='/shop'><img class='fotoja' src="./Img/cat-bag.jpg" ></img></Link>
+        <Link to='/shop'><img class='fotoja' src="./Img/fishfood.jpg" ></img></Link>
         </div>
 
        <div class="caption">
@@ -82,7 +81,7 @@ function UserCat(){
            <i class="FaRegStar"><FaRegStar color="gold" fill="gold" size='18px'/></i>
            <i class="FaRegStar"><FaRegStar color="gold" fill="gold" size='18px'/></i>
         </p>
-
+        
         <h3 class='product_name' value={Name} onChange={(e) => setName(e.target.value)}>Product name: {product.Name}</h3>
              <p class="price"  value={Price} onChange={(e) => setPrice(e.target.value)}>{product.Price}$</p>
              <p class='discount'  value={Price_before_discount} onChange={(e) =>  setDiscount(e.target.value)}>number of discount:  {product.Price_before_discount}$</p>
@@ -95,9 +94,10 @@ function UserCat(){
        <motion.button class='add' whileHover={{scale:1.1}}  onClick={() => handleAddToCart(product.Product_id)}><i class="FaCartPlus"><FaCartPlus  size={'20px'}/></i></motion.button>
        </div>
        </div>
-      </div> 
- ))}
+       </div>
+  ))}
   </div>
+
        <div>
       <Footer/>
    </div>
@@ -105,4 +105,4 @@ function UserCat(){
     );
 }
 
-export default UserCat;
+export default Fish;
