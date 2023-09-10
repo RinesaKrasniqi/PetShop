@@ -13,6 +13,7 @@ export default function Add() {
   const [nr_of_stars, setStars] = useState("");
   const [Price_before_discount, setDiscount] = useState("");
   const [Category, setCategory] = useState("");
+  const [File, setFile] = useState("");
   const [addStatus, setAddStatus] = useState("");
 
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ export default function Add() {
       nr_of_stars: nr_of_stars,
       Price_before_discount: Price_before_discount,
       Category: Category,
+      File:File
     };
 
     const errors = AddValidation(values);
@@ -131,6 +133,18 @@ export default function Add() {
               setStars(e.target.value);
             }}
             value={nr_of_stars}
+          />
+
+           <input
+            className="inputform"
+            type="file"
+            placeholder="Select a picture of the product"
+            id="file"
+            name="file"
+            onChange={(e) => {
+              setFile(e.target.value);
+            }}
+            value={File}
           />
         </form>
         <button className='add-btn' type="submit" onClick={add}>Add</button>
