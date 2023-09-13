@@ -1,9 +1,11 @@
 import { useRef, useState } from 'react';
 import './addcss.css';
 import Header from '../Components/header.js';
-import { Link, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import AddValidation from './addvalidation';
 import axios from 'axios';
+
+var Link = require('react-router-dom').Link;
 
 export default function Add() {
   const [Name, setName] = useState("");
@@ -13,6 +15,7 @@ export default function Add() {
   const [nr_of_stars, setStars] = useState("");
   const [Price_before_discount, setDiscount] = useState("");
   const [Category, setCategory] = useState("");
+  const [img_src, setImg_src] = useState("");
   const [addStatus, setAddStatus] = useState("");
 
   const navigate = useNavigate();
@@ -28,6 +31,7 @@ export default function Add() {
       nr_of_stars: nr_of_stars,
       Price_before_discount: Price_before_discount,
       Category: Category,
+      img_src:img_src
     };
 
     const errors = AddValidation(values);
@@ -131,6 +135,18 @@ export default function Add() {
               setStars(e.target.value);
             }}
             value={nr_of_stars}
+          />
+
+           <input
+            className="inputform"
+            type="file"
+            placeholder="Select a picture of the product"
+            id="img_src"
+            name="img_src"
+            onChange={(e) => {
+              setImg_src(e.target.value);
+            }}
+            value={img_src}
           />
         </form>
         <button className='add-btn' type="submit" onClick={add}>Add</button>

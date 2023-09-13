@@ -47,7 +47,8 @@ create table Cart(
   Price_before_discount int ,
   Category varchar(50) ,
   Product_id int,
-
+  Client_id int,
+  constraint Client_fk foreign key (Client_id) references Client(Client_id)
 );
 
 drop table Cart; 
@@ -102,6 +103,7 @@ insert into Client values('Fatjona','Krasniqi','fatjona@gmail.com','045457596','
 insert into Client values('Albina','Rahimi','albina@gmail.com','045457596','882828')
 
 insert into Products values('Cat Toy','Catt', 23,20,4,30,'Cat')
+insert into Products values('Cat Brush','Catt', 19,10,2,20,'Cat')
 insert into Products values('Dog Toy','Dog', 30,10,2,30, 'Dog')
 insert into Products values('Toy','Dff', 10,3,9,15, 'Dog')
 insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Dog')

@@ -91,6 +91,7 @@ function AdminProducts(){
                       <td className='user-td'>In Stock</td>
                       <td className='user-td'>Stars</td>
                       <td className='user-td'>Category</td>
+                      <td className='user-td'>IMG-src</td>
                       <td className='user-td'>Update</td>
                       <td className='user-td'>Delete</td>
                       
@@ -107,6 +108,7 @@ function AdminProducts(){
                         <td class='bottom-td'>{product.nr_in_stock}</td>
                         <td class='bottom-td'>{product.nr_of_stars}</td>
                         <td class='bottom-td'>{product.Category}</td>
+                        <td class='bottom-td'>{product.File}</td>
                         
                         {/* <Link to={`/updateProduct/${product.Product_id}`}><button class='upd-btn'>Update</button></Link>
                         <button class='dltt-btn' onClick={() => deleteProduct(product.Product_id)}>Delete</button>
