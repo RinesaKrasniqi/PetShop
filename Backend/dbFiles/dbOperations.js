@@ -62,17 +62,6 @@ const delUser= async(Client_id)=> {
       }
 }
 
-const delProduct= async(Product_id)=> {
-  try {
-      let pool = await sql.connect(config);
-      let result = await pool.request()
-        .input('Client_id', sql.VarChar, Client_id)
-        .query('DELETE FROM Products WHERE Product_id = @Product_id');
-      return result;
-    } catch (error) {
-      console.error(error);
-    }
-}
 
 
 
@@ -80,6 +69,5 @@ module.exports={
     getLoginDetails,
     updateUser,
     delUser,
-    editUs,
-    delProduct
+    editUs
 }

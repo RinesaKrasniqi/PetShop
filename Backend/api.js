@@ -218,6 +218,28 @@ app.delete('/cart/:Cart_Id', (req, res) => {
   }) 
 });
 
+
+app.delete('/product/:Product_id', (req, res) => {
+  const { Product_id } = req.params;
+  dbProductoperations.delProduct(Product_id).then(result=>{
+  res.send(result);
+  }) 
+});
+
+app.get('/products/edit/:Product_id', (req, res) => {
+  const Product_id  = req.params;
+  console.log(Product_id);
+  dbProductoperations.editProduct(Product_id).then(x=>{
+  return res.json(x); 
+  })
+});
+
+app.put('/products/update/:Product_id', async(req, res) => {
+  const  {Product_id } = req.params;
+  const { Description, Name,Price,nr_in_stock, nr_of_stars, Price_before_discount, Category} = req.body;
+   await dbProductoperations.updateProduct( Product_id, Description, Name,Price,nr_in_stock, nr_of_stars, Price_before_discount, Category);
+});
+
 app.listen(5000, () => {
     console.log("API Server is running ...");
 })

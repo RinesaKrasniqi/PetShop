@@ -25,7 +25,16 @@ function AdminProducts(){
     console.log(response.data);
     setPro(response.data)
   }
-
+  
+  const deleteProduct = async (Product_id) => {
+    try {
+      await axios.delete(`http://localhost:5000/product/${Product_id}`);
+      LoadProduct();
+    } catch (error) {
+      console.log('Error deleting product:', error);
+    }
+};
+  
   useEffect(()=>{
     LoadProduct();
   },[]);
@@ -110,9 +119,8 @@ function AdminProducts(){
                         <td class='bottom-td'>{product.Category}</td>
                         <td class='bottom-td'>{product.File}</td>
                         
-                        {/* <Link to={`/updateProduct/${product.Product_id}`}><button class='upd-btn'>Update</button></Link>
+                        <Link to={`/updateProduct/${product.Product_id}`}><button class='upd-btn'>Update</button></Link>
                         <button class='dltt-btn' onClick={() => deleteProduct(product.Product_id)}>Delete</button>
-                     */}
                     </tr>
                 ))}
                   </tbody>
