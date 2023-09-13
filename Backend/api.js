@@ -95,8 +95,8 @@ app.post("/insert", async (req, res) => {
     await sql.connect(config);
     const request = new sql.Request();
 
-    const { Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category } = req.body;
-    const sqlQuery = "INSERT INTO Products(Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category) VALUES (@Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category)";
+    const { Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, img_src } = req.body;
+    const sqlQuery = "INSERT INTO Products(Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, img_src) VALUES (@Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category, @img_src)";
     
     request.input('Description', sql.NVarChar, Description);
     request.input('Name', sql.NVarChar, Name);
@@ -105,6 +105,7 @@ app.post("/insert", async (req, res) => {
     request.input('nr_of_stars', sql.Int, nr_of_stars);
     request.input('Price_before_discount', sql.Int, Price_before_discount);
     request.input('Category', sql.NVarChar, Category);
+    request.input('img_src', sql.NVarChar, img_src);
 
     const result = await request.query(sqlQuery);
     res.json(result);
