@@ -62,6 +62,24 @@ const delUser= async(Client_id)=> {
       }
 }
 
+const countClient = async (Client_id) => {
+  try {
+    await poolConnect;
+
+    const result = await pool
+      .request()
+      .input('Client_id', sql.Int, Client_id)
+      .query('SELECT COUNT(*) AS ClientCount FROM Client WHERE Client_id = @Client_id');
+
+    const ClientCount = result.recordset[0].ClientCount;
+    console.log('Client Count:', ClientCount);
+    return ClientCount;
+  } catch (error) {
+    console.error('Error counting clients:', error.message);
+    throw error;
+  }
+};
+
 
 
 

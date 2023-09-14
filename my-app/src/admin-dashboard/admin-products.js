@@ -20,6 +20,7 @@ import { Link } from 'react-router-dom';
 function AdminProducts() {
   const [pro, setPro] = useState([]);
   const [allfoto, setAllFoto] = useState([]);
+  const [productCount, setProductCount] = useState(0);
 
   const LoadProduct = async () => {
     const response = await axios.get('http://localhost:5000/product');
@@ -50,6 +51,10 @@ function AdminProducts() {
     LoadProduct();
     getFoto();
   }, []);
+
+  useEffect(() => {
+    setProductCount(pro.length);
+  }, [pro]);
 
   return (
     <div className="back-dash">
@@ -104,7 +109,7 @@ function AdminProducts() {
             <img className="acc-dash-pic" src="./Img/acc-dash.png" />
           </div>
           <p className="acc-dash-p">Products:</p>
-          <p className="acc-dash-pp">1,000</p>
+          <p className="acc-dash-pp">{productCount}</p>
         </div>
 
         <div className="second-div-a">

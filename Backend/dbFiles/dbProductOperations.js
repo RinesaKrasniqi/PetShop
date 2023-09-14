@@ -110,6 +110,23 @@ const delProduct= async(Product_id)=> {
     }
   };
 
+  const countProducts = async (Product_id) => {
+    try {
+      let pool = await sql.connect(config);
+      const result = await pool
+        .request()
+        .input('Product_id', sql.Int, Product_id) // Use parameterized query
+        .query('SELECT COUNT(*) AS ProductCount FROM Products WHERE Product_id = @Product_id');
+  
+      const productCount = result.recordset[0].ProductCount;
+      console.log('Product Count:', productCount);
+      return productCount;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+
 
   const updateProduct = async (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category) => {
     try {
@@ -142,6 +159,7 @@ const delProduct= async(Product_id)=> {
       console.log(error);
     }
   };
+
 
 
 
