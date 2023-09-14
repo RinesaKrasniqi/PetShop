@@ -96,50 +96,6 @@ const delProduct= async(Product_id)=> {
         console.error(error);
       }
   }
-  
-  const editProduct = async (Product_id) => {
-    try {
-      let pool = await sql.connect(config);
-      let product = await pool
-        .request()
-        .query(`SELECT * FROM Products WHERE Product_id = ${Product_id.Product_id}`);
-      console.log(product);
-      return product;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
-const updateProduct = async (Product_id,Description,Name,Price, nr_in_stock,  nr_of_stars,Price_before_discount,Category) => {
-    try {
-    //   console.log(AdminID + ' ' + Email + ' ' + AdminRoli);
-      let pool = await sql.connect(config);
-      let adminet = await pool
-        .request()
-        .query(
-          `UPDATE Products SET Description = '${Description}' , Name = '${Name}'  ,Price = '${Price}',  nr_in_stock=${ nr_in_stock}, nr_of_stars=${nr_of_stars},Price_before_discount=${Price_before_discount},Category=${Category}
-          WHERE Product_id = ${Product_id}`
-        );
-
-      console.log(adminet);
-      return adminet;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-const delProduct= async(Product_id)=> {
-    try {
-        let pool = await sql.connect(config);
-        let result = await pool.request()
-          .input('Product_id', sql.VarChar, Product_id)
-          .query('DELETE FROM Products WHERE Product_id = @Product_id');
-        return result;
-      } catch (error) {
-        console.error(error);
-      }
-  }
 
   const editProduct = async (Product_id) => {
     try {
