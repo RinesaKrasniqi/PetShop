@@ -1,6 +1,23 @@
 import './user-headercss.css';
 import { Link } from "react-router-dom";
 
+const handleLogout = async () => {
+  try {
+    const response = await fetch('/logout', {
+      method: 'GET',
+      credentials: 'include', 
+    });
+
+    if (response.ok) {
+      
+      window.location.href = '/login';
+    } else {
+      console.error('Logout failed');
+    }
+  } catch (error) {
+    console.error('Logout error:', error);
+  }
+};
 
 function UserHeader() {
     return (
@@ -47,10 +64,10 @@ function UserHeader() {
        </div>
  
        <div class="logout-u">
-        <Link to='/login' class="logout-a-u">
+        <a class="logout-a-u" onClick={handleLogout}>
         <img class="logout-u" src="./Img/account.png"></img>
         <h4 class="text-u">log out</h4>
-        </Link>
+        </a>
        </div>
       
       

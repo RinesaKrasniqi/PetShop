@@ -10,7 +10,16 @@ var config=require('./dbFiles/dbConfig');
 const app= express();
 app.use(express.json());
 const bodyParser = require("body-parser");
+const jwt = require('jsonwebtoken');
+const session = require('express-session');
 
+// 466d631088eab19f8c58cfe86424e1e3
+
+app.use(session({
+  secret: '466d631088eab19f8c58cfe86424e1e3', 
+  resave: false,
+  saveUninitialized: false,
+}));
 
 var cors = require('cors')
 app.use(cors())
@@ -76,6 +85,7 @@ app.post("/login", async (req, res) => {
     console.log("Result:", result);
 
     if (result!== undefined && result.length > 0) {
+      req.session.user = { email };
       console.log("Login successful:", result);
       res.send(result);
     } else {
@@ -87,6 +97,17 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ message: "An error occurred while executing the SQL query." });
   }
 });
+
+app.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Logout error:', err);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+    res.json({ message: 'Logout successful' });
+  });
+});
+
 
 //insert for admin
 

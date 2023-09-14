@@ -191,6 +191,7 @@ li:hover ul.dropdown-u{
 .logout-u .logout-a-u {
     display: flex;
     flex-direction: row;
+    cursor: pointer;
 }
 .logout-u .logout-a-u {
     text-decoration: none;
