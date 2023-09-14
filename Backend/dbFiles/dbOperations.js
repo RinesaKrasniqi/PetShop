@@ -65,7 +65,6 @@ const delUser= async(Client_id)=> {
 
 
 
-
 module.exports={
     getLoginDetails,
     updateUser,
