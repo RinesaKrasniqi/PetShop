@@ -18,7 +18,7 @@ const UpdateUser = () => {
       try {
         const response = await axios.get(`http://localhost:5000/users/edit/${Client_id}`);
         const user = response.data;
-        console.log('emri '+user.Emri);
+        console.log('emri '+ user.Emri);
       
         setName(user.name);
         setSurname(user.surname);

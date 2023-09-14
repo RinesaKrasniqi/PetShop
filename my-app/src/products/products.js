@@ -13,6 +13,7 @@ var Link = require('react-router-dom').Link
 
 function Products(){
    const [pro,setPro]=useState([]);
+   const [allfoto, setAllFoto] = useState([]);
 
    const LoadCat=async()=>{
       const response= await axios.get('http://localhost:5000/product/cat');
@@ -20,8 +21,15 @@ function Products(){
       setPro(response.data)
     }
   
+    const getFoto=async()=>{
+      const result=await axios.get('http://localhost:5000/get-foto');
+      console.log(result);
+      setAllFoto(result.data.data);
+    
+    }
     useEffect(()=>{
       LoadCat();
+      getFoto();
     },[]);
 
 
@@ -37,7 +45,11 @@ function Products(){
 
          <div class="card" >
         <div class='fotoja-div'>
-        <Link to='/shop'><img class='fotoja' src="./Img/cat-bag.jpg" ></img></Link>
+        <Link to='/shop'>
+        {allfoto && allfoto.map((foto, index) => (
+              <img src={`../../Images/${foto.foto}`} key={index} alt={`Product Image - ${product.Name}`} />
+         ))}
+         </Link>
         </div>
 
        <div class="caption">

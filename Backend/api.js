@@ -10,7 +10,7 @@ var config=require('./dbFiles/dbConfig');
 const app= express();
 app.use(express.json());
 const bodyParser = require("body-parser");
-
+const path=require('path');
 
 var cors = require('cors')
 app.use(cors())
@@ -90,13 +90,36 @@ app.post("/login", async (req, res) => {
 
 //insert for admin
 
-app.post("/insert", async (req, res) => {
+const multer = require('multer');
+const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024;
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: MAX_FILE_SIZE_BYTES, 
+  },
+});
+
+
+
+
+
+
+
+const fs = require('fs');
+
+app.post('/insert', upload.single('foto'), async (req, res) => {
   try {
     await sql.connect(config);
     const request = new sql.Request();
 
-    const { Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, img_src } = req.body;
-    const sqlQuery = "INSERT INTO Products(Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, img_src) VALUES (@Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category, @img_src)";
+    const { Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category } = req.body;
+    const foto = req.file.buffer;
+
+    const imageFileName = `${Date.now()}_${req.file.originalname}`;
+    const imagePath = path.join(__dirname, '../my-app/Images', imageFileName);
+
+    fs.writeFileSync(imagePath, foto);
+    const sqlQuery = "INSERT INTO Products(Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto) VALUES (@Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category, @foto)";
     
     request.input('Description', sql.NVarChar, Description);
     request.input('Name', sql.NVarChar, Name);
@@ -105,7 +128,7 @@ app.post("/insert", async (req, res) => {
     request.input('nr_of_stars', sql.Int, nr_of_stars);
     request.input('Price_before_discount', sql.Int, Price_before_discount);
     request.input('Category', sql.NVarChar, Category);
-    request.input('img_src', sql.NVarChar, img_src);
+    request.input('foto', sql.VarBinary(sql.MAX), foto);
 
     const result = await request.query(sqlQuery);
     res.json(result);
@@ -114,6 +137,44 @@ app.post("/insert", async (req, res) => {
     res.status(500).json({ message: "An error occurred while executing the SQL query." });
   }
 });
+
+
+
+app.get('/get-foto', async(req, res)=>{
+   try{
+    foto.find({}).then(data=>{
+      res.send({status:"ok", data:data});
+    })
+
+   }catch(error){
+    res.json({status:error});
+   }
+
+})
+
+
+app.use('/Images', express.static(path.join(__dirname, 'Images')));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 app.get('/users/edit/:Client_id', (req, res) => {
@@ -218,6 +279,35 @@ app.delete('/cart/:Cart_Id', (req, res) => {
   }) 
 });
 
+//products
+
+app.delete('/product/:Product_id', (req,res)=>{
+  const {Product_id} =req.params;
+  dbProductoperations.delProduct(Product_id).then(result=>{
+    res.send(result);
+  })
+
+})
+
+//product update
+
+app.get('/products/edit/:Product_id', (req, res) => {
+  const Product_id  = req.params;
+  console.log(Product_id);
+  dbProductoperations.editProduct(Product_id).then(x=>{
+  return res.json(x); 
+  })
+});
+
+
+app.put('/products/update/:Product_id', async(req, res) => {
+  const  {Product_id } = req.params;
+  const { Description, Name,Price,nr_in_stock, nr_of_stars, Price_before_discount, Category } = req.body;
+   await dbProductoperations.updateProduct( Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category );
+});
+
 app.listen(5000, () => {
     console.log("API Server is running ...");
 })
+
+
