@@ -20,6 +20,8 @@ import { Link } from 'react-router-dom';
 function AdminProducts() {
   const [pro, setPro] = useState([]);
   const [productCount, setProductCount] = useState(0);
+  const[file, setFile]=useState();
+   const [foto, setFoto] = useState({ image: '' });
 
   const LoadProduct = async () => {
     const response = await axios.get('http://localhost:5000/product');
@@ -35,6 +37,29 @@ function AdminProducts() {
       console.log('Error deleting product:', error);
     }
   };
+
+  const handleInsert=()=>{
+    const formdata=new FormData();
+    formdata.append('foto', file);
+    axios.post('http://localhost:3000/insert', formdata)
+    .then(res=>console.log(res))
+    .catch(err=>console.log(err));
+ }
+
+ useEffect(() => {
+    axios.get('http://localhost:5000/')
+    .then(res => {
+       console.log('API Response:', res); // Log the entire response
+       if (Array.isArray(res.data) && res.data.length > 0) {
+          const i=0;
+          setFoto(res.data[i]);
+       } else {
+          console.error('No data received from the API.');
+       }
+    })
+    .catch(err => console.error('Error fetching data:', err));
+ }, []);
+
 
   useEffect(() => {
     LoadProduct();
@@ -129,7 +154,10 @@ function AdminProducts() {
                     <td className="bottom-td">{product.nr_of_stars}</td>
                     <td className="bottom-td">{product.Category}</td>
                     <td className="bottom-td">
-                     qitu foto duhet me pas
+                    <img
+                      className='foto-rresht'
+                      src={`Img/${product.foto}`}
+                    />
                     </td>
                     <td className="bottom-td">
                       <Link to={`/updateProduct/${product.Product_id}`}>
