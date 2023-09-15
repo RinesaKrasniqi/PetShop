@@ -99,12 +99,6 @@ const upload = multer({
   },
 });
 
-
-
-
-
-
-
 const fs = require('fs');
 
 app.post('/insert', upload.single('foto'), async (req, res) => {
@@ -151,27 +145,6 @@ app.get('/get-foto', async(req, res)=>{
    }
 
 })
-
-
-app.use('/Images', express.static(path.join(__dirname, 'Images')));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
