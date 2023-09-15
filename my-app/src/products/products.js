@@ -13,6 +13,8 @@ var Link = require('react-router-dom').Link
 
 function Products() {
    const [pro, setPro] = useState([]);
+   const[file, setFile]=useState();
+   const [foto, setFoto] = useState({ image: '' });
 
    const LoadCat = async () => {
       try {
@@ -24,9 +26,29 @@ function Products() {
       }
    }
 
+   const handleInsert=()=>{
+      const formdata=new FormData();
+      formdata.append('foto', file);
+      axios.post('http://localhost:3000/insert', formdata)
+      .then(res=>console.log(res))
+      .catch(err=>console.log(err));
+   }
+
    useEffect(() => {
+      axios.get('http://localhost:5000/')
+      .then(res => {
+         console.log('API Response:', res); // Log the entire response
+         if (Array.isArray(res.data) && res.data.length > 0) {
+            setFoto(res.data[0]);
+         } else {
+            console.error('No data received from the API.');
+         }
+      })
+      .catch(err => console.error('Error fetching data:', err));
       LoadCat();
    }, []);
+
+   console.log(foto.foto);
 
    return (
       <div>
@@ -39,9 +61,11 @@ function Products() {
                <div key={product.Product_id} className='card-back'>
                   <div className="card">
                      <div className='fotoja-div'>
-                        <Link to='/shop'>
-                                <img class='fotoja' src="./Img/horsefood.jpg" ></img>
-                        </Link>
+                     <Link to='/shop'>
+                     <img  className='fotoja'
+                      src={`http://localhost:3000/Img/${foto.foto}`} // Corrected image URL
+                     />
+                    </Link>
                      </div>
 
                      <div className="caption">

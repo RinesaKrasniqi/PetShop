@@ -12,6 +12,9 @@ app.use(express.json());
 const bodyParser = require("body-parser");
 const path=require('path');
 
+app.use(express.static('public'));
+
+
 var cors = require('cors')
 app.use(cors())
 const { connect } = require('http2');
@@ -107,13 +110,12 @@ app.post('/insert', upload.single('foto'), async (req, res) => {
     const request = new sql.Request();
 
     const { Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category } = req.body;
-    const foto = req.file.buffer;
 
-
-    const imageFileName = `${Date.now()}_${req.file.originalname}`;
+    const imageFileName = `${Date.now()}${path.extname(req.file.originalname)}`;
     const imagePath = path.join(__dirname, '../my-app/public/Img', imageFileName);
 
-    fs.writeFileSync(imagePath, foto);
+    fs.writeFileSync(imagePath, req.file.buffer);
+
     const sqlQuery = "INSERT INTO Products(Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto) VALUES (@Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category, @foto)";
     
     request.input('Description', sql.NVarChar, Description);
@@ -123,7 +125,7 @@ app.post('/insert', upload.single('foto'), async (req, res) => {
     request.input('nr_of_stars', sql.Int, nr_of_stars);
     request.input('Price_before_discount', sql.Int, Price_before_discount);
     request.input('Category', sql.NVarChar, Category);
-    request.input('foto', sql.VarBinary(sql.MAX), foto);
+    request.input('foto', sql.NVarChar, imageFileName);
 
     const result = await request.query(sqlQuery);
     res.json(result);
@@ -134,7 +136,14 @@ app.post('/insert', upload.single('foto'), async (req, res) => {
 });
 
 
+app.get('/', (req,res)=>{
+  dbProductoperations.getProduct().then(result=>{
+    res.send(result); 
+    console.log(result);
+   })
+})
 
+ 
 
 app.get('/users/edit/:Client_id', (req, res) => {
   const Client_id  = req.params;
