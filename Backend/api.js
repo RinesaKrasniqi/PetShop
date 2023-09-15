@@ -109,8 +109,9 @@ app.post('/insert', upload.single('foto'), async (req, res) => {
     const { Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category } = req.body;
     const foto = req.file.buffer;
 
+
     const imageFileName = `${Date.now()}_${req.file.originalname}`;
-    const imagePath = path.join(__dirname, '../my-app/Images', imageFileName);
+    const imagePath = path.join(__dirname, '../my-app/public/Img', imageFileName);
 
     fs.writeFileSync(imagePath, foto);
     const sqlQuery = "INSERT INTO Products(Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto) VALUES (@Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category, @foto)";
@@ -131,21 +132,6 @@ app.post('/insert', upload.single('foto'), async (req, res) => {
     res.status(500).json({ message: "An error occurred while executing the SQL query." });
   }
 });
-
-
-
-app.get('/get-foto', async(req, res)=>{
-   try{
-    foto.find({}).then(data=>{
-      res.send({status:"ok", data:data});
-    })
-
-   }catch(error){
-    res.json({status:error});
-   }
-
-})
-
 
 
 

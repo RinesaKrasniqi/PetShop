@@ -19,7 +19,6 @@ import { Link } from 'react-router-dom';
 
 function AdminProducts() {
   const [pro, setPro] = useState([]);
-  const [allfoto, setAllFoto] = useState([]);
   const [productCount, setProductCount] = useState(0);
 
   const LoadProduct = async () => {
@@ -37,19 +36,8 @@ function AdminProducts() {
     }
   };
 
-  const getFoto = async () => {
-    try {
-      const result = await axios.get('http://localhost:5000/get-foto');
-      console.log(result.data); // Check the data returned from the server
-      setAllFoto(result.data.data);
-    } catch (error) {
-      console.error('Error fetching photos:', error);
-    }
-  };
-
   useEffect(() => {
     LoadProduct();
-    getFoto();
   }, []);
 
   useEffect(() => {
@@ -141,21 +129,7 @@ function AdminProducts() {
                     <td className="bottom-td">{product.nr_of_stars}</td>
                     <td className="bottom-td">{product.Category}</td>
                     <td className="bottom-td">
-                      {allfoto ? (
-                        allfoto.map((foto, index) => (
-                          <img
-                            src={`/Images/${foto.foto}`}
-                            key={index}
-                            alt={`Product Image - ${product.Name}`}
-                            onError={(e) => {
-                              console.error('Image loading error:', e);
-                              e.target.style.display = 'none'; // Hide the image if there's an error
-                            }}
-                          />
-                        ))
-                      ) : (
-                        <span>Loading Images...</span> // or any loading indicator
-                      )}
+                     qitu foto duhet me pas
                     </td>
                     <td className="bottom-td">
                       <Link to={`/updateProduct/${product.Product_id}`}>
