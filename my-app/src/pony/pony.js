@@ -80,7 +80,7 @@ function Pony(){
                   </p>
                   <h3 className='product_name'>Product name: {product.Name}</h3>
                   <p className="price">{product.Price}$</p>
-                  <p className='discount'>number of discount: {product.Price_before_discount}$</p>
+                  <p className='discount'>Price before discount: {product.Price_before_discount}$</p>
                   <p className='in stock'>number in stock: {product.nr_in_stock}</p>
                 </div>
                 <div className='products-button'>
