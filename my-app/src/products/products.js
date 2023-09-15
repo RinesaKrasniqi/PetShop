@@ -39,7 +39,8 @@ function Products() {
       .then(res => {
          console.log('API Response:', res); // Log the entire response
          if (Array.isArray(res.data) && res.data.length > 0) {
-            setFoto(res.data[0]);
+            const i=0;
+            setFoto(res.data[i]);
          } else {
             console.error('No data received from the API.');
          }
@@ -48,55 +49,59 @@ function Products() {
       LoadCat();
    }, []);
 
+   
+
    console.log(foto.foto);
 
    return (
       <div>
-         <div>
-            <Header />
-         </div>
-
-         <div className='product-container'>
-            {pro.map((product) => (
-               <div key={product.Product_id} className='card-back'>
-                  <div className="card">
-                     <div className='fotoja-div'>
-                     <Link to='/shop'>
-                     <img  className='fotoja'
-                      src={`http://localhost:3000/Img/${foto.foto}`} // Corrected image URL
-                     />
-                    </Link>
-                     </div>
-
-                     <div className="caption">
-                        <p className="rate">
-                           <FaStar color="gold" fill="gold" size='18px' />
-                           <FaStar color="gold" fill="gold" size='18px' />
-                           <FaStar color="gold" fill="gold" size='18px' />
-                           <FaStar color="gold" fill="gold" size='18px' />
-                           <FaStar color="gold" fill="gold" size='18px' />
-                        </p>
-                        <h3 className='product_name'>Product name: {product.Name}</h3>
-                        <p className="price">{product.Price}$</p>
-                        <p className='discount'>number of discount:  {product.Price_before_discount}$</p>
-                        <p className='in stock'>number in stock: {product.nr_in_stock}</p>
-                     </div>
-                     <div className='products-button'>
-                        <motion.button className='purchase' whileHover={{ scale: 1.1 }}>Purchase</motion.button>
-                        <motion.button className='add' whileHover={{ scale: 1.1 }}>
-                           <i className="FaCartPlus"><FaCartPlus size={'20px'} /></i>
-                        </motion.button>
-                     </div>
-                  </div>
-               </div>
-            ))}
-         </div>
-
-         <div>
-            <Footer />
-         </div>
+        <div>
+          <Header />
+        </div>
+  
+        <div className='product-container'>
+          {pro.map((product) => (
+            <div key={product.Product_id} className='card-back'>
+              <div className="card">
+                <div className='fotoja-div'>
+                  <Link to='/shop'>
+                    <img
+                      className='fotoja'
+                      src={`Img/${product.foto}`}
+                      alt={product.Name}
+                    />
+                  </Link>
+                </div>
+  
+                <div className="caption">
+                  <p className="rate">
+                    <FaStar color="gold" fill="gold" size='18px' />
+                    <FaStar color="gold" fill="gold" size='18px' />
+                    <FaStar color="gold" fill="gold" size='18px' />
+                    <FaStar color="gold" fill="gold" size='18px' />
+                    <FaStar color="gold" fill="gold" size='18px' />
+                  </p>
+                  <h3 className='product_name'>Product name: {product.Name}</h3>
+                  <p className="price">{product.Price}$</p>
+                  <p className='discount'>number of discount: {product.Price_before_discount}$</p>
+                  <p className='in stock'>number in stock: {product.nr_in_stock}</p>
+                </div>
+                <div className='products-button'>
+                  <motion.button className='purchase' whileHover={{ scale: 1.1 }}>Purchase</motion.button>
+                  <motion.button className='add' whileHover={{ scale: 1.1 }}>
+                    <i className="FaCartPlus"><FaCartPlus size={'20px'} /></i>
+                  </motion.button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+  
+        <div>
+          <Footer />
+        </div>
       </div>
-   );
-}
-
-export default Products;
+    );
+  }
+  
+  export default Products;
