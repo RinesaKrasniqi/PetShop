@@ -45,9 +45,10 @@ function Dog(){
       LoadDog();
    }, []);
 
-   
+   const calculateStarRating = (nr_of_stars) => {
+    return nr_of_stars;
+ }
 
-   console.log(foto.foto);
 
    return (
       <div>
@@ -70,14 +71,13 @@ function Dog(){
                 </div>
   
                 <div className="caption">
-                  <p className="rate">
-                    <FaStar color="gold" fill="gold" size='18px' />
-                    <FaStar color="gold" fill="gold" size='18px' />
-                    <FaStar color="gold" fill="gold" size='18px' />
-                    <FaStar color="gold" fill="gold" size='18px' />
-                    <FaStar color="gold" fill="gold" size='18px' />
+                <p className="rate">
+                           {Array.from({ length: calculateStarRating(product.nr_of_stars) }).map((_, index) => (
+                              <FaStar key={index} color="gold" fill="gold" size='18px' />
+                           ))}
                   </p>
-                  <h3 className='product_name'>Product name: {product.Name}</h3>
+                  <h3 className='product_name'>{product.Name}</h3>
+                  <p classname='description'>{product.Description}</p>
                   <p className="price">{product.Price}$</p>
                   <p className='discount'>Price before discount: {product.Price_before_discount}$</p>
                   <p className='in stock'>number in stock: {product.nr_in_stock}</p>
