@@ -4,6 +4,7 @@ import  Footer from '../../Components/footer.js';
 import './user-cartcss.css';
 import {useRef, useState, useEffect} from 'react';
 import axios from 'axios';
+import PayButton from "../../payment/PayButton.js";
 
 function UserCart () {
 
@@ -70,7 +71,7 @@ useEffect(() => {
           </div>
         
           <div className='p-cart-5'>
-          <Link to='#' class="logout-a-u">Purchase</Link>
+            <button class="logout-a-u"> <PayButton cartItems={product.cartItems}/></button>
           </div>
 
           <div className='p-cart-6'>

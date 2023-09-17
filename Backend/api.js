@@ -12,7 +12,12 @@ app.use(express.json());
 const bodyParser = require("body-parser");
 const path=require('path');
 
+
+
+const stripe=require('./dbFiles/stripe')
+
 app.use(express.static('public'));
+app.use('/stripe', stripe);//ky diqka tjeter ka shkru qetu kshyre apet 20:26
 
 
 var cors = require('cors')
