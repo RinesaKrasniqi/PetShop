@@ -10,10 +10,8 @@ var config=require('./dbFiles/dbConfig');
 const app= express();
 app.use(express.json());
 const bodyParser = require("body-parser");
-<<<<<<< HEAD
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-=======
 const path=require('path');
 
 
@@ -22,7 +20,6 @@ const stripe=require('./dbFiles/stripe')
 
 app.use(express.static('public'));
 app.use('/stripe', stripe);//ky diqka tjeter ka shkru qetu kshyre apet 20:26
->>>>>>> b38e02c668d27be91a66bada52355e6fab13c656
 
 app.use(cookieParser());
 
