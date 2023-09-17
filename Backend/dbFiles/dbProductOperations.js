@@ -61,16 +61,16 @@ const getPony= async()=> {
     }
 }
 
-const getCart= async()=> {
-    try{
-        let pool =await sql.connect(config);
-        let product = pool.request().query('Select * from Cart')
-        console.log(product);
-        return product;
-    }catch(error){
-        console.log(error);
-    }
-}
+// const getCart= async()=> {
+//     try{
+//         let pool =await sql.connect(config);
+//         let product = pool.request().query('Select * from Cart WHERE Client_id = @Client_id')
+//         console.log(product);
+//         return product;
+//     }catch(error){
+//         console.log(error);
+//     }
+// }
 
  
 const delCart= async(Cart_Id)=> {
@@ -135,7 +135,6 @@ module.exports={
     getCat,
     getFish,
     getPony,
-    getCart,
     delCart,
     delProduct,
     editProduct,

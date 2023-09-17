@@ -5,6 +5,7 @@ import  Footer from '../Components/footer.js';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 
@@ -26,12 +27,16 @@ const login = (e) => {
       if (response.data.message) {
         setLoginStatus(response.data.message);
       } else {
-        const loggedInUserEmail = response.data[0].email;
-        setLoginStatus(loggedInUserEmail);
+        const loggedInUser = response.data[0];
 
-        if (loggedInUserEmail === 'admin@hotmail.com') {
+        
+        Cookies.set('Client_id', loggedInUser.Client_id, { expires: 7 });
+
+        setLoginStatus(loggedInUser.email);
+
+        if (loggedInUser.email === 'admin@hotmail.com') {
           navigate('/admin-dashboard');
-        } else if (loggedInUserEmail === 'postman@hotmail.com') {
+        } else if (loggedInUser.email === 'postman@hotmail.com') {
           navigate('/post-purchases');
         } else {
           navigate('/user-home');
@@ -43,7 +48,6 @@ const login = (e) => {
     setLoginStatus("An error occurred while logging in.");
   }
 };
-
 
       return (
         <div className='back-div'>

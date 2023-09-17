@@ -46,7 +46,8 @@ create table Cart(
   nr_of_stars int,
   Price_before_discount int ,
   Category varchar(50) ,
-  Product_id int
+  Product_id int,
+  Client_id int
 );
 
 drop table Cart; 

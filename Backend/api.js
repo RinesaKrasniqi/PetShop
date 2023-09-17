@@ -10,16 +10,18 @@ var config=require('./dbFiles/dbConfig');
 const app= express();
 app.use(express.json());
 const bodyParser = require("body-parser");
-const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
+
+app.use(cookieParser());
 
 // 466d631088eab19f8c58cfe86424e1e3
 
-app.use(session({
-  secret: '466d631088eab19f8c58cfe86424e1e3', 
-  resave: false,
-  saveUninitialized: false,
-}));
+// app.use(session({
+//   secret: '466d631088eab19f8c58cfe86424e1e3', 
+//   resave: false,
+//   saveUninitialized: false,
+// }));
 
 var cors = require('cors')
 app.use(cors())
@@ -69,7 +71,7 @@ app.post("/login", async (req, res) => {
     console.log("Connection is made");
 
     const request = new sql.Request();
-    
+
     const { email, password } = req.body;
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
@@ -84,8 +86,13 @@ app.post("/login", async (req, res) => {
 
     console.log("Result:", result);
 
-    if (result!== undefined && result.length > 0) {
-      req.session.user = { email };
+    if (result !== undefined && result.length > 0) {
+      
+      const userId = result[0].Client_id;
+
+      res.cookie('Client_id', userId, { httpOnly: true });
+      res.cookie('user', 'authenticated', { httpOnly: true });
+
       console.log("Login successful:", result);
       res.send(result);
     } else {
@@ -98,7 +105,11 @@ app.post("/login", async (req, res) => {
   }
 });
 
+
+
 app.get('/logout', (req, res) => {
+  res.clearCookie('Client_id');
+
   req.session.destroy((err) => {
     if (err) {
       console.error('Logout error:', err);
@@ -202,12 +213,12 @@ app.get('/product/pony', (req, res) => {
 
 app.post('/cart', async (req, res) => {
   try {
-    const { Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category } = req.body;
+    const { Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, Client_id } = req.body;
 
     await sql.connect(config);
     const request = new sql.Request();
 
-    const sqlQuery = "INSERT INTO Cart (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category) VALUES (@Product_id, @Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category)";
+    const sqlQuery = "INSERT INTO Cart (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category,  Client_id) VALUES (@Product_id, @Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category, @Client_id)";
     request.input('Description', sql.NVarChar, Description);
     request.input('Name', sql.NVarChar, Name);
     request.input('Price', sql.Int, Price);
@@ -216,6 +227,7 @@ app.post('/cart', async (req, res) => {
     request.input('Price_before_discount', sql.Int, Price_before_discount);
     request.input('Category', sql.NVarChar, Category);
     request.input('Product_id', sql.Int, Product_id);
+    request.input('Client_id', sql.Int, Client_id);
 
     const result = await request.query(sqlQuery);
     res.json(result);
@@ -226,11 +238,21 @@ app.post('/cart', async (req, res) => {
 });
 
 app.get('/cart', async (req, res) => {
-  dbProductoperations.getCart().then(result=>{
-    res.send(result); 
-    console.log(result);
-    })
+  try {
+    const pool = await sql.connect(config);
+    const result = await pool
+      .request()
+      .query('SELECT * FROM Cart');
+
+    const cartItems = result.recordset;
+    res.json(cartItems);
+  } catch (error) {
+    console.error("Error retrieving cart items:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
+
+
 
 app.delete('/cart/:Cart_Id', (req, res) => {
   const { Cart_Id } = req.params;
