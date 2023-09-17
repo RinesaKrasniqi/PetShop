@@ -50,6 +50,17 @@ const getFish= async()=> {
     }
 }
 
+const getFleasAndTicks= async()=> {
+  try{
+      let pool =await sql.connect(config);
+      let product = await pool.request().query('SELECT * FROM Products WHERE Category like \'%fleas%\'');
+      console.log(product);
+      return product;
+  }catch(error){
+      console.log(error);
+  }
+}
+
 const getPony= async()=> {
     try{
         let pool =await sql.connect(config);
@@ -175,5 +186,6 @@ module.exports={
     delCart,
     delProduct,
     editProduct,
-    updateProduct
+    updateProduct,
+    getFleasAndTicks
 }

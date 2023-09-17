@@ -212,6 +212,13 @@ app.get('/product/pony', (req, res) => {
   })
 });
 
+app.get('/product/fleasandticks', (req, res) => {
+  dbProductoperations.getFleasAndTicks().then(result=>{
+  res.send(result); 
+  console.log(result);
+  })
+});
+
 app.post('/cart',async (req, res) => {
   try {
     await sql.connect(config);
