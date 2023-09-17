@@ -12,8 +12,10 @@ import axios from 'axios';
 var Link = require('react-router-dom').Link
 
 function Pony(){
-
-   const [pro,setPro]=useState([]);
+   const [pro, setPro] = useState([]);
+   const[file, setFile]=useState();
+   const [foto, setFoto] = useState({ image: '' });
+   
    
    const LoadPony=async()=>{
       const response= await axios.get('http://localhost:5000/product/pony');
@@ -21,53 +23,82 @@ function Pony(){
       setPro(response.data)
     }
   
-    useEffect(()=>{
+    const handleInsert=()=>{
+      const formdata=new FormData();
+      formdata.append('foto', file);
+      axios.post('http://localhost:3000/insert', formdata)
+      .then(res=>console.log(res))
+      .catch(err=>console.log(err));
+   }
+
+   useEffect(() => {
+      axios.get('http://localhost:5000/')
+      .then(res => {
+         console.log('API Response:', res); // Log the entire response
+         if (Array.isArray(res.data) && res.data.length > 0) {
+            const i=0;
+            setFoto(res.data[i]);
+         } else {
+            console.error('No data received from the API.');
+         }
+      })
+      .catch(err => console.error('Error fetching data:', err));
       LoadPony();
-    },[]);
+   }, []);
 
-    return(
+   const calculateStarRating = (nr_of_stars) => {
+    return nr_of_stars;
+ }
+   
+
+   return (
       <div>
-         <div>
-            <Header/>
-         </div>
-         <div className='product-container'>
-    {pro.map((product,index)=>(
-         <div key={product.Product_id} className='card-back'>
-
-         <Link to='/shop'><div class="card" >
-        <div class='fotoja-div'>
-        <img class='fotoja' src="./Img/horsefood.jpg" ></img>
+        <div>
+          <Header />
         </div>
-
-       <div class="caption">
-
-        <p class="rate">
-           <i class="FaRegStar"><FaStar color="gold" fill="gold" size='18px'/></i>
-           <i class="FaRegStar"><FaRegStar color="gold" fill="gold" size='18px'/></i>
-           <i class="FaRegStar"><FaRegStar color="gold" fill="gold" size='18px'/></i>
-           <i class="FaRegStar"><FaRegStar color="gold" fill="gold" size='18px'/></i>
-           <i class="FaRegStar"><FaRegStar color="gold" fill="gold" size='18px'/></i>
-        </p>
-
-        <h3 class='product_name'>Product name: {product.Name}</h3>
-             <p class="price">{product.Price}$</p>
-             <p class='discount'>number of discount:  {product.Price_before_discount}$</p>
-             <p class='in stock'>number in stock: {product.nr_in_stock}</p>  
-       </div>
-       <div class='products-button'>
-       <motion.button class='purchase'whileHover={{scale:1.1}} >Purchase</motion.button>
-       <motion.button class='add' whileHover={{scale:1.1}}><i class="FaCartPlus"><FaCartPlus  size={'20px'}/></i></motion.button>
-       </div>
-       </div></Link>
-       
-       </div>
-  ))}
-  </div>
-       <div>
-      <Footer/>
-   </div>
-    </div>
+  
+        <div className='product-container'>
+          {pro.map((product) => (
+            <div key={product.Product_id} className='card-back'>
+              <div className="card">
+                <div className='fotoja-div'>
+                  <Link to='/shop'>
+                    <img
+                      className='fotoja'
+                      src={`Img/${product.foto}`}
+                      alt={product.Name}
+                    />
+                  </Link>
+                </div>
+  
+                <div className="caption">
+                <p className="rate">
+                           {Array.from({ length: calculateStarRating(product.nr_of_stars) }).map((_, index) => (
+                              <FaStar key={index} color="gold" fill="gold" size='18px' />
+                           ))}
+                        </p>
+                  <h3 className='product_name'>{product.Name}</h3>
+                  <p classname='description'>{product.Description}</p>
+                  <p className="price">{product.Price}$</p>
+                  <p className='discount'>Price before discount: {product.Price_before_discount}$</p>
+                  <p className='in stock'>number in stock: {product.nr_in_stock}</p>
+                </div>
+                <div className='products-button'>
+                  <motion.button className='purchase' whileHover={{ scale: 1.1 }}>Purchase</motion.button>
+                  <motion.button className='add' whileHover={{ scale: 1.1 }}>
+                    <i className="FaCartPlus"><FaCartPlus size={'20px'} /></i>
+                  </motion.button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+  
+        <div>
+          <Footer />
+        </div>
+      </div>
     );
-}
+  }
 
 export default Pony;

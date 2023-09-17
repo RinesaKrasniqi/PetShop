@@ -27,11 +27,11 @@ export default function Register() {
 
       // Validate input fields
       const inputErrors = {};
-      if (!name) inputErrors.name = 'Name is required.';
-      if (!surname) inputErrors.surname = 'Surname is required.';
-      if (!email) inputErrors.email = 'Email is required.';
-      if (!phone) inputErrors.phone = 'Phone is required.';
-      if (!password) inputErrors.password = 'Password is required.';
+      if (!name) inputErrors.name = '*name is required.';
+      if (!surname) inputErrors.surname = '*surname is required.';
+      if (!email) inputErrors.email = '*email is required.';
+      if (!phone) inputErrors.phone = '*phone is required.';
+      if (!password) inputErrors.password = '*password is required.';
 
       if (Object.keys(inputErrors).length > 0) {
         setErrors(inputErrors);
@@ -72,28 +72,28 @@ export default function Register() {
 
             <div>
             <input
-              className="inputform"
+              className="inputform1"
               type="text"
               placeholder="First Name"
               onChange={(e) => setName(e.target.value)}
               value={name}
             />
             {errors.name && (
-              <h1 className="error">{errors.name}</h1>
+              <h6 className="error">{errors.name}</h6>
             )}
 
             </div>
 
             <div>
             <input
-              className="inputform"
+              className="inputform1"
               type="text"
               placeholder="Last Name"
               onChange={(e) => setSurname(e.target.value)}
               value={surname}
             />
             {errors.surname && (
-              <h1 className="error">{errors.surname}</h1>
+              <h6 className="error">{errors.surname}</h6>
             )}
           </div>
 
@@ -103,14 +103,14 @@ export default function Register() {
 
             <div>
             <input
-              className="inputform"
+              className="inputform1"
               type="email"
               placeholder="Email Address"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
             />
             {errors.email && (
-              <h1 className="error">{errors.email}</h1>
+              <h6 className="error">{errors.email}</h6>
             )}
 
             </div>
@@ -118,14 +118,14 @@ export default function Register() {
 
             <div>
             <input
-              className="inputform"
+              className="inputform1"
               type="password"
               placeholder="Password (6 to 12 characters)"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
             {errors.password && (
-              <h1 className="error">{errors.password}</h1>
+              <h6 className="error">{errors.password}</h6>
             )}
 
             </div>
@@ -137,20 +137,20 @@ export default function Register() {
 
             <div>
             <input
-              className="inputform"
+              className="inputform1"
               type="text"
               placeholder="Phone number"
               onChange={(e) => setPhone(e.target.value)}
               value={phone}
             />
             {errors.phone && (
-              <h1 className="error">{errors.phone}</h1>
+              <h6 className="error">{errors.phone}</h6>
             )}
 
             </div>
 
 
-            <input className="inputform" type="date" placeholder="Pick a Date" id="date" name="date" />
+            <input className="inputform1" type="date" placeholder="Pick a Date" id="date" name="date" />
           </div>
           <button className="submit" type="submit">
             Join Now

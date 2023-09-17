@@ -10,8 +10,19 @@ var config=require('./dbFiles/dbConfig');
 const app= express();
 app.use(express.json());
 const bodyParser = require("body-parser");
+<<<<<<< HEAD
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+=======
+const path=require('path');
+
+
+
+const stripe=require('./dbFiles/stripe')
+
+app.use(express.static('public'));
+app.use('/stripe', stripe);//ky diqka tjeter ka shkru qetu kshyre apet 20:26
+>>>>>>> b38e02c668d27be91a66bada52355e6fab13c656
 
 app.use(cookieParser());
 
@@ -122,13 +133,30 @@ app.get('/logout', (req, res) => {
 
 //insert for admin
 
-app.post("/insert", async (req, res) => {
+const multer = require('multer');
+const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024;
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: MAX_FILE_SIZE_BYTES, 
+  },
+});
+
+const fs = require('fs');
+
+app.post('/insert', upload.single('foto'), async (req, res) => {
   try {
     await sql.connect(config);
     const request = new sql.Request();
 
-    const { Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, img_src } = req.body;
-    const sqlQuery = "INSERT INTO Products(Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, img_src) VALUES (@Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category, @img_src)";
+    const { Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category } = req.body;
+
+    const imageFileName = `${Date.now()}${path.extname(req.file.originalname)}`;
+    const imagePath = path.join(__dirname, '../my-app/public/Img', imageFileName);
+
+    fs.writeFileSync(imagePath, req.file.buffer);
+
+    const sqlQuery = "INSERT INTO Products(Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto) VALUES (@Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category, @foto)";
     
     request.input('Description', sql.NVarChar, Description);
     request.input('Name', sql.NVarChar, Name);
@@ -137,7 +165,7 @@ app.post("/insert", async (req, res) => {
     request.input('nr_of_stars', sql.Int, nr_of_stars);
     request.input('Price_before_discount', sql.Int, Price_before_discount);
     request.input('Category', sql.NVarChar, Category);
-    request.input('img_src', sql.NVarChar, img_src);
+    request.input('foto', sql.NVarChar, imageFileName);
 
     const result = await request.query(sqlQuery);
     res.json(result);
@@ -147,6 +175,15 @@ app.post("/insert", async (req, res) => {
   }
 });
 
+
+app.get('/', (req,res)=>{
+  dbProductoperations.getProduct().then(result=>{
+    res.send(result); 
+    console.log(result);
+   })
+})
+
+ 
 
 app.get('/users/edit/:Client_id', (req, res) => {
   const Client_id  = req.params;
@@ -210,15 +247,30 @@ app.get('/product/pony', (req, res) => {
   })
 });
 
+app.get('/product/fleasandticks', (req, res) => {
+  dbProductoperations.getFleasAndTicks().then(result=>{
+  res.send(result); 
+  console.log(result);
+  })
+});
 
-app.post('/cart', async (req, res) => {
+app.post('/cart',async (req, res) => {
   try {
+<<<<<<< HEAD
     const { Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, Client_id } = req.body;
 
     await sql.connect(config);
     const request = new sql.Request();
 
     const sqlQuery = "INSERT INTO Cart (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category,  Client_id) VALUES (@Product_id, @Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category, @Client_id)";
+=======
+    await sql.connect(config);
+    const request = new sql.Request();
+
+    const {Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto } = req.body;
+    const sqlQuery = "INSERT INTO Cart(Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto, Product_id) VALUES (@Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category, @foto,@Product_id)";
+    
+>>>>>>> b38e02c668d27be91a66bada52355e6fab13c656
     request.input('Description', sql.NVarChar, Description);
     request.input('Name', sql.NVarChar, Name);
     request.input('Price', sql.Int, Price);
@@ -226,8 +278,13 @@ app.post('/cart', async (req, res) => {
     request.input('nr_of_stars', sql.Int, nr_of_stars);
     request.input('Price_before_discount', sql.Int, Price_before_discount);
     request.input('Category', sql.NVarChar, Category);
+    request.input('foto', sql.NVarChar, foto);
     request.input('Product_id', sql.Int, Product_id);
+<<<<<<< HEAD
     request.input('Client_id', sql.Int, Client_id);
+=======
+    
+>>>>>>> b38e02c668d27be91a66bada52355e6fab13c656
 
     const result = await request.query(sqlQuery);
     res.json(result);
@@ -261,13 +318,17 @@ app.delete('/cart/:Cart_Id', (req, res) => {
   }) 
 });
 
+//products
 
-app.delete('/product/:Product_id', (req, res) => {
-  const { Product_id } = req.params;
+app.delete('/product/:Product_id', (req,res)=>{
+  const {Product_id} =req.params;
   dbProductoperations.delProduct(Product_id).then(result=>{
-  res.send(result);
-  }) 
-});
+    res.send(result);
+  })
+
+})
+
+//product update
 
 app.get('/products/edit/:Product_id', (req, res) => {
   const Product_id  = req.params;
@@ -277,12 +338,15 @@ app.get('/products/edit/:Product_id', (req, res) => {
   })
 });
 
+
 app.put('/products/update/:Product_id', async(req, res) => {
   const  {Product_id } = req.params;
-  const { Description, Name,Price,nr_in_stock, nr_of_stars, Price_before_discount, Category} = req.body;
-   await dbProductoperations.updateProduct( Product_id, Description, Name,Price,nr_in_stock, nr_of_stars, Price_before_discount, Category);
+  const { Description, Name,Price,nr_in_stock, nr_of_stars, Price_before_discount, Category } = req.body;
+   await dbProductoperations.updateProduct( Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category );
 });
 
 app.listen(5000, () => {
     console.log("API Server is running ...");
 })
+
+

@@ -20,6 +20,7 @@ var Link = require('react-router-dom').Link;
 
 function AdminDash(){
   const [userat,setUser]=useState([]);
+  const [ClientCount, setClientCount] = useState(0);
 
   const LoadUser=async()=>{
     const response= await axios.get('http://localhost:5000/user');
@@ -39,6 +40,10 @@ function AdminDash(){
   useEffect(()=>{
     LoadUser();
   },[]);
+
+  useEffect(() => {
+    setClientCount(userat.length);
+  }, [userat]);
 
 
     return(
@@ -79,7 +84,7 @@ function AdminDash(){
          <div className='user-div-nr'>
             <div className='acc-dash'><img className='acc-dash-pic' src='./Img/acc-dash.png'></img></div>
             <p className='acc-dash-p'>All Users:</p>
-            <p className='acc-dash-pp'>2,500</p>
+            <p className='acc-dash-pp'>{ClientCount}</p>
          </div>
 
         

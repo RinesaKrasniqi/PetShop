@@ -7,7 +7,7 @@ import axios from 'axios';
 
 var Link = require('react-router-dom').Link;
 
-export default function Add() {
+function Add() {
   const [Name, setName] = useState("");
   const [Description, setDescription] = useState("");
   const [Price, setPrice] = useState("");
@@ -15,42 +15,41 @@ export default function Add() {
   const [nr_of_stars, setStars] = useState("");
   const [Price_before_discount, setDiscount] = useState("");
   const [Category, setCategory] = useState("");
-  const [img_src, setImg_src] = useState("");
+  const [foto, setFoto] = useState("");
   const [addStatus, setAddStatus] = useState("");
-
   const navigate = useNavigate();
 
   const add = async (e) => {
     e.preventDefault();
 
     const values = {
-      Name: Name,
-      Description: Description,
-      Price: Price,
-      nr_in_stock: nr_in_stock,
-      nr_of_stars: nr_of_stars,
-      Price_before_discount: Price_before_discount,
-      Category: Category,
-      img_src:img_src
+      Name,
+      Description,
+      Price,
+      nr_in_stock,
+      nr_of_stars,
+      Price_before_discount,
+      Category,
+      foto,
     };
 
-    const errors = AddValidation(values);
+    try {
+      const response = await axios.post("http://localhost:5000/insert", values, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Set the content type to handle file uploads
+        },
+      });
 
-    if (Object.keys(errors).length === 0) {
-      try {
-        const response = await axios.post("http://localhost:5000/insert", values);
-        if (response.data.message) {
-          setAddStatus(response.data.message);
-        } else {
-          setAddStatus("product inserted");
-        }
-        navigate('/admin-products');
-      } catch (error) {
-        console.error(error);
-        setAddStatus("Something went wrong");
+      if (response.data.message) {
+        setAddStatus(response.data.message);
+      } else {
+        setAddStatus("Product inserted");
       }
-    } else {
-      setAddStatus(errors);
+
+      navigate('/admin-products');
+    } catch (error) {
+      console.error(error);
+      setAddStatus("Something went wrong");
     }
   };
 
@@ -58,7 +57,19 @@ export default function Add() {
     <div>
       <div className="formaadd">
         <h2 className='h2add'>Add a product here!</h2>
-        <form className="add-form">
+        <form className="add-form" encType="multipart/form-data">
+
+        <input
+            className='inputform'
+            type="text"
+            placeholder="Add a Description"
+            id="description"
+            name="description"
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            value={Description}
+          />
           <input
             className='inputform'
             type="text"
@@ -69,17 +80,6 @@ export default function Add() {
               setName(e.target.value);
             }}
             value={Name}
-          />
-          <input
-            className='inputform'
-            type="text"
-            placeholder="Add a Description"
-            id="description"
-            name="description"
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-            value={Description}
           />
           <input
             className="inputform"
@@ -137,20 +137,17 @@ export default function Add() {
             value={nr_of_stars}
           />
 
-           <input
-            className="inputform"
-            type="file"
-            placeholder="Select a picture of the product"
-            id="img_src"
-            name="img_src"
-            onChange={(e) => {
-              setImg_src(e.target.value);
-            }}
-            value={img_src}
-          />
-        </form>
+          <input
+           className="inputform"
+           type="file"
+           id="foto"
+           name="foto"
+           onChange={(e) =>{setFoto(e.target.files[0]);}}
+        /> 
         <button className='add-btn' type="submit" onClick={add}>Add</button>
+        </form>
       </div>
     </div>
   );
 }
+export default Add;

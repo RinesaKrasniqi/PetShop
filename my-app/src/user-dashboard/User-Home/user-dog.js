@@ -11,11 +11,26 @@ import Footer from '../../Components/footer.js';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
+<<<<<<< HEAD
+=======
+function UserDog(){
+   const [pro,setPro]=useState([]);
+   const [Product_id, setProduct_id] = useState("");
+   const [Name, setName] = useState("");
+   const [Description, setDescription] = useState("");
+   const [Price, setPrice] = useState("");
+   const [nr_in_stock, setInStock] = useState("");
+   const [nr_of_stars, setStars] = useState("");
+   const [Price_before_discount, setDiscount] = useState("");
+   const [Category, setCategory] = useState("");
+   const [foto, setFoto] = useState("");
+>>>>>>> b38e02c668d27be91a66bada52355e6fab13c656
 
 // const setUserIdCookie = (userId) => {
 //   Cookies.set('userId', userId, { expires: 7 });
 // };
 
+<<<<<<< HEAD
 function UserDog() {
   const [pro, setPro] = useState([]);
   const [Product_id, setProduct_id] = useState('');
@@ -33,6 +48,38 @@ function UserDog() {
     console.log(response.data);
     setPro(response.data);
   };
+=======
+    const handleAddToCart = async (productId) => {
+      const selectedProduct = pro.find((product) => product.Product_id === productId);
+    
+      if (selectedProduct) {
+        const data = {
+          Product_id: selectedProduct.Product_id,
+          Name: selectedProduct.Name,
+          Description: selectedProduct.Description,
+          Price: selectedProduct.Price,
+          nr_in_stock: selectedProduct.nr_in_stock,
+          nr_of_stars: selectedProduct.nr_of_stars,
+          Price_before_discount: selectedProduct.Price_before_discount,
+          Category: selectedProduct.Category,
+          foto:selectedProduct.foto
+        };
+    
+        try {
+          await axios.post('http://localhost:5000/cart', data);
+          window.alert('Product added to cart successfully!');
+        } catch (error) {
+          console.error('Error adding product to cart:', error);
+        }
+      }
+    };
+
+    const calculateStarRating = (nr_of_stars) => {
+      return nr_of_stars;
+   }
+    
+      
+>>>>>>> b38e02c668d27be91a66bada52355e6fab13c656
   
 
   const handleAddToCart = async (productId) => {
@@ -82,6 +129,7 @@ function UserDog() {
   return (
     <div>
       <div>
+<<<<<<< HEAD
         <UserHeader />
       </div>
       <div className="product-container">
@@ -91,10 +139,28 @@ function UserDog() {
               <div className="fotoja-div">
                 <Link to="/shop">
                   <img className="fotoja" src="./Img/download.jpg" alt="Product" />
+=======
+      <div>
+        <UserHeader />
+      </div>
+
+      <div className='product-container'>
+        {pro.map((product) => (
+          <div key={product.Product_id} className='card-back'>
+            <div className="card">
+              <div className='fotoja-div'>
+                <Link to='/shop'>
+                  <img
+                    className='fotoja'
+                    src={`Img/${product.foto}`}
+                    alt={product.Name}
+                  />
+>>>>>>> b38e02c668d27be91a66bada52355e6fab13c656
                 </Link>
               </div>
 
               <div className="caption">
+<<<<<<< HEAD
                 <p className="rate">
                   <i className="FaRegStar">
                     <FaStar color="gold" fill="gold" size="18px" />
@@ -111,16 +177,42 @@ function UserDog() {
                     <FaCartPlus size={'20px'} />
                   </i>
                 </motion.button>
+=======
+              <p className="rate">
+                         {Array.from({ length: calculateStarRating(product.nr_of_stars) }).map((_, index) => (
+                            <FaStar key={index} color="gold" fill="gold" size='18px' />
+                         ))}
+                </p>
+                <h3 className='product_name'>{product.Name}</h3>
+                <p classname='description'>{product.Description}</p>
+                <p className="price">{product.Price}$</p>
+                <p className='discount'>Price before discount: {product.Price_before_discount}$</p>
+                <p className='in stock'>number in stock: {product.nr_in_stock}</p>
+              </div>
+              <div className='products-button'>
+                <motion.button className='purchase' whileHover={{ scale: 1.1 }}>Purchase</motion.button>
+                <motion.button class='add' whileHover={{scale:1.1}}  onClick={() => handleAddToCart(product.Product_id)}><i class="FaCartPlus"><FaCartPlus  size={'20px'}/></i></motion.button>
+>>>>>>> b38e02c668d27be91a66bada52355e6fab13c656
               </div>
             </div>
           </div>
         ))}
       </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> b38e02c668d27be91a66bada52355e6fab13c656
       <div>
         <Footer />
       </div>
     </div>
+<<<<<<< HEAD
   );
 }
+=======
+);
+
+                           }
+>>>>>>> b38e02c668d27be91a66bada52355e6fab13c656
 
 export default UserDog;

@@ -50,6 +50,17 @@ const getFish= async()=> {
     }
 }
 
+const getFleasAndTicks= async()=> {
+  try{
+      let pool =await sql.connect(config);
+      let product = await pool.request().query('SELECT * FROM Products WHERE Category like \'%fleas%\'');
+      console.log(product);
+      return product;
+  }catch(error){
+      console.log(error);
+  }
+}
+
 const getPony= async()=> {
     try{
         let pool =await sql.connect(config);
@@ -96,7 +107,7 @@ const delProduct= async(Product_id)=> {
         console.error(error);
       }
   }
-  
+
   const editProduct = async (Product_id) => {
     try {
       let pool = await sql.connect(config);
@@ -110,24 +121,60 @@ const delProduct= async(Product_id)=> {
     }
   };
 
-
-const updateProduct = async (Product_id,Description,Name,Price, nr_in_stock,  nr_of_stars,Price_before_discount,Category) => {
+  const countProducts = async (Product_id) => {
     try {
-    //   console.log(AdminID + ' ' + Email + ' ' + AdminRoli);
+      let pool = await sql.connect(config);
+      const result = await pool
+        .request()
+        .input('Product_id', sql.Int, Product_id) // Use parameterized query
+        .query('SELECT COUNT(*) AS ProductCount FROM Products WHERE Product_id = @Product_id');
+  
+      const productCount = result.recordset[0].ProductCount;
+      console.log('Product Count:', productCount);
+      return productCount;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+
+
+  const updateProduct = async (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category) => {
+    try {
       let pool = await sql.connect(config);
       let adminet = await pool
         .request()
+        .input('Description', sql.NVarChar, Description)
+        .input('Name', sql.NVarChar, Name)
+        .input('Price', sql.Decimal, Price)
+        .input('nr_in_stock', sql.Int, nr_in_stock)
+        .input('nr_of_stars', sql.Decimal, nr_of_stars)
+        .input('Price_before_discount', sql.Decimal, Price_before_discount)
+        .input('Category', sql.NVarChar, Category)
+        .input('Product_id', sql.Int, Product_id)
         .query(
-          `UPDATE Products SET Description = '${Description}' , Name = '${Name}'  ,Price = '${Price}',  nr_in_stock=${ nr_in_stock}, nr_of_stars=${nr_of_stars},Price_before_discount=${Price_before_discount},Category=${Category}
-          WHERE Product_id = ${Product_id}`
+          `UPDATE Products 
+           SET Description = @Description, 
+               Name = @Name, 
+               Price = @Price, 
+               nr_in_stock = @nr_in_stock, 
+               nr_of_stars = @nr_of_stars, 
+               Price_before_discount = @Price_before_discount, 
+               Category = @Category 
+           WHERE Product_id = @Product_id`
         );
-
+  
       console.log(adminet);
       return adminet;
     } catch (error) {
       console.log(error);
     }
   };
+
+
+
+
+
 
 module.exports={
     getProduct,
@@ -138,5 +185,6 @@ module.exports={
     delCart,
     delProduct,
     editProduct,
-    updateProduct
+    updateProduct,
+    getFleasAndTicks
 }

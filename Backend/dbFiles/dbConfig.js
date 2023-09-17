@@ -1,7 +1,7 @@
 var config={
-    user:"Rinesa",
+    user:"Margita",
     password: "123",
-    server: "DISCORD\\SQLEXPRESS",
+    server: "MARGITA1083\\MSSQLSERVER01",
     database : "ProjektiLAB1",
     driver: "msnodesqlv8",
     options:{
@@ -10,3 +10,4 @@ var config={
 };
 
  module.exports = config;
+

@@ -48,7 +48,7 @@
 }
 
 
-.inputform{
+.inputform1{
     margin-left: 30px;
     height:43px;
     width:270px;
@@ -56,7 +56,8 @@
     border-radius: 3px;
     text-size-adjust: 10px;
     margin-left: 28px;
-    padding: 12px 15px;
+    margin-bottom: 8px;
+    /* padding: 12px 15px; */
 }
 
 .submit{
@@ -109,12 +110,26 @@
 
 .error{
     color: red;
-    display: flex;
-    flex-direction: column;
-    font-size: 10px;
-    position: absolute;
-    margin-bottom: 50px;
+    padding-bottom: 2px;
+    position: relative;
+    left: 30px;
 }
 
+.updateproduct-btn{
+    position: relative;
+    width:130px;
+    height:40px;
+    margin-left: 30px;
+    border: none;
+    border-radius:15px;
+    background-color: rgb(93, 91, 91);
+    font-family: 'Work Sans', sans-serif;
+    text-decoration: none;
+    margin-top: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+}
 
 
