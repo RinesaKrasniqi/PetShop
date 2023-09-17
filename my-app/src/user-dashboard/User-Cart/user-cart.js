@@ -7,9 +7,9 @@ import axios from 'axios';
 import PayButton from "../../payment/PayButton.js";
 
 function UserCart () {
-
-
   const [cartItems, setCartItems] = useState([]);
+  const[file, setFile]=useState();
+   const [foto, setFoto] = useState({ image: '' });
 
   const LoadCart=async()=>{
     axios.get('http://localhost:5000/cart')
@@ -31,7 +31,18 @@ function UserCart () {
 };
 
 useEffect(() => {
-  LoadCart();
+axios.get('http://localhost:5000/')
+.then(res => {
+   console.log('API Response:', res); 
+   if (Array.isArray(res.data) && res.data.length > 0) {
+      const i = 0;
+      setFoto(res.data[i]);
+   } else {
+      console.error('No data received from the API.');
+   }
+})
+.catch(err => console.error('Error fetching data:', err));
+LoadCart();
 }, []);
 
 
@@ -49,10 +60,12 @@ useEffect(() => {
         <div className='devider-cart'></div>
 
         <div>
+
+          
     {cartItems.map((product,index)=>(
          <div key={product.Cart_Id}>
         <div className='cart-second'>
-          <div className='cart-img-2'><img src='./Img/card3.jpg' className='cart-img-2'></img></div>
+          <div className='cart-img-2'><img  src={`Img/${product.foto}`} className='cart-img-2'></img></div>
           <div className='p-cart-1'>
             <p className='p-c'>{product.Name}</p>
             <p>{product.Description}</p>
