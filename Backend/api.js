@@ -253,21 +253,12 @@ app.get('/product/fleasandticks', (req, res) => {
 
 app.post('/cart',async (req, res) => {
   try {
-<<<<<<< HEAD
-    const { Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, Client_id } = req.body;
+    const { Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto,Client_id } = req.body;
 
     await sql.connect(config);
     const request = new sql.Request();
 
-    const sqlQuery = "INSERT INTO Cart (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category,  Client_id) VALUES (@Product_id, @Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category, @Client_id)";
-=======
-    await sql.connect(config);
-    const request = new sql.Request();
-
-    const {Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto } = req.body;
-    const sqlQuery = "INSERT INTO Cart(Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto, Product_id) VALUES (@Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category, @foto,@Product_id)";
-    
->>>>>>> b38e02c668d27be91a66bada52355e6fab13c656
+    const sqlQuery = "INSERT INTO Cart (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto ,Client_id) VALUES (@Product_id, @Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category,@foto ,@Client_id)";
     request.input('Description', sql.NVarChar, Description);
     request.input('Name', sql.NVarChar, Name);
     request.input('Price', sql.Int, Price);
@@ -277,11 +268,7 @@ app.post('/cart',async (req, res) => {
     request.input('Category', sql.NVarChar, Category);
     request.input('foto', sql.NVarChar, foto);
     request.input('Product_id', sql.Int, Product_id);
-<<<<<<< HEAD
     request.input('Client_id', sql.Int, Client_id);
-=======
-    
->>>>>>> b38e02c668d27be91a66bada52355e6fab13c656
 
     const result = await request.query(sqlQuery);
     res.json(result);
