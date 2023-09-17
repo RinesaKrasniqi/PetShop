@@ -1,17 +1,16 @@
 import axios from 'axios';
-import {useSelector} from 'react-redux';
+const frontendURL='http://localhost:3000/user-purchased';
 
-const PayButton=({cartItems})=>{
-
-    const handlePurchase=()=>{
-        console.log(cartItems);
-
-
+const PayButton = ({ cartItems, frontendURL }) => {
+    const handlePurchase = () => {
+        console.log("Cart Items in PayButton:",cartItems);
+        axios.post('${frontendURL}/stripe/create-checkout-session', {
+            cartItems
+        })
     }
 
-
     return (
-        <button onClick={()=>handlePurchase}>Check out</button>
+        <button onClick={handlePurchase}>Check out</button>
 
     );
 }

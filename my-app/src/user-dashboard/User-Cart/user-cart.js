@@ -84,7 +84,7 @@ LoadCart();
           </div>
         
           <div className='p-cart-5'>
-            <button class="logout-a-u"> <PayButton cartItems={product.cartItems}/></button>
+            <button class="logout-a-u"> <PayButton cartItems={cartItems}/></button>
           </div>
 
           <div className='p-cart-6'>

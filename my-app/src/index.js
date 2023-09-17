@@ -172,6 +172,10 @@ const router = createBrowserRouter([
   {
     path: "user-purchased",
     element: <div><UserPurchased/></div>
+  },
+  {
+    path: "/checkout-success",
+    element: <div><UserPurchased/></div>
   }
 
 ]);
