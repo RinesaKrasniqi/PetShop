@@ -63,6 +63,7 @@ function UserDog(){
       LoadDog();
     },[]);
 
+<<<<<<< HEAD
     return(
       <div>
       <div>
@@ -80,10 +81,91 @@ function UserDog(){
                     src={`Img/${product.foto}`}
                     alt={product.Name}
                   />
+=======
+  const handleAddToCart = async (productId) => {
+    const selectedProduct = pro.find((product) => product.Product_id === productId);
+  
+    if (selectedProduct) {
+      try {
+        const userId = Cookies.get('Client_id'); 
+        console.log('User ID from cookie:', userId);
+  
+        if (userId) {
+          console.log('User is authenticated with ID:', userId);
+  
+          const data = {
+            Product_id: selectedProduct.Product_id,
+            Name: selectedProduct.Name,
+            Description: selectedProduct.Description,
+            Price: selectedProduct.Price,
+            nr_in_stock: selectedProduct.nr_in_stock,
+            nr_of_stars: selectedProduct.nr_of_stars,
+            Price_before_discount: selectedProduct.Price_before_discount,
+            Category: selectedProduct.Category,
+            Client_id: parseInt(userId)
+          };
+  
+          try {
+            await axios.post('http://localhost:5000/cart', data);
+            window.alert('Product added to cart successfully!');
+          } catch (error) {
+            console.error('Error adding product to cart:', error);
+          }
+        } else {
+          console.log('User is not authenticated');
+          window.alert('Please log in to add products to your cart.');
+        }
+      } catch (error) {
+        console.error('Error getting user ID from cookie:', error);
+      }
+    }
+  };
+  
+  const calculateStarRating = (nr_of_stars) => {
+      return nr_of_stars;
+   }
+  
+
+  useEffect(() => {
+    LoadDog();
+  }, []);
+
+  return (
+    <div>
+      <div>
+        <UserHeader />
+      </div>
+      <div className="product-container">
+        {pro.map((product, index) => (
+          <div key={product.Product_id} className="card-back">
+            <div className="card">
+              <div className="fotoja-div">
+                <Link to="/shop">
+                  <img className="fotoja" src="./Img/download.jpg" alt="Product" />
+>>>>>>> 1f25d7c3d125ecfbac8d828a7203090ff00780c0
                 </Link>
               </div>
 
               <div className="caption">
+<<<<<<< HEAD
+=======
+                <p className="rate">
+                  <i className="FaRegStar">
+                    <FaStar color="gold" fill="gold" size="18px" />
+                  </i>
+                  {/* ... (other code) */}
+                </p>
+              </div>
+              <div className="products-button">
+                <motion.button className="purchase" whileHover={{ scale: 1.1 }}>
+                  Purchase
+                </motion.button>
+                <motion.button className="add" whileHover={{ scale: 1.1 }} onClick={() => handleAddToCart(product.Product_id)}>
+                  <i className="FaCartPlus">
+                    <FaCartPlus size={'20px'} />
+                  </i>
+                </motion.button>
+>>>>>>> 1f25d7c3d125ecfbac8d828a7203090ff00780c0
               <p className="rate">
                          {Array.from({ length: calculateStarRating(product.nr_of_stars) }).map((_, index) => (
                             <FaStar key={index} color="gold" fill="gold" size='18px' />
@@ -108,7 +190,13 @@ function UserDog(){
         <Footer />
       </div>
     </div>
+<<<<<<< HEAD
     );
 }
+=======
+  );
+}
+
+>>>>>>> 1f25d7c3d125ecfbac8d828a7203090ff00780c0
 
 export default UserDog;
