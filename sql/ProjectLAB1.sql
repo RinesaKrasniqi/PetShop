@@ -46,8 +46,10 @@ create table Cart(
   nr_of_stars int,
   Price_before_discount int ,
   Category varchar(50) ,
+  foto varchar(255),
   Product_id int,
-  Client_id int
+  Client_id int,
+  constraint client_cart foreign key (Client_id) references Client(Client_id)
 );
 
 drop table Cart; 
