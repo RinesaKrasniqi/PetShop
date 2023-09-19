@@ -9,7 +9,7 @@ import PayButton from "../../payment/PayButton.js";
 function UserCart () {
   const [cartItems, setCartItems] = useState([]);
   const[file, setFile]=useState();
-   const [foto, setFoto] = useState({ image: '' });
+  const [foto, setFoto] = useState({ image: '' });
 
   const LoadCart=async()=>{
     axios.get('http://localhost:5000/cart')
