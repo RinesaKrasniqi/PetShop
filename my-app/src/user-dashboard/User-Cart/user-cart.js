@@ -4,20 +4,33 @@ import Footer from '../../Components/footer.js';
 import './user-cartcss.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import PayButton from "../../payment/PayButton.js";
 
 function UserCart() {
   const [cartItems, setCartItems] = useState([]);
   const [foto, setFoto] = useState("");
 
+
   const LoadCart = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/cart');
-      setCartItems("Api response",response.data);
+      const userId = Cookies.get('Client_id');
+  
+      if (!userId) {
+        console.log("User not authenticated.");
+        return;
+      }
+  
+      const response = await axios.get(`http://localhost:5000/cart`);
+      const filteredCartItems = response.data.filter((item) => item.Client_id === userId);
+      
+      console.log("Filtered Cart Items:", filteredCartItems);
+  
+      setCartItems(filteredCartItems);
     } catch (error) {
-      console.error('Error loading cart:', error);
+      console.error("Error loading cart:", error);
     }
-  }
+  };
 
   console.log(cartItems);
 

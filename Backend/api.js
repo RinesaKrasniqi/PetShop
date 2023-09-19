@@ -272,18 +272,33 @@ app.post('/cart',async (req, res) => {
 });
 
 
+
+
 app.get('/cart', async (req, res) => {
   try {
-    let pool =await sql.connect(config);
-    let cart = pool.request().query('Select * from Cart')
-    console.log(cart);
-    return cart;
+  
+    const userId = req.cookies.Client_id;
 
+    if (!userId) {
+      return res.status(401).json({ message: "User not authenticated." });
+    }
+
+    const sqlQuery = "SELECT * FROM Cart WHERE Client_id = @userId";
+    
+    await sql.connect(config);
+    const request = new sql.Request();
+    request.input('userId', sql.Int, userId);
+
+    const result = await request.query(sqlQuery);
+    
+    res.json(result.recordset);
   } catch (error) {
-    console.error("Error retrieving cart items:", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error('Error executing SQL query:', error);
+    res.status(500).json({ message: "An error occurred while executing the SQL query." });
   }
 });
+
+
 
 
 app.delete('/cart/:Cart_Id', (req, res) => {
