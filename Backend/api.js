@@ -251,9 +251,9 @@ app.get('/product/fleasandticks', (req, res) => {
   })
 });
 
-app.post('/cart',async (req, res) => {
+app.post('/carts',async (req, res) => {
   try {
-    const { Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto,Client_id } = req.body;
+    const { Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto, Client_id } = req.body;
 
     await sql.connect(config);
     const request = new sql.Request();

@@ -46,7 +46,7 @@ function UserDog(){
         };
     
         try {
-          await axios.post('http://localhost:5000/cart', data);
+          await axios.post('http://localhost:5000/carts', data);
           window.alert('Product added to cart successfully!');
         } catch (error) {
           console.error('Error adding product to cart:', error);
