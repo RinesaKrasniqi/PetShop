@@ -23,13 +23,6 @@ app.use('/stripe', stripe);//ky diqka tjeter ka shkru qetu kshyre apet 20:26
 
 app.use(cookieParser());
 
-// 466d631088eab19f8c58cfe86424e1e3
-
-// app.use(session({
-//   secret: '466d631088eab19f8c58cfe86424e1e3', 
-//   resave: false,
-//   saveUninitialized: false,
-// }));
 
 var cors = require('cors')
 app.use(cors())
@@ -251,7 +244,7 @@ app.get('/product/fleasandticks', (req, res) => {
   })
 });
 
-app.post('/carts',async (req, res) => {
+app.post('/cart',async (req, res) => {
   try {
     const { Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto, Client_id } = req.body;
 
@@ -278,21 +271,19 @@ app.post('/carts',async (req, res) => {
   }
 });
 
+
 app.get('/cart', async (req, res) => {
   try {
-    const pool = await sql.connect(config);
-    const result = await pool
-      .request()
-      .query('SELECT * FROM Cart');
+    let pool =await sql.connect(config);
+    let cart = pool.request().query('Select * from Cart')
+    console.log(cart);
+    return cart;
 
-    const cartItems = result.recordset;
-    res.json(cartItems);
   } catch (error) {
     console.error("Error retrieving cart items:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
 
 
 app.delete('/cart/:Cart_Id', (req, res) => {
