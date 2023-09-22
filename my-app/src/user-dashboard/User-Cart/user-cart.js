@@ -13,10 +13,17 @@ function UserCart() {
 
 
   const LoadCart = async () => {
-    const response= await axios.get('http://localhost:5000/carts');
-    console.log(response.data);
-    setCartItems(response.data)
+    try {
+      const response = await axios.get('http://localhost:5000/carts', {
+        withCredentials: true,
+      });
+      console.log(response.data);
+      setCartItems(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   
   const deleteCart = async (Cart_Id) => {
     try {

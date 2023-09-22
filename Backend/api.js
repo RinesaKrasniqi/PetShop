@@ -25,7 +25,12 @@ app.use(cookieParser());
 
 
 var cors = require('cors')
-app.use(cors())
+// app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:3000', 
+  credentials: true, 
+}));
+
 const { connect } = require('http2');
 
 
