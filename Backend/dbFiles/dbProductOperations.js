@@ -92,10 +92,8 @@ const cart = async (req) => {
     let pool = await sql.connect(config);
     const userId = req.cookies.Client_id;
 
-    console.log("UserId:", userId);
-
     let user = await pool.request().query(`SELECT * FROM Cart WHERE Client_id = ${userId}`);
-    console.log(user);
+    // console.log(user);
     return user;
   } catch (error) {
     console.log(error);

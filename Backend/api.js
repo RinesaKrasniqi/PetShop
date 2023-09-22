@@ -287,7 +287,7 @@ app.post('/cart',async (req, res) => {
 app.get('/carts', (req, res) => {
   dbProductoperations.cart(req).then(result => {
     res.send(result);
-    console.log(result);
+    // console.log(result);
   });
 });
 

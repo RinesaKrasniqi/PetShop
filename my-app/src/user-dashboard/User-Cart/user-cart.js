@@ -17,7 +17,7 @@ function UserCart() {
       const response = await axios.get('http://localhost:5000/carts', {
         withCredentials: true,
       });
-      console.log(response.data);
+      // console.log(response.data);
       setCartItems(response.data);
     } catch (error) {
       console.error(error);
