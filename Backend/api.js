@@ -246,12 +246,13 @@ app.get('/product/fleasandticks', (req, res) => {
 
 app.post('/cart',async (req, res) => {
   try {
-    const { Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto, Client_id } = req.body;
-
     await sql.connect(config);
     const request = new sql.Request();
 
+    const { Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto, Client_id } = req.body;
+
     const sqlQuery = "INSERT INTO Cart (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto ,Client_id) VALUES (@Product_id, @Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category,@foto ,@Client_id)";
+    request.input('Product_id', sql.Int, Product_id);
     request.input('Description', sql.NVarChar, Description);
     request.input('Name', sql.NVarChar, Name);
     request.input('Price', sql.Int, Price);
@@ -260,7 +261,6 @@ app.post('/cart',async (req, res) => {
     request.input('Price_before_discount', sql.Int, Price_before_discount);
     request.input('Category', sql.NVarChar, Category);
     request.input('foto', sql.NVarChar, foto);
-    request.input('Product_id', sql.Int, Product_id);
     request.input('Client_id', sql.Int, Client_id);
 
     const result = await request.query(sqlQuery);
@@ -272,34 +272,19 @@ app.post('/cart',async (req, res) => {
 });
 
 
+// app.get('/carts', (req, res) => {
+//   dbProductoperations.cart().then(result=>{
+//   res.send(result); 
+//   console.log(result);
+//   })
+// });
 
-
-app.get('/cart', async (req, res) => {
-  try {
-  
-    const userId = req.cookies.Client_id;
-
-    if (!userId) {
-      return res.status(401).json({ message: "User not authenticated." });
-    }
-
-    const sqlQuery = "SELECT * FROM Cart WHERE Client_id = @userId";
-    
-    await sql.connect(config);
-    const request = new sql.Request();
-    request.input('userId', sql.Int, userId);
-
-    const result = await request.query(sqlQuery);
-    
-    res.json(result.recordset);
-  } catch (error) {
-    console.error('Error executing SQL query:', error);
-    res.status(500).json({ message: "An error occurred while executing the SQL query." });
-  }
+app.get('/carts', (req, res) => {
+  dbProductoperations.cart(req).then(result => {
+    res.send(result);
+    console.log(result);
+  });
 });
-
-
-
 
 app.delete('/cart/:Cart_Id', (req, res) => {
   const { Cart_Id } = req.params;

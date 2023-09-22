@@ -14,13 +14,14 @@ drop table Client
 
 create table Products(
   Product_id int identity(1,1) primary key,
-  Description varchar(255) not null,
+  Description varchar(255),
   Name varchar(50) not null,
   Price int not null,
   nr_in_stock int not null,
   nr_of_stars int not null,
   Price_before_discount int not null,
   Category varchar(50) not null,
+  foto varchar(255)
 );
 
 drop table Products;
@@ -49,7 +50,9 @@ create table Cart(
   foto varchar(255),
   Product_id int,
   Client_id int,
-  constraint client_cart foreign key (Client_id) references Client(Client_id)
+  constraint client_cart foreign key (Client_id) references Client(Client_id),
+  constraint Product_cart foreign key (Product_id) references Products(Product_id)
+
 );
 
 drop table Cart; 
@@ -97,34 +100,12 @@ insert into Admin values('admin','admin')
 insert into Postman values('postman','postman', '044208318')
 
 
-insert into Client values('Rinesa','Krasniqi','rinesa@gmail.com','045919115','uwhu3')
+insert into Client values('Rinesa','Krasniqi','rinesa@gmail.com','045919115','rinesa')
 insert into Client values('Margita','Rahimi','margita@gmail.com','045457596','margita')
 insert into Client values('Fjolla','Krasniqi','fjolla@gmail.com','045457596','73737')
 insert into Client values('Fatjona','Krasniqi','fatjona@gmail.com','045457596','99922')
 insert into Client values('Albina','Rahimi','albina@gmail.com','045457596','882828')
 
-insert into Products values('Cat Toy','Catt', 23,20,4,30,'Cat')
-insert into Products values('Cat Brush','Catt', 19,10,2,20,'Cat')
-insert into Products values('Dog Toy','Dog', 30,10,2,30, 'Dog')
-insert into Products values('Toy','Dff', 10,3,9,15, 'Dog')
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Dog')
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Dog')
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Dog')
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Dog')
-insert into Products values('Toy for dog','Best toy', 10,3,9,15, 'Dog')
-
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Fish')
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Fish')
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Fish')
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Fish')
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Pony')
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Pony')
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Pony')
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Pony')
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Pony')
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Pony')
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Pony')
-insert into Products values('hhh Toy','Dff', 10,3,9,15, 'Pony')
 
 SELECT * FROM Products WHERE Category like '%Dog%'
 
@@ -132,3 +113,4 @@ select * from Admin
 
 drop Database ProjektiLAB1
 
+select * from Cart

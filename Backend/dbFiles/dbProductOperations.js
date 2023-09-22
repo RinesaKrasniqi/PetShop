@@ -3,7 +3,9 @@ const sql=require('mssql');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express(); 
+const cookieParser = require('cookie-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 
 const getProduct= async()=> {
@@ -72,16 +74,31 @@ const getPony= async()=> {
     }
 }
 
-// const getCart= async()=> {
-//     try{
-//         let pool =await sql.connect(config);
-//         let product = pool.request().query('Select * from Cart WHERE Client_id = @Client_id')
-//         console.log(product);
-//         return product;
-//     }catch(error){
-//         console.log(error);
-//     }
+
+
+// const cart= async()=> {
+//   try{
+//       let pool =await sql.connect(config);
+//       let user = pool.request().query(`SELECT * FROM Cart `);
+//       console.log(user);
+//       return user;
+//   }catch(error){
+//       console.log(error);
+//   }
 // }
+
+const cart = async (req) => {
+  try {
+    let pool = await sql.connect(config);
+    const userId = req.cookies.Client_id;
+
+    let user = await pool.request().query(`SELECT * FROM Cart WHERE Client_id = ${userId}`);
+    console.log(user);
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
  
 const delCart= async(Cart_Id)=> {
@@ -186,5 +203,6 @@ module.exports={
     delProduct,
     editProduct,
     updateProduct,
-    getFleasAndTicks
+    getFleasAndTicks,
+    cart
 }
