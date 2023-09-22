@@ -13,13 +13,11 @@ const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const path=require('path');
+const stripe=require('./dbFiles/stripe');
 
-
-
-const stripe=require('./dbFiles/stripe')
 
 app.use(express.static('public'));
-app.use('/stripe', stripe);//ky diqka tjeter ka shkru qetu kshyre apet 20:26
+app.use('/stripe', stripe);//ky diqka tjeter ka shkru qetu kshyre apet 20:26 ski nevoj mire o
 
 app.use(cookieParser());
 
@@ -272,7 +270,7 @@ app.post('/cart',async (req, res) => {
 });
 
 
-app.get('/cart', async (req, res) => {
+app.get('/cartt', async (req, res) => {
   try {
     let pool =await sql.connect(config);
     let cart = pool.request().query('Select * from Cart')
@@ -319,6 +317,7 @@ app.put('/products/update/:Product_id', async(req, res) => {
   const { Description, Name,Price,nr_in_stock, nr_of_stars, Price_before_discount, Category } = req.body;
    await dbProductoperations.updateProduct( Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category );
 });
+
 
 app.listen(5000, () => {
     console.log("API Server is running ...");
