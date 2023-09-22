@@ -23,7 +23,12 @@ app.use(cookieParser());
 
 
 var cors = require('cors')
-app.use(cors())
+// app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:3000', 
+  credentials: true, 
+}));
+
 const { connect } = require('http2');
 
 
@@ -244,12 +249,13 @@ app.get('/product/fleasandticks', (req, res) => {
 
 app.post('/cart',async (req, res) => {
   try {
-    const { Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto, Client_id } = req.body;
-
     await sql.connect(config);
     const request = new sql.Request();
 
+    const { Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto, Client_id } = req.body;
+
     const sqlQuery = "INSERT INTO Cart (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto ,Client_id) VALUES (@Product_id, @Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category,@foto ,@Client_id)";
+    request.input('Product_id', sql.Int, Product_id);
     request.input('Description', sql.NVarChar, Description);
     request.input('Name', sql.NVarChar, Name);
     request.input('Price', sql.Int, Price);
@@ -258,7 +264,6 @@ app.post('/cart',async (req, res) => {
     request.input('Price_before_discount', sql.Int, Price_before_discount);
     request.input('Category', sql.NVarChar, Category);
     request.input('foto', sql.NVarChar, foto);
-    request.input('Product_id', sql.Int, Product_id);
     request.input('Client_id', sql.Int, Client_id);
 
     const result = await request.query(sqlQuery);
@@ -270,19 +275,28 @@ app.post('/cart',async (req, res) => {
 });
 
 
+<<<<<<< HEAD
 app.get('/cartt', async (req, res) => {
   try {
     let pool =await sql.connect(config);
     let cart = pool.request().query('Select * from Cart')
     console.log(cart);
     return cart;
+=======
+// app.get('/carts', (req, res) => {
+//   dbProductoperations.cart().then(result=>{
+//   res.send(result); 
+//   console.log(result);
+//   })
+// });
+>>>>>>> da2adda5a9711571d551cd13fa2992073bee1fce
 
-  } catch (error) {
-    console.error("Error retrieving cart items:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
+app.get('/carts', (req, res) => {
+  dbProductoperations.cart(req).then(result => {
+    res.send(result);
+    // console.log(result);
+  });
 });
-
 
 app.delete('/cart/:Cart_Id', (req, res) => {
   const { Cart_Id } = req.params;
