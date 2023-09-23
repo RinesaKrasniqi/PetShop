@@ -41,6 +41,7 @@ function UserHeader() {
                 <li><Link to='/user-cat' >cat</Link></li>
                 <li><Link to='/user-fish'>fish</Link></li>
                 <li><Link to='/user-pony'>pony</Link></li>
+                
             </ul>
            </li> 
           </ul>
@@ -50,7 +51,7 @@ function UserHeader() {
         <nav class="nav-u">
         <ul class="nav-list-u">   
           
-          <li><Link to='/fleasandticks'>prevent fleas & ticks<img class="flea-u" src="./Img/flea.png"></img></Link></li>
+          <li><Link to='/userfleas'>prevent fleas & ticks<img class="flea-u" src="./Img/flea.png"></img></Link></li>
           <li className='purchased-u'><Link to='/user-purchased'>purchased</Link></li>
         </ul>
         </nav>

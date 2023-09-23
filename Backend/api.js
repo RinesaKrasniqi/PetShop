@@ -23,11 +23,11 @@ app.use(cookieParser());
 
 
 var cors = require('cors')
-// app.use(cors())
 app.use(cors({
   origin: 'http://localhost:3000', 
   credentials: true, 
 }));
+
 
 const { connect } = require('http2');
 
@@ -275,21 +275,12 @@ app.post('/cart',async (req, res) => {
 });
 
 
-<<<<<<< HEAD
-app.get('/cartt', async (req, res) => {
-  try {
-    let pool =await sql.connect(config);
-    let cart = pool.request().query('Select * from Cart')
-    console.log(cart);
-    return cart;
-=======
 // app.get('/carts', (req, res) => {
 //   dbProductoperations.cart().then(result=>{
 //   res.send(result); 
 //   console.log(result);
 //   })
 // });
->>>>>>> da2adda5a9711571d551cd13fa2992073bee1fce
 
 app.get('/carts', (req, res) => {
   dbProductoperations.cart(req).then(result => {
@@ -331,6 +322,54 @@ app.put('/products/update/:Product_id', async(req, res) => {
   const { Description, Name,Price,nr_in_stock, nr_of_stars, Price_before_discount, Category } = req.body;
    await dbProductoperations.updateProduct( Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category );
 });
+
+
+
+
+
+app.use(cors({
+  origin: process.env.CLIENT_URL, // Allow requests only from your frontend URL
+}));
+
+app.use(express.json());
+app.use(cors());
+app.get('/stripe/create-checkout/session', async (req, res) => {
+  try {
+    const session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'T-shirt',
+            },
+            unit_amount: 2000,
+          },
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: `${process.env.CLIENT_URL}/checkout-success`,
+      cancel_url: `${process.env.CLIENT_URL}/cart`,
+    });
+
+    res.json({ url: session.url });
+  } catch (error) {
+    console.error("Error creating checkout session:", error);
+    res.status(500).json({ error: 'Failed to create checkout session' });
+  }
+});
+
+
+//   try {
+
+//     const session = await createStripeCheckoutSession();
+//     res.json({ url: session.url });
+//   } catch (error) {
+//     console.error('Error creating checkout session:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
 
 
 app.listen(5000, () => {
