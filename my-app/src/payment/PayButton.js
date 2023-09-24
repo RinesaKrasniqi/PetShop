@@ -25,7 +25,7 @@ const PayButton=({cartItems})=>{
 
     return (
       <>
-        <button onClick={handleCheckout}>Enroll</button>
+        <button onClick={handleCheckout}>Purchase</button>
       </>
     );
 }
