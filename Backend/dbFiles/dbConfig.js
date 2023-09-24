@@ -1,7 +1,7 @@
 var config={
-    user:"Rinesa",
-    password: "1234",
-    server: "DISCORD\\SQLEXPRESS",
+    user:"Margita",
+    password: "123",
+    server: "MARGITA1083\\MSSQLSERVER01",
     database : "ProjektiLAB1",
     driver: "msnodesqlv8",
     options:{

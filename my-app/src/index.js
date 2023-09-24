@@ -29,6 +29,8 @@ import UserFish from './user-dashboard/User-Home/user-fish.js';
 import UserPony from './user-dashboard/User-Home/user-pony';
 import UserPurchased from './user-dashboard/User-Purchased/user-purchased.js';
 import UpdateProduct  from './admin-dashboard/updateProduct.js';
+import PurchaseSuccess from './payment/PurchaseSuccess';
+import UserFleas from './user-dashboard/User-Home/user-fleas';
 
 
 
@@ -175,7 +177,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/checkout-success",
-    element: <div><UserPurchased/></div>
+    element: <div><PurchaseSuccess/></div>
+  },
+  {
+    path: "/userfleas",
+    element: <div><UserFleas/></div>
   }
 
 ]);

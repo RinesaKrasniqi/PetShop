@@ -9,7 +9,10 @@ import  UserHeader from './user-header.js';
 import  Footer from '../../Components/footer.js';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import PayButton from "../../payment/PayButton.js";
 var Link = require('react-router-dom').Link
+
+
 
 function Fish(){
 
@@ -114,7 +117,7 @@ function Fish(){
                 <p className='in stock'>number in stock: {product.nr_in_stock}</p>
               </div>
               <div className='products-button'>
-                <motion.button className='purchase' whileHover={{ scale: 1.1 }}>Purchase</motion.button>
+                <motion.button className='purchase' whileHover={{ scale: 1.1 }}><PayButton cartItems={product} /></motion.button>
                 <motion.button class='add' whileHover={{scale:1.1}}  onClick={() => handleAddToCart(product.Product_id)}><i class="FaCartPlus"><FaCartPlus  size={'20px'}/></i></motion.button>
               </div>
             </div>

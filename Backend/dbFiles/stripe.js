@@ -1,11 +1,20 @@
+require('dotenv').config();
 const express = require('express');
 const Stripe = require('stripe');
+const cors = require('cors');
+const router = express.Router();
 const app = express();
 
-require('dotenv').config();
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-const stripe = Stripe(process.env.STRIPE_KEY);
-const router = express.Router();
+
+app.use(cors({
+  origin: 'http://localhost:3000', 
+  credentials: true, 
+}));
+
+app.use(express.json());
+
 
 
 router.post('/create-checkout-session', async (req, res) => {
@@ -27,7 +36,7 @@ router.post('/create-checkout-session', async (req, res) => {
     cancel_url: `${process.env.CLIENT_URL}/cart`,
   });
 
-  res.send({ url: session.url });
+  res.json({ url: session.url });
 });
 
-module.exports = router; // Correct export statement
+module.exports = router;
