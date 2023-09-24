@@ -15,12 +15,11 @@ const session = require('express-session');
 const path=require('path');
 const stripe=require('./dbFiles/stripe');
 
-
 app.use(express.static('public'));
-app.use('/stripe', stripe);//ky diqka tjeter ka shkru qetu kshyre apet 20:26 ski nevoj mire o
+
+app.use('/stripe', stripe);
 
 app.use(cookieParser());
-
 
 var cors = require('cors')
 app.use(cors({
@@ -28,9 +27,10 @@ app.use(cors({
   credentials: true, 
 }));
 
-
 const { connect } = require('http2');
 
+app.use(express.json());
+app.use(cors());
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -323,55 +323,20 @@ app.put('/products/update/:Product_id', async(req, res) => {
    await dbProductoperations.updateProduct( Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category );
 });
 
-
-
-
-
+``
 app.use(cors({
-  origin: process.env.CLIENT_URL, // Allow requests only from your frontend URL
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-app.use(express.json());
-app.use(cors());
-app.get('/stripe/create-checkout/session', async (req, res) => {
-  try {
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'T-shirt',
-            },
-            unit_amount: 2000,
-          },
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: `${process.env.CLIENT_URL}/checkout-success`,
-      cancel_url: `${process.env.CLIENT_URL}/cart`,
-    });
 
-    res.json({ url: session.url });
-  } catch (error) {
-    console.error("Error creating checkout session:", error);
-    res.status(500).json({ error: 'Failed to create checkout session' });
-  }
-});
-
-
-//   try {
-
-//     const session = await createStripeCheckoutSession();
-//     res.json({ url: session.url });
-//   } catch (error) {
-//     console.error('Error creating checkout session:', error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
-
-
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  next();
+})
 app.listen(5000, () => {
     console.log("API Server is running ...");
 })

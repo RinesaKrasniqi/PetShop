@@ -1,17 +1,21 @@
+require('dotenv').config();
 const express = require('express');
 const Stripe = require('stripe');
 const cors = require('cors');
-require('dotenv').config(); // Load environment variables from .env file
-
-const stripe = Stripe(process.env.STRIPE_KEY);
+const router = express.Router();
 const app = express();
 
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
+
 app.use(cors({
-  origin: process.env.CLIENT_URL, // Allow requests only from your frontend URL
+  origin: 'http://localhost:3000', 
+  credentials: true, 
 }));
+
 app.use(express.json());
 
-const router = express.Router();
+
 
 router.post('/create-checkout-session', async (req, res) => {
   const session = await stripe.checkout.sessions.create({
