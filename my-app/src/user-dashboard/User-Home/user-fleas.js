@@ -17,6 +17,14 @@ function UserFleas() {
    const [pro, setPro] = useState([]);
    const[file, setFile]=useState();
    const [foto, setFoto] = useState("");
+   const [Product_id, setProduct_id] = useState("");
+   const [Name, setName] = useState("");
+   const [Description, setDescription] = useState("");
+   const [Price, setPrice] = useState("");
+   const [nr_in_stock, setInStock] = useState("");
+   const [nr_of_stars, setStars] = useState("");
+   const [Price_before_discount, setDiscount] = useState("");
+   const [Category, setCategory] = useState("");
 
    const LoadFleasAndTicks = async () => {
       try {
@@ -28,27 +36,59 @@ function UserFleas() {
       }
    }
 
-   const handleInsert = () => {
-      const formdata = new FormData();
-      formdata.append('foto', file);
-      axios.post('http://localhost:3000/insert', formdata)
-         .then(res => console.log(res))
-         .catch(err => console.log(err));
-   }
+   const handleAddToCart = async (productId) => {
+      const selectedProduct = pro.find((product) => product.Product_id === productId);
+    
+      if (selectedProduct) {
+        try {
+          const userId = Cookies.get('Client_id');
+          console.log('User ID from cookie:', userId);
+    
+          if (userId) {
+            console.log('User is authenticated with ID:', userId);
+    
+            const data = {
+              Product_id: selectedProduct.Product_id,
+              Name: selectedProduct.Name,
+              Description: selectedProduct.Description,
+              Price: selectedProduct.Price,
+              nr_in_stock: selectedProduct.nr_in_stock,
+              nr_of_stars: selectedProduct.nr_of_stars,
+              Price_before_discount: selectedProduct.Price_before_discount,
+              Category: selectedProduct.Category,
+              foto:selectedProduct.foto,
+              Client_id: parseInt(userId),
+            };
+    
+            try {
+              await axios.post('http://localhost:5000/cart', data);
+              window.alert('Product added to cart successfully!');
+            } catch (error) {
+              console.error('Error adding product to cart:', error);
+              window.alert('Error adding product to cart');
+            }
+          } else {
+            console.log('User is not authenticated');
+            window.alert('Please log in to add products to your cart.');
+          }
+        } catch (error) {
+          console.error('Error getting user ID from cookie:', error);
+          window.alert('Error getting user ID from cookie');
+        }
+      }
+    };
+
+
+   // const handleInsert = () => {
+   //    const formdata = new FormData();
+   //    formdata.append('foto', file);
+   //    axios.post('http://localhost:3000/insert', formdata)
+   //       .then(res => console.log(res))
+   //       .catch(err => console.log(err));
+   // }
 
    useEffect(() => {
-      axios.get('http://localhost:5000/')
-         .then(res => {
-            console.log('API Response:', res); 
-            if (Array.isArray(res.data) && res.data.length > 0) {
-               const i = 0;
-               setFoto(res.data[i]);
-            } else {
-               console.error('No data received from the API.');
-            }
-         })
-         .catch(err => console.error('Error fetching data:', err));
-         LoadFleasAndTicks();
+     LoadFleasAndTicks();
    }, []);
 
    const calculateStarRating = (nr_of_stars) => {
@@ -89,9 +129,7 @@ function UserFleas() {
                      </div>
                      <div className='products-button'>
                         <motion.button className='purchase' whileHover={{ scale: 1.1 }}>Purchase</motion.button>
-                        <motion.button className='add' whileHover={{ scale: 1.1 }}>
-                           <i className="FaCartPlus"><FaCartPlus size={'20px'} /></i>
-                        </motion.button>
+                        <motion.button className='add'  onClick={() => handleAddToCart(product.Product_id)} whileHover={{ scale: 1.1 }}><i className="FaCartPlus"><FaCartPlus size={'20px'} /></i></motion.button>
                      </div>
                   </div>
                </div>
