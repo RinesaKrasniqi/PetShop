@@ -155,3 +155,25 @@
     font-size: 15px;
     cursor: pointer;
 }
+
+.img-pet-cart{
+    width: 150px;
+    height: 160px;
+    position: relative;
+    left: 510px;
+    top: 30px;
+}
+
+.no-product{
+    font-size: 30px;
+    position: relative;
+    left: 400px;
+    top: 30px;
+}
+
+.no-product-p{
+    font-size: 15px;
+    position: relative;
+    left: 350px;
+    top: 40px;
+}

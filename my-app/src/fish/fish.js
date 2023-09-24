@@ -22,6 +22,10 @@ function Fish(){
       setPro(response.data)
     }
   
+    const handleCart=()=>{
+      window.alert('You should log in!');
+   }
+  
    
     const handleInsert=()=>{
       const formdata=new FormData();

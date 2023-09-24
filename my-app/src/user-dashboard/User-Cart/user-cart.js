@@ -82,7 +82,11 @@ function UserCart() {
             </div>
           ))
         ) : (
-          <p>No items in the cart.</p>
+          <div> 
+            <img src="./Img/pet-food-cart.png" className="img-pet-cart"></img>
+            <h3 className="no-product">Your Shopping Cart is Empty</h3>
+            <p className="no-product-p">It feels so good shopping for your pet. Indulge your pet and buy what he needs.</p>
+          </div> 
         )}
       </div>
   

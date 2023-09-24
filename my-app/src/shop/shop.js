@@ -8,6 +8,11 @@ import  Header from '../Components/header.js';
 import  Footer from '../Components/footer.js';
 
 function Shop(){
+
+  const handleCart=()=>{
+    window.alert('You should log in!');
+ }
+
     return(
     <div>
          <div>
@@ -45,7 +50,7 @@ function Shop(){
 
      <div class='shop-buttons'>
        <motion.button class='purchase-shop 'whileHover={{scale:1.1}} >Purchase</motion.button>
-       <motion.button class='add-shop' whileHover={{scale:1.1}}><i class="FaCartPlus"><FaCartPlus  size={'20px'}/></i></motion.button>
+       <motion.button class='add-shop'onClick={handleCart} whileHover={{scale:1.1}}><i class="FaCartPlus"><FaCartPlus  size={'20px'}/></i></motion.button>
      </div>
 </div>
 </div>
