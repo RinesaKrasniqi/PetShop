@@ -109,7 +109,7 @@ insert into Client values('Albina','Rahimi','albina@gmail.com','045457596','8828
 
 SELECT * FROM Products WHERE Category like '%Dog%'
 
-select * from Admin
+select * from Products
 
 drop Database ProjektiLAB1
 
