@@ -22,6 +22,11 @@ function Pony(){
       console.log(response.data);
       setPro(response.data)
     }
+
+    const handleCart=()=>{
+      window.alert('You should log in!');
+   }
+  
   
     const handleInsert=()=>{
       const formdata=new FormData();
@@ -85,7 +90,7 @@ function Pony(){
                 </div>
                 <div className='products-button'>
                   <motion.button className='purchase' whileHover={{ scale: 1.1 }}>Purchase</motion.button>
-                  <motion.button className='add' whileHover={{ scale: 1.1 }}>
+                  <motion.button className='add' onClick={handleCart} whileHover={{ scale: 1.1 }}>
                     <i className="FaCartPlus"><FaCartPlus size={'20px'} /></i>
                   </motion.button>
                 </div>
