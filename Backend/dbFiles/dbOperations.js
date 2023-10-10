@@ -80,12 +80,13 @@ const countClient = async (Client_id) => {
   }
 };
 
-
+/////////////////////////////////////
 
 
 module.exports={
     getLoginDetails,
     updateUser,
     delUser,
-    editUs
+    editUs,
+    countClient
 }

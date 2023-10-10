@@ -31,7 +31,12 @@ import UserPurchased from './user-dashboard/User-Purchased/user-purchased.js';
 import UpdateProduct  from './admin-dashboard/updateProduct.js';
 import PurchaseSuccess from './payment/PurchaseSuccess';
 import UserFleas from './user-dashboard/User-Home/user-fleas';
-
+import Ndertesa58700 from './lab1/crud1';
+import Ashensori from './lab1/crud2';
+import AddCrud1 from './lab1/addcrud1';
+import AddCrud2 from './lab1/addcrud2';
+import UpdateAshensori from './lab1/updatecrud2';
+import UpdateNdertesa from './lab1/updatecrud1';
 
 
 import {
@@ -182,7 +187,47 @@ const router = createBrowserRouter([
   {
     path: "/userfleas",
     element: <div><UserFleas/></div>
-  }
+  },
+  {
+    path: "/ndertesa",
+    element: <div><Ndertesa58700/></div>
+  },
+  {
+    path: "/ashensori",
+    element: <div><Ashensori/></div>
+  },
+  {
+    path: "/addcrud1",
+    element: <div><AddCrud1/></div>
+  },
+  {
+    path: "/addcrud2",
+    element: <div><AddCrud2/></div>
+  },
+  {
+    path: "/Ndertesa58700/update/:ndertesa_id",
+    element: <div></div>
+    },
+    {
+      path: "/Ashensori58700/update/:ashensori_id",
+      element: <div></div>
+  },
+  {
+    path: "/Ndertesa58700/edit/:ndertesa_id",
+    element: <div></div>
+    },
+    {
+    path: "/Ashensori58700/edit/:ashensori_id",
+    element: <div></div>
+    },
+    {
+      path: "/updateNdertesa58700/:ndertesa_id",
+      element: <UpdateNdertesa />
+    },
+    {
+      path: "/updateashensori/:ashensori_id",
+      element: <div><UpdateAshensori/></div>
+    },
 
 ]);
 

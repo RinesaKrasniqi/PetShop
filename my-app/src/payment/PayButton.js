@@ -4,28 +4,22 @@ import Cookies from 'js-cookie';
 
 const PayButton=({cartItems})=>{
     const userId = Cookies.get('Client_id');
-    const handleCheckout = async () => {
-      try {
-        const formData = new FormData();
-        formData.append('cartItems', JSON.stringify(cartItems));
-  
-      const response = await axios.post('http://localhost:5000/stripe/create-checkout-session', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-  
-        if (response.data.url) {
-          window.location.href = response.data.url;
-        }
-      } catch (error) {
-        console.log(error.message);
-      }
+
+    const handleCheckout =() => {
+    axios.post('http://localhost:5000/stripe/create-checkout-session',{
+        cartItems,
+        userId:userId
+
+        }).then((res)=>{
+          if (res.data.url) {
+            window.location.href = res.data.url;
+          }
+        }).catch((err)=>console.log('errori 1:',err.message));
     };
 
     return (
       <>
-        <button onClick={handleCheckout}>Purchase</button>
+        <button onClick={()=>handleCheckout()}>Purchase</button>
       </>
     );
 }

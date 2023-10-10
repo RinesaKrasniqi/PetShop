@@ -326,6 +326,7 @@ app.put('/products/update/:Product_id', async(req, res) => {
 ``
 app.use(cors({
   origin: 'http://localhost:3000',
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -337,6 +338,8 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next();
 })
+
+
 app.listen(5000, () => {
     console.log("API Server is running ...");
 })
