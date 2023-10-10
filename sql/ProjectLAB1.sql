@@ -96,6 +96,24 @@ create table Deliveries(
 );
 
 
+/*create table Ndertesa56179(
+  id int identity(1,1) primary key,
+  emertim56179 varchar(255) not null,
+  dataPt date 
+);
+
+
+create table Ashensori56179(
+  ashensori_id int identity (1,1) primary key,
+  emertim56179 varchar(255) not null,
+  id int ,
+  constraint fk_crud foreign key (id) references Ndertesa56179(id)
+);
+
+
+drop table Ndertesa56179; 
+drop table Ashensori56179; */
+
 insert into Admin values('admin','admin')
 insert into Postman values('postman','postman', '044208318')
 
@@ -114,3 +132,7 @@ select * from Products
 drop Database ProjektiLAB1
 
 select * from Cart
+
+select * from Products
+
+delete from Products where Product_id=2
