@@ -118,7 +118,7 @@ function UserCat(){
                  </div>
                  <div className='products-button'>
                     <motion.button className='purchase' whileHover={{ scale: 1.1 }}>Purchase</motion.button>
-                    <motion.button className='add' whileHover={{ scale: 1.1 }}>
+                    <motion.button className='add' whileHover={{ scale: 1.1 }}onClick={() => handleAddToCart(product.Product_id)}>
                        <i className="FaCartPlus"><FaCartPlus size={'20px'} /></i>
                     </motion.button>
                  </div>
