@@ -316,6 +316,14 @@ app.get('/products/edit/:Product_id', (req, res) => {
   })
 });
 
+app.get('/shop/:Product_id', (req, res) => {
+  const Product_id  = req.params;
+  console.log(Product_id);
+  dbProductoperations.editShop(Product_id).then(x=>{
+  return res.json(x); 
+  })
+});
+
 
 app.put('/products/update/:Product_id', async(req, res) => {
   const  {Product_id } = req.params;

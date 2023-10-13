@@ -93,7 +93,7 @@ function UserDog(){
            <div key={product.Product_id} className='card-back'>
               <div className="card">
                  <div className='fotoja-div'>
-                    <Link to={`/products/edit/${product.Product_id}`}>
+                    <Link to={`/shop/${product.Product_id}`}>
                        <img
                           className='fotoja'
                           src={`Img/${product.foto}`}
