@@ -34,7 +34,7 @@ function Header() {
         <nav class="nav">
         <ul class="nav-list">   
           
-          <li><Link to='/fleasandticks'>prevent fleas & ticks<img class="flea" src="./Img/flea.png"></img></Link></li>
+          <li><Link to='/fleasandticks'>prevent fleas & ticks<img class="flea" src="/Img/flea.png"></img></Link></li>
       </ul>
       </nav>
 
@@ -42,7 +42,7 @@ function Header() {
 
       <div class="account">
         <Link to='/signup' href="#" class="acc-a">
-        <img class="acc-icon" src="./Img/account.png"></img>
+        <img class="acc-icon" src="/Img/account.png"></img>
         <h4 class="text-s">sign up</h4>
         </Link>
        </div>
@@ -50,7 +50,7 @@ function Header() {
       
        <div class="cart">
        <Link to='/addtocart' class="cart-a">
-        <img class="cart-icon" src="./Img/add-cart.png"></img>
+        <img class="cart-icon" src="/Img/add-cart.png"></img>
         <h4 class="text-c">cart</h4>
         </Link>
        </div>

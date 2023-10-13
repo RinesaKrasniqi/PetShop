@@ -32,13 +32,13 @@ function Shop() {
   };
 
   const handleCart = () => {
-    window.alert('You should log in!').then(navigate(""));
+    window.alert('You should log in!');
   };
 
   return (
     <div>
       <div>
-        <Header />
+        <UserHeader />
       </div>
 
 <div>

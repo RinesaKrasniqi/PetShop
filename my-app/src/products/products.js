@@ -11,6 +11,9 @@ function Products() {
    const [pro, setPro] = useState([]);
    const[file, setFile]=useState();
    const [foto, setFoto] = useState({ image: '' });
+   const [Product_id, setProduct_id]=useState();
+
+
 
    const LoadCat = async () => {
       try {
@@ -57,10 +60,11 @@ function Products() {
 
          <div className='product-container'>
             {pro.map((product) => (
+               
                <div key={product.Product_id} className='card-back'>
                   <div className="card">
                      <div className='fotoja-div'>
-                        <Link to='/shop'>
+                        <Link to={`/products/edit/${product.Product_id}`}>
                            <img
                               className='fotoja'
                               src={`Img/${product.foto}`}

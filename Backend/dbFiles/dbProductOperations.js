@@ -139,6 +139,8 @@ const delProduct= async(Product_id)=> {
     }
   };
 
+  
+
   const countProducts = async (Product_id) => {
     try {
       let pool = await sql.connect(config);
