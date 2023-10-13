@@ -38,9 +38,7 @@ const navigate= useNavigate();
     (navigate("/login"));
   };
 
-  const handlePurchase = () => {
-    (navigate("/login"));
-  };
+
 
   return (
     <div>
@@ -83,7 +81,7 @@ const navigate= useNavigate();
           </div>
 
           <div className="shop-buttons">
-            <motion.button className="purchase-shop" onClick={handlePurchase} whileHover={{ scale: 1.1 }}>
+            <motion.button className="purchase-shop" onClick={handleCart} whileHover={{ scale: 1.1 }}>
               Purchase
             </motion.button>
             <motion.button className="add-shop" onClick={handleCart} whileHover={{ scale: 1.1 }}>

@@ -3,6 +3,7 @@ import './productscss.css';
 import { FaCartPlus, FaStar } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Header from '../Components/header.js';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../Components/footer.js';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -12,6 +13,8 @@ function Products() {
    const[file, setFile]=useState();
    const [foto, setFoto] = useState({ image: '' });
    const [Product_id, setProduct_id]=useState();
+
+   const navigate= useNavigate();
 
 
 
@@ -52,6 +55,10 @@ function Products() {
       return nr_of_stars;
    }
 
+   const handleCart = () => {
+      (navigate("/login"));
+    };
+
    return (
       <div>
          <div>
@@ -86,8 +93,8 @@ function Products() {
                         <p className='in stock'>number in stock: {product.nr_in_stock}</p>
                      </div>
                      <div className='products-button'>
-                        <motion.button className='purchase' whileHover={{ scale: 1.1 }}>Purchase</motion.button>
-                        <motion.button className='add' whileHover={{ scale: 1.1 }}>
+                        <motion.button className='purchase' whileHover={{ scale: 1.1 }} onClick={handleCart}>Purchase</motion.button>
+                        <motion.button className='add' whileHover={{ scale: 1.1 }} onClick={handleCart}>
                            <i className="FaCartPlus"><FaCartPlus size={'20px'} /></i>
                         </motion.button>
                      </div>

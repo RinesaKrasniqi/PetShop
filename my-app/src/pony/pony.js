@@ -6,6 +6,7 @@ import { FaOpencart } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import {motion} from "framer-motion";
+import { useNavigate } from 'react-router-dom';
 import  Header from '../Components/header.js';
 import  Footer from '../Components/footer.js';
 import axios from 'axios';
@@ -15,6 +16,8 @@ function Pony(){
    const [pro, setPro] = useState([]);
    const[file, setFile]=useState();
    const [foto, setFoto] = useState({ image: '' });
+
+   const navigate= useNavigate();
    
    
    const LoadPony=async()=>{
@@ -23,10 +26,9 @@ function Pony(){
       setPro(response.data)
     }
 
-    const handleCart=()=>{
-      window.alert('You should log in!');
-   }
-  
+    const handleCart = () => {
+      (navigate("/login"));
+    };
   
     const handleInsert=()=>{
       const formdata=new FormData();
@@ -90,8 +92,8 @@ function Pony(){
                     <p className='in stock'>number in stock: {product.nr_in_stock}</p>
                  </div>
                  <div className='products-button'>
-                    <motion.button className='purchase' whileHover={{ scale: 1.1 }}>Purchase</motion.button>
-                    <motion.button className='add' whileHover={{ scale: 1.1 }}>
+                    <motion.button className='purchase' whileHover={{ scale: 1.1 }} onClick={handleCart}>Purchase</motion.button>
+                    <motion.button className='add' whileHover={{ scale: 1.1 }} onClick={handleCart}>
                        <i className="FaCartPlus"><FaCartPlus size={'20px'} /></i>
                     </motion.button>
                  </div>

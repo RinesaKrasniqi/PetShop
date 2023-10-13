@@ -4,6 +4,7 @@ import '../products/productscss.css'
 import { FaRegStar } from "react-icons/fa";
 import { FaPaw } from "react-icons/fa";
 import { FaOpencart } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 import { FaCartPlus } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import {motion} from "framer-motion";
@@ -22,9 +23,7 @@ function Dog(){
       setPro(response.data)
     }
 
-    const handleCart=()=>{
-      window.alert('You should log in!');
-   }
+    const navigate= useNavigate();
   
     const handleInsert=()=>{
       const formdata=new FormData();
@@ -52,6 +51,10 @@ function Dog(){
    const calculateStarRating = (nr_of_stars) => {
     return nr_of_stars;
  }
+
+ const handleCart = () => {
+   (navigate("/login"));
+ };
 
 
  return (
@@ -88,8 +91,8 @@ function Dog(){
                     <p className='in stock'>number in stock: {product.nr_in_stock}</p>
                  </div>
                  <div className='products-button'>
-                    <motion.button className='purchase' whileHover={{ scale: 1.1 }}>Purchase</motion.button>
-                    <motion.button className='add' whileHover={{ scale: 1.1 }}>
+                    <motion.button className='purchase' whileHover={{ scale: 1.1 }} onClick={handleCart}>Purchase</motion.button>
+                    <motion.button className='add' whileHover={{ scale: 1.1 }} onClick={handleCart}>
                        <i className="FaCartPlus"><FaCartPlus size={'20px'} /></i>
                     </motion.button>
                  </div>
