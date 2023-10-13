@@ -47,6 +47,13 @@ function Header() {
         </Link>
        </div>
 
+       <div class='login'>
+       <Link to='/login' href="#" class="acc-a">
+        <img class="acc-icon" src="/Img/acc-dash.png"></img>
+        <h4 class="text-s">login</h4>
+        </Link>
+        </div>
+
       
        <div class="cart">
        <Link to='/addtocart' class="cart-a">

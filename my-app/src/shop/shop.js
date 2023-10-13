@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './shopcss.css';
 import { FaCartPlus, FaStar } from 'react-icons/fa';
@@ -11,6 +12,8 @@ import Footer from '../Components/footer.js';
 function Shop() {
   const { Product_id } = useParams();
   const [pro, setPro] = useState([]);
+  
+const navigate= useNavigate();
 
   useEffect(() => {
     const getProductId = async () => {
@@ -32,7 +35,11 @@ function Shop() {
   };
 
   const handleCart = () => {
-    window.alert('You should log in!').then(navigate(""));
+    (navigate("/login"));
+  };
+
+  const handlePurchase = () => {
+    (navigate("/login"));
   };
 
   return (
@@ -76,7 +83,7 @@ function Shop() {
           </div>
 
           <div className="shop-buttons">
-            <motion.button className="purchase-shop" whileHover={{ scale: 1.1 }}>
+            <motion.button className="purchase-shop" onClick={handlePurchase} whileHover={{ scale: 1.1 }}>
               Purchase
             </motion.button>
             <motion.button className="add-shop" onClick={handleCart} whileHover={{ scale: 1.1 }}>
