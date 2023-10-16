@@ -31,6 +31,7 @@ import UserPurchased from './user-dashboard/User-Purchased/user-purchased.js';
 import UpdateProduct  from './admin-dashboard/updateProduct.js';
 import PurchaseSuccess from './payment/PurchaseSuccess';
 import UserFleas from './user-dashboard/User-Home/user-fleas';
+import UserShop from './user-dashboard/User-Home/usershop';
 
 
 
@@ -92,8 +93,12 @@ const router = createBrowserRouter([
     element: <div><Cart/></div>
   },
   {
-    path: "shop",
+    path: "/products/edit/:Product_id",
     element: <div><Shop/></div>
+  },
+  {
+    path: "/shop/:Product_id",
+    element: <div><UserShop/></div>
   },
   {
     path: "admin-dashboard",

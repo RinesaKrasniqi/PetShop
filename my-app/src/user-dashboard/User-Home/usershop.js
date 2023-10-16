@@ -1,24 +1,64 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './shopcss.css';
 import { FaCartPlus, FaStar } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-import Header from '../Components/header.js';
-import Footer from '../Components/footer.js';
+import UserHeader from './user-header.js';
+import  Footer from '../../Components/footer.js';
+import './usershop.css';
+import Cookies from 'js-cookie'
 
 
-function Shop() {
+
+function UserShop() {
   const { Product_id } = useParams();
   const [pro, setPro] = useState([]);
+  const handleAddToCart = async (productId) => {
+    const selectedProduct = pro.find((product) => product.Product_id === productId);
   
-const navigate= useNavigate();
+    if (selectedProduct) {
+      try {
+        const userId = Cookies.get('Client_id');
+        console.log('User ID from cookie:', userId);
+  
+        if (userId) {
+          console.log('User is authenticated with ID:', userId);
+  
+          const data = {
+            Product_id: selectedProduct.Product_id,
+            Name: selectedProduct.Name,
+            Description: selectedProduct.Description,
+            Price: selectedProduct.Price,
+            nr_in_stock: selectedProduct.nr_in_stock,
+            nr_of_stars: selectedProduct.nr_of_stars,
+            Price_before_discount: selectedProduct.Price_before_discount,
+            Category: selectedProduct.Category,
+            foto:selectedProduct.foto,
+            Client_id: parseInt(userId),
+          };
+  
+          try {
+            await axios.post('http://localhost:5000/cart', data);
+            window.alert('Product added to cart successfully!');
+          } catch (error) {
+            console.error('Error adding product to cart:', error);
+            window.alert('Error adding product to cart');
+          }
+        } else {
+          console.log('User is not authenticated');
+          window.alert('Please log in to add products to your cart.');
+        }
+      } catch (error) {
+        console.error('Error getting user ID from cookie:', error);
+        window.alert('Error getting user ID from cookie');
+      }
+    }
+  };
 
   useEffect(() => {
     const getProductId = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/products/edit/${Product_id}`);
+        const response = await axios.get(`http://localhost:5000/shop/${Product_id}`);
         const product = response.data;
         setPro(product);
       } catch (error) {
@@ -34,16 +74,10 @@ const navigate= useNavigate();
     return nr_of_stars;
   };
 
-  const handleCart = () => {
-    (navigate("/login"));
-  };
-
-
-
   return (
     <div>
       <div>
-        <Header />
+        <UserHeader />
       </div>
 
 <div>
@@ -81,10 +115,10 @@ const navigate= useNavigate();
           </div>
 
           <div className="shop-buttons">
-            <motion.button className="purchase-shop" onClick={handleCart} whileHover={{ scale: 1.1 }}>
+            <motion.button className="purchase-shop" whileHover={{ scale: 1.1 }}>
               Purchase
             </motion.button>
-            <motion.button className="add-shop" onClick={handleCart} whileHover={{ scale: 1.1 }}>
+            <motion.button className="add-shop" onClick={() => handleAddToCart(product.Product_id)} whileHover={{ scale: 1.1 }}>
               <i className="FaCartPlus">
                 <FaCartPlus size="20px" />
               </i>
@@ -103,4 +137,4 @@ const navigate= useNavigate();
   );
 }
 
-export default Shop;
+export default UserShop;

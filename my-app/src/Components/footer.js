@@ -11,15 +11,15 @@ function Footer() {
             <div class="back">
              
                 <div class="info">
-                   <motion.img class="logo-f"src="./Img/pet-love.png" animate={{rotate : [0, 8, 8, 0]}} transition={{repeat: Infinity, duration: 1}}></motion.img>
+                   <motion.img class="logo-f"src="/Img/pet-love.png" animate={{rotate : [0, 8, 8, 0]}} transition={{repeat: Infinity, duration: 1}}></motion.img>
                    <h2 className="info-h2">Hotline : 45 919 596<br></br>
                        Email us : fur-everFriends@pet.com
                     </h2> 
                     <div class="icon-info">
-                      <a href="#"><motion.img src="./Img/facebook.png" whileHover={{y : -15}}></motion.img></a>
-                      <a href="#"><motion.img src="./Img/twitter.png" whileHover={{y : -15}}></motion.img></a>
-                      <a href="#"><motion.img src="./Img/instagram.png" whileHover={{y : -15}}></motion.img></a>
-                      <a href="#"><motion.img src="./Img/snapchat.png" whileHover={{y : -15}}></motion.img></a>
+                      <a href="#"><motion.img src="/Img/facebook.png" whileHover={{y : -15}}></motion.img></a>
+                      <a href="#"><motion.img src="/Img/twitter.png" whileHover={{y : -15}}></motion.img></a>
+                      <a href="#"><motion.img src="/Img/instagram.png" whileHover={{y : -15}}></motion.img></a>
+                      <a href="#"><motion.img src="/Img/snapchat.png" whileHover={{y : -15}}></motion.img></a>
                     </div>
 
                     <h4 class="rights">© 2023 Fur-ever Frineds. All rights reserved</h4>

@@ -51,7 +51,7 @@ function UserHeader() {
         <nav class="nav-u">
         <ul class="nav-list-u">   
           
-          <li><Link to='/userfleas'>prevent fleas & ticks<img class="flea-u" src="./Img/flea.png"></img></Link></li>
+          <li><Link to='/userfleas'>prevent fleas & ticks<img class="flea-u" src="/Img/flea.png"></img></Link></li>
           <li className='purchased-u'><Link to='/user-purchased'>purchased</Link></li>
         </ul>
         </nav>
@@ -59,14 +59,14 @@ function UserHeader() {
 
        <div class="cart-u">
        <Link to='/user-cart' class="cart-a-u">
-        <img class="cart-icon-u" src="./Img/add-cart.png"></img>
+        <img class="cart-icon-u" src="/Img/add-cart.png"></img>
         <h4 class="text-c-u">cart</h4>
         </Link>
        </div>
  
        <div class="logout-u">
         <a class="logout-a-u" onClick={handleLogout}>
-        <img class="logout-u" src="./Img/account.png"></img>
+        <img class="logout-u" src="/Img/account.png"></img>
         <h4 class="text-u">log out</h4>
         </a>
        </div>

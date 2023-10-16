@@ -139,6 +139,21 @@ const delProduct= async(Product_id)=> {
     }
   };
 
+  const editShop = async (Product_id) => {
+    try {
+      let pool = await sql.connect(config);
+      let product = await pool
+        .request()
+        .query(`SELECT * FROM Products WHERE Product_id = ${Product_id.Product_id}`);
+      console.log(product);
+      return product;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  
+
   const countProducts = async (Product_id) => {
     try {
       let pool = await sql.connect(config);
@@ -194,6 +209,7 @@ const delProduct= async(Product_id)=> {
 
 
 
+
 module.exports={
     getProduct,
     getDog,
@@ -205,5 +221,6 @@ module.exports={
     editProduct,
     updateProduct,
     getFleasAndTicks,
-    cart
+    cart,
+    editShop
 }
