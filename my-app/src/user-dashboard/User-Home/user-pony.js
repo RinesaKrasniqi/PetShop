@@ -55,7 +55,7 @@ function Pony(){
     
             try {
               await axios.post('http://localhost:5000/cart', data);
-              window.alert('Product added to cart successfully!');
+              window.location.reload();
             } catch (error) {
               console.error('Error adding product to cart:', error);
               window.alert('Error adding product to cart');
