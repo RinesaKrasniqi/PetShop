@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { FaCartPlus, FaStar } from 'react-icons/fa';
+import {FaPlus, FaMinus } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import UserHeader from './user-header.js';
 import  Footer from '../../Components/footer.js';
@@ -9,10 +10,31 @@ import './usershop.css';
 import Cookies from 'js-cookie'
 
 
-
 function UserShop() {
   const { Product_id } = useParams();
   const [pro, setPro] = useState([]);
+  const [quantity, setQuantity] = useState(1);
+
+  const incrementQuantity = () => {
+    setQuantity(Math.min(quantity + 1, 5));
+  };
+
+  const decrementQuantity = () => {
+    setQuantity(Math.max(quantity - 1, 1));
+  };
+
+
+  const handleQuantityChange = (e) => {
+
+    let newQuantity = parseInt(e.target.value);
+    if (newQuantity < 1) {
+      newQuantity = 1;
+    } else if (newQuantity > 5) {
+      newQuantity = 5;
+    }
+    setQuantity(newQuantity);
+  };
+   
   const handleAddToCart = async (productId) => {
     const selectedProduct = pro.find((product) => product.Product_id === productId);
   
@@ -33,13 +55,14 @@ function UserShop() {
             nr_of_stars: selectedProduct.nr_of_stars,
             Price_before_discount: selectedProduct.Price_before_discount,
             Category: selectedProduct.Category,
-            foto:selectedProduct.foto,
+            foto: selectedProduct.foto,
             Client_id: parseInt(userId),
+            quantity: quantity, // Read the quantity directly from the state
           };
   
           try {
             await axios.post('http://localhost:5000/cart', data);
-            window.alert('Product added to cart successfully!');
+            window.location.reload();
           } catch (error) {
             console.error('Error adding product to cart:', error);
             window.alert('Error adding product to cart');
@@ -54,7 +77,8 @@ function UserShop() {
       }
     }
   };
-
+  
+  
   useEffect(() => {
     const getProductId = async () => {
       try {
@@ -103,16 +127,26 @@ function UserShop() {
           <p className="instock-shop">only - {product.nr_in_stock} - in stock</p>
 
           <div className="shop-pickquantity">
-            <label htmlFor="quantity">Quantity: </label>
-            <input
-              className="quantity-input"
-              type="number"
-              id="quantity"
-              name="quantity"
-              min="1"
-              max="5"
-            />
-          </div>
+              <label htmlFor="quantity">Quantity: </label>
+              <div className="quantity-control">
+                <button className="quantity-button" onClick={decrementQuantity}>
+                  <FaMinus />
+                </button>
+                <input
+                  className="quantity-input"
+                  type="number"
+                  id="quantity"
+                  name="quantity"
+                  min="1"
+                  max="5"
+                  value={quantity}
+                  onChange={handleQuantityChange}
+                />
+                <button className="quantity-button" onClick={incrementQuantity}>
+                  <FaPlus />
+                </button>
+              </div>
+            </div>
 
           <div className="shop-buttons">
             <motion.button className="purchase-shop" whileHover={{ scale: 1.1 }}>

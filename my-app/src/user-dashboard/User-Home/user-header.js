@@ -98,7 +98,7 @@ useEffect(() => {
  
        <div class="logout-u">
         <a class="logout-a-u" onClick={handleLogout}>
-        <img class="logout-u" src="Img/account.png"></img>
+        <img class="logout-u" src="/Img/account.png"></img>
         <h4 class="text-u">log out</h4>
         </a>
        </div>

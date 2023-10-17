@@ -75,18 +75,6 @@ const getPony= async()=> {
 }
 
 
-
-// const cart= async()=> {
-//   try{
-//       let pool =await sql.connect(config);
-//       let user = pool.request().query(`SELECT * FROM Cart `);
-//       console.log(user);
-//       return user;
-//   }catch(error){
-//       console.log(error);
-//   }
-// }
-
 const cart = async (req) => {
   try {
     let pool = await sql.connect(config);
@@ -184,7 +172,6 @@ const delProduct= async(Product_id)=> {
       request.input('userId', userId);
   
       let result = await request.query(query);
-      console.log('HELLO FROM THE SERVER:', result);
   
       return result;
     } catch (error) {

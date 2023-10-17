@@ -104,9 +104,26 @@
     font-weight: 400;
  }
 
- .quantity-input{
-    width:50px;
-    height: 40px;
-    border-radius: 5px;
-
+ .quantity-input {
+   width: 60px; /* Increase the width for better usability */
+   height: 40px;
+   border: 2px solid #ccc; /* Add a border for a cleaner look */
+   border-radius: 5px;
+   padding: 5px; /* Add padding to center the content */
+   font-size: 16px; /* Adjust font size for better readability */
+   text-align: center; /* Center text horizontally */
+   outline: none; /* Remove the default input focus outline */
+   transition: border-color 0.2s; /* Add a transition for smoother effects */
+ 
+   /* Optional: Add hover/focus styles for better user experience */
+   &:hover,
+   &:focus {
+     border-color: #007bff; /* Change border color on hover/focus */
+   }
+ 
+   /* Optional: Change color on error state (if needed) */
+   &:invalid {
+     border-color: #ff0000; /* Red border for invalid input */
+   }
  }
+ 
