@@ -1,6 +1,6 @@
 import {useRef, useState, useEffect} from 'react';
 import './login.css';
-import  Header from '../Components/header.js';
+import  LoginHeader from '../Components/loginheader';
 import  Footer from '../Components/footer.js';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
@@ -52,7 +52,7 @@ const login = (e) => {
       return (
         <div className='back-div'>
           <div>
-            <Header/>
+            <LoginHeader/>
           </div>
           
           <div className="forma">

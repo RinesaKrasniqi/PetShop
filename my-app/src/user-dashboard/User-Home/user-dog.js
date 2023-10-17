@@ -23,6 +23,7 @@ function UserDog(){
    const [Price_before_discount, setDiscount] = useState("");
    const [Category, setCategory] = useState("");
    const [foto, setFoto] = useState("");
+   const [quantityone]=useState(1);
    
    const LoadDog=async()=>{
       const response= await axios.get('http://localhost:5000/product/dog');
@@ -52,6 +53,7 @@ function UserDog(){
               Category: selectedProduct.Category,
               foto:selectedProduct.foto,
               Client_id: parseInt(userId),
+              quantity: quantityone,
             };
     
             try {

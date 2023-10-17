@@ -33,6 +33,7 @@ import PurchaseSuccess from './payment/PurchaseSuccess';
 import UserFleas from './user-dashboard/User-Home/user-fleas';
 import UserShop from './user-dashboard/User-Home/usershop';
 import UserHeader from './user-dashboard/User-Home/user-header';
+import LoginHeader from './Components/loginheader';
 
 
 
@@ -189,6 +190,9 @@ const router = createBrowserRouter([
   {
     path: "/userfleas",
     element: <div><UserFleas/></div>
+  },{
+    path: "/loginheader",
+    element: <div><LoginHeader/></div>
   }
 
 ]);

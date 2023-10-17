@@ -23,6 +23,7 @@ function Pony(){
    const [Price_before_discount, setDiscount] = useState("");
    const [Category, setCategory] = useState("");
    const [foto, setFoto] = useState("");
+   const [quantityone]=useState(1);
    
    const LoadPony=async()=>{
       const response= await axios.get('http://localhost:5000/product/pony');
@@ -51,6 +52,7 @@ function Pony(){
               Category: selectedProduct.Category,
               foto:selectedProduct.foto,
               Client_id: parseInt(userId),
+              quantity: quantityone,
             };
     
             try {
