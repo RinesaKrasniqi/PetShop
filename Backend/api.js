@@ -275,6 +275,8 @@ app.post('/cart',async (req, res) => {
 });
 
 
+
+
 // app.get('/carts', (req, res) => {
 //   dbProductoperations.cart().then(result=>{
 //   res.send(result); 
@@ -323,6 +325,17 @@ app.get('/shop/:Product_id', (req, res) => {
   return res.json(x); 
   })
 });
+
+app.get('/cartcount/:Client_id', async (req, res) => {
+  try {
+    const count = await dbProductoperations.countCart(req);
+    res.json({ count }); // Return the count in a JSON object
+  } catch (error) {
+    console.error('API request failed:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 
 app.put('/products/update/:Product_id', async(req, res) => {

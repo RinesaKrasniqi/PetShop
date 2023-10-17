@@ -171,6 +171,31 @@ const delProduct= async(Product_id)=> {
   };
   
 
+  const countCart = async (req) => {
+    try {
+      let pool = await sql.connect(config);
+      const userId = req.params.Client_id;
+      const query = `
+        SELECT COUNT(*) AS ProductCount
+        FROM Cart C 
+        WHERE client_id = @userId`;
+          
+      let request = pool.request();
+      request.input('userId', userId);
+  
+      let result = await request.query(query);
+      console.log('HELLO FROM THE SERVER:', result);
+  
+      return result;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+  
+
+
+
 
   const updateProduct = async (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category) => {
     try {
@@ -222,5 +247,6 @@ module.exports={
     updateProduct,
     getFleasAndTicks,
     cart,
-    editShop
+    editShop,
+    countCart
 }

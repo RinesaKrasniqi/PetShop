@@ -176,6 +176,19 @@ li:hover ul.dropdown-u{
    color: rgb(245, 149, 164);   
 }
 
+
+.bounce {
+    width: 37px;
+    height: 80%;
+    margin-top:5px;
+    margin-left: 0px;
+  }
+.cart-number{
+    margin-left: 5px;
+}
+
+
+
 /*Log-out-button*/
 
 .logout-u{
