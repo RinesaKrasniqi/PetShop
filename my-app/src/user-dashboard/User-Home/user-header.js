@@ -35,7 +35,7 @@ useEffect(() => {
     console.log('client_id',Client_id);
     axios.get(`http://localhost:5000/cartcount/${Client_id}`)
     .then((response) => {
-      const count = response.data.count[0].ProductCount; // Access the count value
+      const count = response.data.count[0].ProductCount; 
       setCartCount(count);
     })
     .catch((error) => {
@@ -46,7 +46,7 @@ useEffect(() => {
   } catch (error) {
     console.error(error);
   }
-},[]); // Adding an empty dependency array to ensure useEffect runs once on component mount
+},[]);
 
 
     return (
