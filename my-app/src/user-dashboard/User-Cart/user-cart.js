@@ -70,8 +70,8 @@ function UserCart() {
                   <p className='p-c-p'>{product.quantity}</p>
                 </div>
                 <div className='p-cart-4'>
-                  <p>Price</p>
-                  <p>{product.Price}$</p>
+                  <p>Total price</p>
+                  <p>{product.Price*product.quantity}$</p>
                 </div>
   
                 <div className='p-cart-5'>
