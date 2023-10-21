@@ -177,3 +177,31 @@
     left: 350px;
     top: 40px;
 }
+
+.checkout-d{
+    width: 290px;
+    height: 100px;
+    position: relative;
+    top: 30px;
+    left: 790px;
+    padding-top: 40px;
+    box-shadow: 8px 11px 8px rgb(200, 199, 199);
+    border-radius: 20px;
+}
+
+.total-p{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 600;
+}
+
+.total-p{
+    color: #c42636;
+
+}
+
+.t-price{
+    color: #c42636;
+}

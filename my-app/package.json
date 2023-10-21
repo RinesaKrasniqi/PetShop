@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "dotenv": "^16.3.1",
+    "fontawesome": "^5.6.3",
     "framer-motion": "^10.12.4",
     "hero-slider": "^3.1.0",
     "js-cookie": "^3.0.5",
