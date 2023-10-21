@@ -10,6 +10,30 @@ import PayButton from "../../payment/PayButton.js";
 function UserCart() {
   const [cartItems, setCartItems] = useState([]);
   const [foto, setFoto] = useState("");
+  const [totalPrice, setTotalPrice] = useState(0);
+  const Client_id = Cookies.get('Client_id');
+  
+  useEffect(() => {
+    try {
+      const Client_id = Cookies.get('Client_id');
+      console.log('client_id', Client_id);
+      axios.get(`http://localhost:5000/totalprice/${Client_id}`)
+        .then((response) => {
+          if (response.data.price && response.data.price[0].TotalPrice) {
+            const price = response.data.price[0].TotalPrice;
+            setTotalPrice(price);
+          } else {
+            console.error('API response does not have the expected structure.');
+          }
+        })
+        .catch((error) => {
+          console.error('API request failed:', error);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+  
 
 
   const LoadCart = async () => {
@@ -84,7 +108,9 @@ function UserCart() {
               </div>
   
               <div className='devider-cart'></div>
+              
             </div>
+              
           ))
         ) : (
           <div> 
@@ -94,6 +120,8 @@ function UserCart() {
           </div> 
         )}
       </div>
+
+      <p>{totalPrice}</p>
   
       <div>
         <Footer />

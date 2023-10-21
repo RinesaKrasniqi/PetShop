@@ -180,7 +180,31 @@ const delProduct= async(Product_id)=> {
     }
   };
   
+  const totalPrice= async(req)=>{
+    try{
+      let pool = await sql.connect(config);
+      const userId = req.params.Client_id;
+      const query = `
+      select sum(c.price* c.quantity) as TotalPrice
+      from Cart c inner join Products p
+      on c.Product_id=p.Product_id
+      WHERE Client_id = @userId`;
+          
+      let request = pool.request();
+      request.input('userId', userId);
+  
+      let result = await request.query(query);
+      console.log("Total price",result);
+  
+      return result;
 
+
+    }catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
+  
 
 
 
@@ -221,7 +245,6 @@ const delProduct= async(Product_id)=> {
 
 
 
-
 module.exports={
     getProduct,
     getDog,
@@ -235,5 +258,6 @@ module.exports={
     getFleasAndTicks,
     cart,
     editShop,
-    countCart
+    countCart,
+    totalPrice
 }
