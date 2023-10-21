@@ -109,15 +109,6 @@ function UserCart() {
   
 
               <div className='devider-cart'></div>
-
-              <div className="checkout-d">
-                  <div className="total-p">
-                  <p className="total-p">Total</p>
-                  <p className="t-price">{totalPrice}</p>
-                  </div>
-                  <button className="checkout-btn">Checkout</button>
-
-                </div>
               
             </div>
               
@@ -131,6 +122,14 @@ function UserCart() {
         )}
       </div>
 
+      <div className="checkout-d">
+                  <div className="total-p">
+                  <p className="total-p">Total</p>
+                  <p className="t-price">US$ 29.20</p>
+                  </div>
+                  <button className="checkout-btn">Checkout</button>
+                  
+                </div>
       
   
       <div>
