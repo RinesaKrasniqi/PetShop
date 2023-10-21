@@ -21,6 +21,7 @@ function UserCat(){
    const [nr_of_stars, setStars] = useState("");
    const [Price_before_discount, setDiscount] = useState("");
    const [Category, setCategory] = useState("");
+   const [quantityone]=useState(1);
    const [foto, setFoto] = useState("");
    
 
@@ -52,13 +53,16 @@ function UserCat(){
               nr_of_stars: selectedProduct.nr_of_stars,
               Price_before_discount: selectedProduct.Price_before_discount,
               Category: selectedProduct.Category,
-              foto:selectedProduct.foto,
+              foto: selectedProduct.foto,
               Client_id: parseInt(userId),
+              quantity: quantityone,
             };
     
             try {
               await axios.post('http://localhost:5000/cart', data);
-              window.alert('Product added to cart successfully!');
+            
+              // Refresh the page after adding the product to the cart
+              window.location.reload();
             } catch (error) {
               console.error('Error adding product to cart:', error);
               window.alert('Error adding product to cart');
@@ -73,6 +77,7 @@ function UserCat(){
         }
       }
     };
+    
 
     const calculateStarRating = (nr_of_stars) => {
       return nr_of_stars;

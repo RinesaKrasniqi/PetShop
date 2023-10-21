@@ -68,18 +68,6 @@ const navigate= useNavigate();
           </p>
           <p className="instock-shop">only - {product.nr_in_stock} - in stock</p>
 
-          <div className="shop-pickquantity">
-            <label htmlFor="quantity">Quantity: </label>
-            <input
-              className="quantity-input"
-              type="number"
-              id="quantity"
-              name="quantity"
-              min="1"
-              max="5"
-            />
-          </div>
-
           <div className="shop-buttons">
             <motion.button className="purchase-shop" onClick={handleCart} whileHover={{ scale: 1.1 }}>
               Purchase

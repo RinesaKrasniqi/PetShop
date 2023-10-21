@@ -25,6 +25,7 @@ function UserFleas() {
    const [nr_of_stars, setStars] = useState("");
    const [Price_before_discount, setDiscount] = useState("");
    const [Category, setCategory] = useState("");
+   const [quantityone]=useState(1);
 
    const LoadFleasAndTicks = async () => {
       try {
@@ -58,11 +59,12 @@ function UserFleas() {
               Category: selectedProduct.Category,
               foto:selectedProduct.foto,
               Client_id: parseInt(userId),
+              quantity: quantityone,
             };
     
             try {
               await axios.post('http://localhost:5000/cart', data);
-              window.alert('Product added to cart successfully!');
+              window.location.reload();
             } catch (error) {
               console.error('Error adding product to cart:', error);
               window.alert('Error adding product to cart');

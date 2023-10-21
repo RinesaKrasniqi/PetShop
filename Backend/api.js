@@ -247,14 +247,19 @@ app.get('/product/fleasandticks', (req, res) => {
   })
 });
 
-app.post('/cart',async (req, res) => {
+app.post('/cart', async (req, res) => {
   try {
     await sql.connect(config);
     const request = new sql.Request();
 
-    const { Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto, Client_id } = req.body;
+    const {Product_id,Description,Name,Price,nr_in_stock,nr_of_stars,Price_before_discount,Category,quantity,foto,Client_id} = req.body;
 
-    const sqlQuery = "INSERT INTO Cart (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto ,Client_id) VALUES (@Product_id, @Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category,@foto ,@Client_id)";
+    if (quantity === null) {
+      return res.status(400).json({ message: 'Quantity cannot be null.' });
+    }
+
+    const sqlQuery ='INSERT INTO Cart (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, quantity, foto, Client_id) VALUES (@Product_id, @Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category, @quantity, @foto, @Client_id)';
+
     request.input('Product_id', sql.Int, Product_id);
     request.input('Description', sql.NVarChar, Description);
     request.input('Name', sql.NVarChar, Name);
@@ -263,6 +268,7 @@ app.post('/cart',async (req, res) => {
     request.input('nr_of_stars', sql.Int, nr_of_stars);
     request.input('Price_before_discount', sql.Int, Price_before_discount);
     request.input('Category', sql.NVarChar, Category);
+    request.input('quantity', sql.Int, quantity);
     request.input('foto', sql.NVarChar, foto);
     request.input('Client_id', sql.Int, Client_id);
 
@@ -270,17 +276,11 @@ app.post('/cart',async (req, res) => {
     res.json(result);
   } catch (error) {
     console.error('Error executing SQL query:', error);
-    res.status(500).json({ message: "An error occurred while executing the SQL query." });
+    res.status(500).json({ message: 'An error occurred while executing the SQL query.' });
   }
 });
 
 
-// app.get('/carts', (req, res) => {
-//   dbProductoperations.cart().then(result=>{
-//   res.send(result); 
-//   console.log(result);
-//   })
-// });
 
 app.get('/carts', (req, res) => {
   dbProductoperations.cart(req).then(result => {
@@ -323,6 +323,17 @@ app.get('/shop/:Product_id', (req, res) => {
   return res.json(x); 
   })
 });
+
+app.get('/cartcount/:Client_id', async (req, res) => {
+  try {
+    const count = await dbProductoperations.countCart(req);
+    res.json({ count }); // Return the count in a JSON object
+  } catch (error) {
+    console.error('API request failed:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 
 app.put('/products/update/:Product_id', async(req, res) => {

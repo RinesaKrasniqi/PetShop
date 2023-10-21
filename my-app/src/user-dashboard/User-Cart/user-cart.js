@@ -28,6 +28,7 @@ function UserCart() {
   const deleteCart = async (Cart_Id) => {
     try {
       await axios.delete(`http://localhost:5000/cart/${Cart_Id}`);
+      window.location.reload();
       LoadCart();
     } catch (error) {
       console.error('Error deleting cart:', error);
@@ -61,12 +62,16 @@ function UserCart() {
                   <p>{product.Description}</p>
                 </div>
                 <div className='p-cart-2'>
-                  <p>Each</p>
-                  <p className='p-c-p'>{product.Price}</p>
+                  <p>In stock</p>
+                  <p className='p-c-p'>{product.nr_in_stock}</p>
+                </div>
+                <div className='p-cart-2'>
+                  <p>Quantity selected</p>
+                  <p className='p-c-p'>{product.quantity}</p>
                 </div>
                 <div className='p-cart-4'>
-                  <p>Total Price</p>
-                  <p>{product.Price * product.nr_in_stock}</p>
+                  <p>Total price</p>
+                  <p>{product.Price*product.quantity}$</p>
                 </div>
   
                 <div className='p-cart-5'>

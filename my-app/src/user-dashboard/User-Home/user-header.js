@@ -1,5 +1,12 @@
 import './user-headercss.css';
 import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 const handleLogout = async () => {
   try {
@@ -9,7 +16,6 @@ const handleLogout = async () => {
     });
 
     if (response.ok) {
-      
       window.location.href = '/login';
     } else {
       console.error('Logout failed');
@@ -20,6 +26,29 @@ const handleLogout = async () => {
 };
 
 function UserHeader() {
+  const [cartCount, setCartCount] = useState(0);
+const Client_id = Cookies.get('Client_id');
+
+useEffect(() => {
+  try {
+    const Client_id = Cookies.get('Client_id');
+    console.log('client_id',Client_id);
+    axios.get(`http://localhost:5000/cartcount/${Client_id}`)
+    .then((response) => {
+      const count = response.data.count[0].ProductCount; 
+      setCartCount(count);
+    })
+    .catch((error) => {
+      console.error('API request failed:', error);
+    });
+  
+
+  } catch (error) {
+    console.error(error);
+  }
+},[]);
+
+
     return (
       <header class="header">
 
@@ -57,12 +86,15 @@ function UserHeader() {
         </nav>
 
 
-       <div class="cart-u">
-       <Link to='/user-cart' class="cart-a-u">
-        <img class="cart-icon-u" src="/Img/add-cart.png"></img>
-        <h4 class="text-c-u">cart</h4>
+        <div className="cart-u">
+        <Link to='/user-cart' className="cart-a-u">
+          <FontAwesomeIcon icon={faShoppingCart} className="bounce" />
+            <div className='cart-number'>
+            <p>{cartCount}</p>
+            </div>
+          <h4 className="text-c-u">cart</h4>
         </Link>
-       </div>
+      </div>
  
        <div class="logout-u">
         <a class="logout-a-u" onClick={handleLogout}>
