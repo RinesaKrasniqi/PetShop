@@ -334,8 +334,6 @@ app.get('/cartcount/:Client_id', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-=======
 app.get('/totalprice/:Client_id', async (req, res) => {
   try {
     const price = await dbProductoperations.totalPrice(req);
@@ -346,7 +344,6 @@ app.get('/totalprice/:Client_id', async (req, res) => {
   }
 });
 
->>>>>>> 924e00d38c497d091d482081cf282b6bcea5b984
 
 
 app.put('/products/update/:Product_id', async(req, res) => {
