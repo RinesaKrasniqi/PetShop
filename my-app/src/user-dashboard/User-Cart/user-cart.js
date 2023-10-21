@@ -124,8 +124,8 @@ function UserCart() {
 
       <div className="checkout-d">
                   <div className="total-p">
-                  <p className="total-p">Total</p>
-                  <p className="t-price">US$ 29.20</p>
+                  <p className="total-p">Total: </p>
+                  <p className="t-price">EUR$ {totalPrice}.00</p>
                   </div>
                   <button className="checkout-btn">Checkout</button>
                   
