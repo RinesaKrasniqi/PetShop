@@ -334,6 +334,19 @@ app.get('/cartcount/:Client_id', async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
+=======
+app.get('/totalprice/:Client_id', async (req, res) => {
+  try {
+    const price = await dbProductoperations.totalPrice(req);
+    res.json({ price }); 
+  } catch (error) {
+    console.error('API request failed:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+>>>>>>> 924e00d38c497d091d482081cf282b6bcea5b984
 
 
 app.put('/products/update/:Product_id', async(req, res) => {
