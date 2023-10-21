@@ -180,10 +180,8 @@ const delProduct= async(Product_id)=> {
     }
   };
   
-<<<<<<< HEAD
 
 
-=======
   const totalPrice= async(req)=>{
     try{
       let pool = await sql.connect(config);
@@ -210,7 +208,6 @@ const delProduct= async(Product_id)=> {
   }
   
 
->>>>>>> 924e00d38c497d091d482081cf282b6bcea5b984
 
 
   const updateProduct = async (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category) => {
@@ -263,10 +260,6 @@ module.exports={
     getFleasAndTicks,
     cart,
     editShop,
-<<<<<<< HEAD
-    countCart
-=======
     countCart,
     totalPrice
->>>>>>> 924e00d38c497d091d482081cf282b6bcea5b984
 }
