@@ -107,7 +107,20 @@ function UserCart() {
                 </div>
               </div>
   
+
               <div className='devider-cart'></div>
+<<<<<<< HEAD
+=======
+
+              <div className="checkout-d">
+                  <div className="total-p">
+                  <p className="total-p">Total</p>
+                  <p className="t-price">{totalPrice}</p>
+                  </div>
+                  <button className="checkout-btn">Checkout</button>
+
+                </div>
+>>>>>>> e837a5e5df5b96325991437a920e9f5c428eeeae
               
             </div>
               
@@ -121,6 +134,7 @@ function UserCart() {
         )}
       </div>
 
+<<<<<<< HEAD
       <div className="checkout-d">
                   <div className="total-p">
                   <p className="total-p">Total</p>
@@ -129,6 +143,9 @@ function UserCart() {
                   <button className="checkout-btn">Checkout</button>
                   
                 </div>
+=======
+      
+>>>>>>> e837a5e5df5b96325991437a920e9f5c428eeeae
   
       <div>
         <Footer />
