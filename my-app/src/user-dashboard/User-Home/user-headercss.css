@@ -46,10 +46,12 @@ header{
 
 .nav-u ul.nav-list-u {
     list-style-type: none;
+    position: relative;
+    left: 20px;
 }
 .nav-u ul.nav-list-u .purchased-u{
     list-style-type: none;
-    margin-left: 40px;
+    margin-left: 20px;
 }
 
 .nav-u ul li {
@@ -77,13 +79,14 @@ header{
 .nav2-u ul.nav2-list-u {
     list-style-type: none;
     justify-content: space-between;
+
 }
 
 .shop-nav-u{
     position: relative;
     margin-left: 100px;
     top: 5px;
-    left: 20px;
+    left: 10px;
 }
 
 .nav2-u ul li a {
@@ -145,7 +148,7 @@ li:hover ul.dropdown-u{
     align-items: center;
     justify-content: center;
     position: relative;
-    left: 30px;
+    left: 13px;
 }
 
 .cart-u .cart-a-u {
@@ -228,4 +231,13 @@ li:hover ul.dropdown-u{
 
 .logout-u .logout-a-u .text-u:hover{
    color: rgb(245, 149, 164);   
+}
+
+.username{
+    font-family: 'Work Sans', sans-serif;
+    color: white;
+    position: relative;
+    left: 25px;
+    top: 4px;
+    font-size: 14px;
 }
