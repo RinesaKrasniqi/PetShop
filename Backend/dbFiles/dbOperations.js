@@ -6,6 +6,22 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
+const getUser = async (req) => {
+  try {
+    let pool = await sql.connect(config);
+    const userId = req.cookies.Client_id;
+
+    let user = await pool.request().query(`SELECT name FROM Client WHERE Client_id = ${userId}`);
+    console.log(user);
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}; 
+
+
+
 const getLoginDetails= async()=> {
     try{
         let pool =await sql.connect(config);
@@ -88,5 +104,6 @@ module.exports={
     updateUser,
     delUser,
     editUs,
-    countClient
+    countClient,
+    getUser
 }

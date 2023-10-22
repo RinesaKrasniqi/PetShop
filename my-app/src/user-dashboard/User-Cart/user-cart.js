@@ -11,6 +11,8 @@ function UserCart() {
   const [cartItems, setCartItems] = useState([]);
   const [foto, setFoto] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
+  const [userName, setUserName] = useState('');
+
   const Client_id = Cookies.get('Client_id');
   
   useEffect(() => {
@@ -48,6 +50,18 @@ function UserCart() {
     }
   };
 
+  const LoadUserN = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/userName', {
+        withCredentials: true,
+      });
+      setUserName(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   
   const deleteCart = async (Cart_Id) => {
     try {
@@ -63,6 +77,10 @@ function UserCart() {
     LoadCart();
   },);
 
+  useEffect(() => {
+    LoadUserN();
+  },);
+
   return (
     <div className="back-cart-c">
       <div>
@@ -73,6 +91,14 @@ function UserCart() {
         <img src='./Img/cart-user.png' className='cart-img-1' alt="Cart" />
         <span className='span-cart'>My Cart</span>
       </div>
+      {userName.length > 0 ? (
+          <div>
+           <p className="p-username">Welcome to your cart, {userName[0].name}!</p>
+           <p className="p-username2">Explore our amazing products and enjoy your shopping experience.</p>
+          </div>
+        ) : (
+          <p>Loading...</p>
+        )}
       <div className='devider-cart'></div>
   
       <div>

@@ -21,6 +21,17 @@
     padding-top: 5px;
     padding-left: 5px;
 }
+
+.p-username{
+    margin-top: 20px;
+    margin-left: 470px;
+    font-family: 'Work Sans', sans-serif;
+    
+}
+.p-username2{
+    margin-left: 350px;
+    font-family: 'Work Sans', sans-serif;
+}
 .devider-cart{
     border: 1px solid rgb(245, 149, 164);
     margin-left: 120px;
