@@ -8,6 +8,8 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
+
+
 const handleLogout = async () => {
   try {
     const response = await fetch('/logout', {
@@ -27,7 +29,25 @@ const handleLogout = async () => {
 
 function UserHeader() {
   const [cartCount, setCartCount] = useState(0);
+  const [userName, setUserName] = useState('');
 const Client_id = Cookies.get('Client_id');
+
+
+const LoadUserN = async () => {
+  try {
+    const response = await axios.get('http://localhost:5000/userName', {
+      withCredentials: true,
+    });
+    setUserName(response.data);
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+useEffect(() => {
+  LoadUserN();
+},);
 
 useEffect(() => {
   try {
@@ -60,6 +80,16 @@ useEffect(() => {
       <Link to='/user-home'> <h3 class="header-u">Fur - ever Friends</h3></Link>
       </div>
 
+
+       
+       {userName.length > 0 ? (
+        <div>
+        <p className="username">You are logged in as, {userName[0].name}!</p>
+        </div>
+        ) : (
+          <p>Loading...</p>
+        )}
+      
       <div class="shop-nav-u">
         <nav class="nav2-u">
          <ul class="nav2-list-u"> 

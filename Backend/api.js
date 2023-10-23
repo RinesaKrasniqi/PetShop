@@ -46,6 +46,13 @@ app.get('/user', (req, res) => {
   })
 });
 
+app.get('/userName', (req, res) => {
+  dboperations.getUser(req).then(result=>{
+  res.send(result); 
+  console.log(result);
+  })
+});
+
 app.post("/signup", async (req, res) => {
   try {
     await sql.connect(config);
