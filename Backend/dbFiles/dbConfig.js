@@ -1,6 +1,6 @@
 var config={
     user:"Rinesa",
-    password: "123",
+    password: "1234",
     server: "DISCORD\\SQLEXPRESS",
     database : "ProjektiLAB1",
     driver: "msnodesqlv8",

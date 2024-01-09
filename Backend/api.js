@@ -16,40 +16,36 @@ const path=require('path');
 const stripe=require('./dbFiles/stripe');
 
 app.use(express.static('public'));
-
 app.use('/stripe', stripe);
-
 app.use(cookieParser());
 
-var cors = require('cors')
-app.use(cors({
-  origin: 'http://localhost:3000', 
-  credentials: true, 
-}));
-
-const { connect } = require('http2');
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: (origin, callback) => {
+    const allowedOrigins = ['http://localhost:3000', 'http://localhost:5000','http://localhost:5000/stripe/create-checkout-session'];
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-  });
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 
 app.get('/user', (req, res) => {
   dboperations.getLoginDetails().then(result=>{
   res.send(result); 
-  console.log(result);
   })
 });
 
 app.get('/userName', (req, res) => {
   dboperations.getUser(req).then(result=>{
   res.send(result); 
-  console.log(result);
   })
 });
 

@@ -5,7 +5,7 @@ import './user-cartcss.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import PayButton from "../../payment/PayButton.js";
+import PayButton from "../User-Home/PayButton.js";
 
 function UserCart() {
   const [cartItems, setCartItems] = useState([]);
@@ -34,7 +34,7 @@ function UserCart() {
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  },[]);
   
 
 
@@ -56,7 +56,6 @@ function UserCart() {
         withCredentials: true,
       });
       setUserName(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -75,7 +74,7 @@ function UserCart() {
 
   useEffect(() => {
     LoadCart();
-  },);
+  },[]);
 
   useEffect(() => {
     LoadUserN();
@@ -153,11 +152,8 @@ function UserCart() {
                   <p className="total-p">Total: </p>
                   <p className="t-price">EUR$ {totalPrice}.00</p>
                   </div>
-                  <button className="checkout-btn">Checkout</button>
-                  
+                  <button className="checkout-btn"><PayButton cartItems={cartItems}/></button>
                 </div>
-      
-  
       <div>
         <Footer />
       </div>
