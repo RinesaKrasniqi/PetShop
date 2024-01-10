@@ -55,8 +55,8 @@ create table Cart(
   constraint Product_cart foreign key (Product_id) references Products(Product_id)
 
 );
+Select * from Cart
 
-drop table Cart; 
 
 create table Product_Cart(
 	Product_id int not null,
