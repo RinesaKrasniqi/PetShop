@@ -5,9 +5,13 @@ import './user-cartcss.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+<<<<<<< HEAD
 import PayButton from "../../payment/PayButton.js";
 import EditCart from "./editcart.js";
 import {FaPlus, FaMinus } from 'react-icons/fa';
+=======
+import PayButton from "../User-Home/PayButton.js";
+>>>>>>> b72fd0d9205e6b911c7a7b7d37239e29547b4f9c
 
 function UserCart() {
   const [cartItems, setCartItems] = useState([]);
@@ -73,7 +77,7 @@ const updateCartItemQuantity = async (Cart_Id, updatedQuantity) => {
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  },[]);
   
 
 
@@ -95,7 +99,6 @@ const updateCartItemQuantity = async (Cart_Id, updatedQuantity) => {
         withCredentials: true,
       });
       setUserName(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -114,7 +117,7 @@ const updateCartItemQuantity = async (Cart_Id, updatedQuantity) => {
 
   useEffect(() => {
     LoadCart();
-  },);
+  },[]);
 
   useEffect(() => {
     LoadUserN();
@@ -180,11 +183,22 @@ const updateCartItemQuantity = async (Cart_Id, updatedQuantity) => {
         )}
       </div>
       <div className="checkout-d">
+<<<<<<< HEAD
         <div className="total-p">
           <p className="total-p">Total: </p>
           <p className="t-price">EUR$ {totalPrice}.00</p>
         </div>
         <button className="checkout-btn">Checkout</button>
+=======
+                  <div className="total-p">
+                  <p className="total-p">Total: </p>
+                  <p className="t-price">EUR$ {totalPrice}.00</p>
+                  </div>
+                  <button className="checkout-btn"><PayButton cartItems={cartItems}/></button>
+                </div>
+      <div>
+        <Footer />
+>>>>>>> b72fd0d9205e6b911c7a7b7d37239e29547b4f9c
       </div>
       <EditCart trigger={buttonPopup} setTrigger={setButtonPopup}>
         <h2 className='h2-post'>Edit quantity</h2>
