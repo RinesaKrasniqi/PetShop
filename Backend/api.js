@@ -194,6 +194,8 @@ app.get('/users/edit/:Client_id', (req, res) => {
 });
 
 
+
+
 app.put('/users/update/:Client_id', async(req, res) => {
   const  {Client_id } = req.params;
   const { name, surname,email,phone } = req.body;
@@ -348,6 +350,34 @@ app.get('/totalprice/:Client_id', async (req, res) => {
   } catch (error) {
     console.error('API request failed:', error);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+app.get('/cart/edit/:Cart_id', async (req, res) => {
+  const { Cart_id } = req.params;
+  console.log(Cart_id);
+  try {
+    const cart = await dbProductoperations.editQuantity(Cart_id);
+    return res.json(cart);
+  
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Failed to retrieve cart details for editing' });
+  }
+});
+
+
+app.put('/cart/update/:Cart_id', async (req, res) => {
+  const { Cart_id } = req.params;
+  const { quantity } = req.body;
+  
+  try {
+    await dbProductoperations.updateQuantity(quantity, Cart_id);
+    return res.status(200).json({ message: 'Cart quantity updated successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Failed to update cart quantity' });
   }
 });
 

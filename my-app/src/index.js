@@ -193,7 +193,15 @@ const router = createBrowserRouter([
   },{
     path: "/loginheader",
     element: <div><LoginHeader/></div>
-  }
+  },
+  {
+    path: "/cart/edit/:Cart_id",
+    element: <div></div>
+  },
+  {
+    path: "/cart/update/:Cart_id",
+    element: <div></div>
+  },
 
 ]);
 

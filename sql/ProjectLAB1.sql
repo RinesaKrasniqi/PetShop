@@ -134,7 +134,16 @@ drop Database ProjektiLAB1
 
 select * from Cart
 
+select* from CLIENT WHERE client_id=1;
+
+select cl.name,cl.surname, c.name
+from cart c inner join Client cl
+on c.client_id=cl.client_id
+where cl.client_id=1 and c.nr_in_stock=15
+
 select * from Products
+
+select* from Cart
 
 insert into Products values('Dry Kitten Food','Kit Cat No Grain Kitten',30,50,5,26,'cat','1695591325634.jpg');
 insert into Products values( 'Canned Cat Food',    'Canagan Tuna', 9,40,3,11,'Cat','1695591562281.jpg');
@@ -170,3 +179,6 @@ insert into Products values('Tropiclean Flea ',    'Pet Powder ',    19  ,  30  
 insert into Products values('Lice Comb',    'Trixie Flea ',    10  ,  15  ,  4  ,  12 ,   'fleas',    '1695594416886.jpg');
 insert into Products values('Vet’s Best Natural',    'Tick Home Spray',    5  ,  8  ,  5  ,  7 ,   'fleas',    '1695594497213.jpg');
 insert into Products values('Combo Cat',    'Frontline',    10  ,  15  ,  5  ,  12 ,   'fleas',    '1695594552927.jpg');
+
+
+SELECT* FROM PRODUCTS

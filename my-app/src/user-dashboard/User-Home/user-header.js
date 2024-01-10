@@ -39,7 +39,6 @@ const LoadUserN = async () => {
       withCredentials: true,
     });
     setUserName(response.data);
-    console.log(response.data);
   } catch (error) {
     console.error(error);
   }
@@ -47,7 +46,7 @@ const LoadUserN = async () => {
 
 useEffect(() => {
   LoadUserN();
-},);
+},[]);
 
 useEffect(() => {
   try {
