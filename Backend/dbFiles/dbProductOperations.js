@@ -22,7 +22,7 @@ const getProduct= async()=> {
 const getDog= async()=> {
     try{
         let pool =await sql.connect(config);
-        let product = await pool.request().query('SELECT * FROM Products WHERE Category like \'%Dog%\'');
+        let product = await pool.request().query('SELECT * FROM Products WHERE category_id = 2');
         console.log(product);
         return product;
     }catch(error){
@@ -33,7 +33,7 @@ const getDog= async()=> {
 const getCat= async()=> {
     try{
         let pool =await sql.connect(config);
-        let product = await pool.request().query('SELECT * FROM Products WHERE Category like \'%Cat%\'');
+        let product = await pool.request().query('SELECT * FROM Products WHERE category_id = 1');
         console.log(product);
         return product;
     }catch(error){
@@ -44,7 +44,7 @@ const getCat= async()=> {
 const getFish= async()=> {
     try{
         let pool =await sql.connect(config);
-        let product = await pool.request().query('SELECT * FROM Products WHERE Category like \'%Fish%\'');
+        let product = await pool.request().query('SELECT * FROM Products WHERE category_id = 4');
         console.log(product);
         return product;
     }catch(error){
@@ -55,7 +55,7 @@ const getFish= async()=> {
 const getFleasAndTicks= async()=> {
   try{
       let pool =await sql.connect(config);
-      let product = await pool.request().query('SELECT * FROM Products WHERE Category like \'%fleas%\'');
+      let product = await pool.request().query('SELECT * FROM Products WHERE category_id = 5');
       console.log(product);
       return product;
   }catch(error){
@@ -66,7 +66,7 @@ const getFleasAndTicks= async()=> {
 const getPony= async()=> {
     try{
         let pool =await sql.connect(config);
-        let product = await pool.request().query('SELECT * FROM Products WHERE Category like \'%Pony%\'');
+        let product = await pool.request().query('SELECT * FROM Products WHERE category_id= 3');
         console.log(product);
         return product;
     }catch(error){
@@ -277,6 +277,16 @@ const delProduct= async(Product_id)=> {
     }
   };
   
+  const getCategory= async()=> {
+    try{
+        let pool =await sql.connect(config);
+        let category = await pool.request().query('SELECT* FROM Category');
+        console.log(category);
+        return category;
+    }catch(error){
+        console.log(error);
+    }
+}
 
 
 
@@ -297,5 +307,6 @@ module.exports={
     countCart,
     totalPrice,
     editQuantity,
-    updateQuantity
+    updateQuantity,
+    getCategory
 }

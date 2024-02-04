@@ -202,6 +202,10 @@ const router = createBrowserRouter([
     path: "/cart/update/:Cart_id",
     element: <div></div>
   },
+  {
+    path: "/category",
+    element: <div></div>
+  }
 
 ]);
 

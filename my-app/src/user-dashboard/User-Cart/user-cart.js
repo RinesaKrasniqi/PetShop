@@ -5,13 +5,9 @@ import './user-cartcss.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-<<<<<<< HEAD
 import PayButton from "../../payment/PayButton.js";
 import EditCart from "./editcart.js";
 import {FaPlus, FaMinus } from 'react-icons/fa';
-=======
-import PayButton from "../User-Home/PayButton.js";
->>>>>>> b72fd0d9205e6b911c7a7b7d37239e29547b4f9c
 
 function UserCart() {
   const [cartItems, setCartItems] = useState([]);
@@ -138,42 +134,49 @@ const updateCartItemQuantity = async (Cart_Id, updatedQuantity) => {
       ) : (
         <p>Loading...</p>
       )}
-      <div className='devider-cart'></div>
+      <div className='devider-cart1'></div>
       <div>
         {cartItems.length > 0 ? (
-          cartItems.map((product) => (
-            <div key={product.Cart_Id}>
-              <div className='cart-second'>
-                <div className='cart-img-2'><img src={`Img/${product.foto}`} className='cart-img-2' /></div>
-                <div className='p-cart-1'>
-                  <p className='p-c'>{product.Name}</p>
-                  <p>{product.Description}</p>
+          <>
+            {cartItems.map((product) => (
+              <div key={product.Cart_Id}>
+                {/* Your existing cart item display code */}
+                <div className='cart-second'>
+                  <div className='cart-img-2'><img src={`Img/${product.foto}`} className='cart-img-2' /></div>
+                  <div className='p-cart-1'>
+                    <p className='p-c'>{product.Name}</p>
+                    <p>{product.Description}</p>
+                  </div>
+                  <div className='p-cart-2'>
+                    <p>In stock</p>
+                    <p className='p-c-p'>{product.nr_in_stock}</p>
+                  </div>
+                  <div className='p-cart-2'>
+                    <p>Quantity selected</p>
+                    <p className='p-c-p'>{product.quantity}</p>
+                  </div>
+                  <div className='p-cart-4'>
+                    <p>Total price</p>
+                    <p>{product.Price * product.quantity}$</p>
+                  </div>
+                  <div className='p-cart-6'>
+                    <button className="logout-a-r" onClick={() => deleteCart(product.Cart_Id)}>Remove</button>
+                  </div>
                 </div>
-                <div className='p-cart-2'>
-                  <p>In stock</p>
-                  <p className='p-c-p'>{product.nr_in_stock}</p>
+                <div className='p-cart-8'>
+                  <button className="edit-a-t" onClick={() => setButtonPopup(true)}> Edit</button>
                 </div>
-                <div className='p-cart-2'>
-                  <p>Quantity selected</p>
-                  <p className='p-c-p'>{product.quantity}</p>
-                </div>
-                <div className='p-cart-4'>
-                  <p>Total price</p>
-                  <p>{product.Price*product.quantity}$</p>
-                </div>
-                <div className='p-cart-5'>
-                  <button className="logout-a-u"> <PayButton cartItems={cartItems} /></button>
-                </div>
-                <div className='p-cart-6'>
-                  <button className="logout-a-r" onClick={() => deleteCart(product.Cart_Id)}>Remove</button>
-                </div>
+                <div className='devider-cart-gita'></div>
               </div>
-              <div className='p-cart-8'>
-                <button className="edit-a-t" onClick={() => setButtonPopup(true)}> Edit</button>
+            ))}
+            <div className="checkout-d">
+              <div className="total-p">
+                <p className="total-p">Total: </p>
+                <p className="t-price">EUR$ {totalPrice}.00</p>
               </div>
-              <div className='devider-cart-2'></div>
+              <PayButton cartItems={cartItems} />
             </div>
-          ))
+          </>
         ) : (
           <div> 
             <img src="./Img/pet-food-cart.png" className="img-pet-cart"></img>
@@ -181,24 +184,6 @@ const updateCartItemQuantity = async (Cart_Id, updatedQuantity) => {
             <p className="no-product-p">It feels so good shopping for your pet. Indulge your pet and buy what he needs.</p>
           </div> 
         )}
-      </div>
-      <div className="checkout-d">
-<<<<<<< HEAD
-        <div className="total-p">
-          <p className="total-p">Total: </p>
-          <p className="t-price">EUR$ {totalPrice}.00</p>
-        </div>
-        <button className="checkout-btn">Checkout</button>
-=======
-                  <div className="total-p">
-                  <p className="total-p">Total: </p>
-                  <p className="t-price">EUR$ {totalPrice}.00</p>
-                  </div>
-                  <button className="checkout-btn"><PayButton cartItems={cartItems}/></button>
-                </div>
-      <div>
-        <Footer />
->>>>>>> b72fd0d9205e6b911c7a7b7d37239e29547b4f9c
       </div>
       <EditCart trigger={buttonPopup} setTrigger={setButtonPopup}>
         <h2 className='h2-post'>Edit quantity</h2>

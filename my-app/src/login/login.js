@@ -14,6 +14,7 @@ function Login() {
 const[email,setEmail]=useState("");
 const[password,setPassword]=useState("");
 const[loginStatus,setLoginStatus]=useState("");
+const[role_id, setRole]=useState("")
 
 const navigate= useNavigate();
 
@@ -34,9 +35,9 @@ const login = (e) => {
 
         setLoginStatus(loggedInUser.email);
 
-        if (loggedInUser.email === 'admin@hotmail.com') {
+        if (loggedInUser.role_id === 1) {
           navigate('/admin-dashboard');
-        } else if (loggedInUser.email === 'postman@hotmail.com') {
+        } else if (loggedInUser.role_id === 2) {
           navigate('/post-purchases');
         } else {
           navigate('/user-home');

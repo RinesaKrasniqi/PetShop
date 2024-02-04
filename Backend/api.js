@@ -55,7 +55,7 @@ app.post("/signup", async (req, res) => {
     const request = new sql.Request();
 
     const { name, surname, email, phone, password } = req.body;
-    const sqlQuery = "INSERT INTO Client (name, surname, email, phone, password) VALUES (@name, @surname, @email, @phone, @password)";
+    const sqlQuery = "INSERT INTO Client (name, surname, email, phone, password, role_id) VALUES (@name, @surname, @email, @phone, @password, 3)";
 
     request.input('name', sql.NVarChar, name);
     request.input('surname', sql.NVarChar, surname);
@@ -70,6 +70,7 @@ app.post("/signup", async (req, res) => {
     res.status(500).json({ message: "An error occurred while executing the SQL query." });
   }
 });
+
 
 //login
 app.post("/login", async (req, res) => {
@@ -145,14 +146,14 @@ app.post('/insert', upload.single('foto'), async (req, res) => {
     await sql.connect(config);
     const request = new sql.Request();
 
-    const { Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category } = req.body;
+    const { Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, category_id } = req.body;
 
     const imageFileName = `${Date.now()}${path.extname(req.file.originalname)}`;
     const imagePath = path.join(__dirname, '../my-app/public/Img', imageFileName);
 
     fs.writeFileSync(imagePath, req.file.buffer);
 
-    const sqlQuery = "INSERT INTO Products(Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, foto) VALUES (@Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category, @foto)";
+    const sqlQuery = "INSERT INTO Products(Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, foto, category_id) VALUES (@Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @foto, @category_id)";
     
     request.input('Description', sql.NVarChar, Description);
     request.input('Name', sql.NVarChar, Name);
@@ -160,8 +161,8 @@ app.post('/insert', upload.single('foto'), async (req, res) => {
     request.input('nr_in_stock', sql.Int, nr_in_stock);
     request.input('nr_of_stars', sql.Int, nr_of_stars);
     request.input('Price_before_discount', sql.Int, Price_before_discount);
-    request.input('Category', sql.NVarChar, Category);
     request.input('foto', sql.NVarChar, imageFileName);
+    request.input('category_id', sql.INT, category_id);
 
     const result = await request.query(sqlQuery);
     res.json(result);
@@ -191,7 +192,6 @@ app.get('/users/edit/:Client_id', (req, res) => {
 
 
 
-
 app.put('/users/update/:Client_id', async(req, res) => {
   const  {Client_id } = req.params;
   const { name, surname,email,phone } = req.body;
@@ -214,6 +214,18 @@ app.get('/product', (req, res) => {
   res.send(result); 
   console.log(result);
   })
+});
+
+app.get('/category', (req, res) => {
+  dbProductoperations.getCategory()
+      .then(result => {
+          res.send(result);
+          console.log(result);
+      })
+      .catch(error => {
+          res.status(500).send('Error fetching categories');
+          console.error(error);
+      });
 });
 
 
@@ -257,13 +269,13 @@ app.post('/cart', async (req, res) => {
     await sql.connect(config);
     const request = new sql.Request();
 
-    const {Product_id,Description,Name,Price,nr_in_stock,nr_of_stars,Price_before_discount,Category,quantity,foto,Client_id} = req.body;
+    const { Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, quantity, foto, Client_id } = req.body;
 
     if (quantity === null) {
       return res.status(400).json({ message: 'Quantity cannot be null.' });
     }
 
-    const sqlQuery ='INSERT INTO Cart (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category, quantity, foto, Client_id) VALUES (@Product_id, @Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @Category, @quantity, @foto, @Client_id)';
+    const sqlQuery = 'INSERT INTO Cart (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, quantity, foto, Client_id) VALUES (@Product_id, @Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @quantity, @foto, @Client_id)';
 
     request.input('Product_id', sql.Int, Product_id);
     request.input('Description', sql.NVarChar, Description);
@@ -272,11 +284,10 @@ app.post('/cart', async (req, res) => {
     request.input('nr_in_stock', sql.Int, nr_in_stock);
     request.input('nr_of_stars', sql.Int, nr_of_stars);
     request.input('Price_before_discount', sql.Int, Price_before_discount);
-    request.input('Category', sql.NVarChar, Category);
     request.input('quantity', sql.Int, quantity);
     request.input('foto', sql.NVarChar, foto);
     request.input('Client_id', sql.Int, Client_id);
-
+  
     const result = await request.query(sqlQuery);
     res.json(result);
   } catch (error) {
