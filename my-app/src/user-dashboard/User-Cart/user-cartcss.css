@@ -32,12 +32,20 @@
     margin-left: 350px;
     font-family: 'Work Sans', sans-serif;
 }
-.devider-cart{
+.devider-cart1{
+    margin-top: 15px;
     border: 1px solid rgb(245, 149, 164);
-    width: 1060px;
+    width: 1050px;
     position: relative;
-    bottom:13px;
-   
+    margin-left: 114px;
+}
+.devider-cart-gita{
+    border: 1px solid rgb(245, 149, 164);
+    width: 1050px;
+    margin-left: 114px;
+    position: relative;
+    bottom: 25px;
+    margin-left: 114px;
 }
 
 
@@ -110,16 +118,6 @@
     font-weight: 500;
 }
 
-.p-cart-7{
-    color: rgb(138, 137, 137);
-    font-family: 'Work Sans', sans-serif;
-    line-height: 23px;
-    font-size: 18px;
-    font-weight: 500;
-    position: relative;
-    left: 670px;
-    bottom: 60px;
-}
 
 /*Button*/
 
@@ -132,6 +130,7 @@
     left: 100px;
     border-radius: 5px;
     margin-top: 5px;
+    cursor: pointer;
 }
 
 
@@ -144,6 +143,7 @@
     padding-left: 15px;
     position: relative;
     top: 10px;
+    cursor: pointer;
 }
 
 .p-cart-6{
@@ -154,9 +154,57 @@
     top:15px;
     border-radius: 5px;
     border:2px;
+    cursor: pointer;
+    margin-left: 60px;
 }
 
 .logout-a-r{
+    width: 20px;
+    background-color: #c42636;
+    border: #c42636;
+    text-decoration: none;
+    text-decoration-color: none;
+    color: white;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 500;
+    padding-left: 18px;
+    position: relative;
+    top: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+
+.p-cart-8{
+    width: 100px;
+    height: 40px;
+    background-color: rgb(171, 223, 255);
+    margin-left: 1015px;
+    border-radius: 5px;
+    border:2px;
+    position: relative;
+    bottom: 37px;
+    position: relative;
+    bottom: 60px;
+}
+
+.edit-a-t{
+    width: 95px;
+    height: 30px;
+    text-decoration: none;
+    text-decoration-color: none;
+    background-color: rgb(171, 223, 255);
+    border: rgb(171, 223, 255);
+    color: white;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 500;
+    position: relative;
+    top: 5px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.logout-a-t{
     width: 20px;
     background-color: #c42636;
     border: #c42636;
@@ -243,4 +291,9 @@
 /* Style the button on hover */
 .checkout-btn:hover {
     background-color: #5b0b15;
+}
+
+.quantity1{
+    margin-left: 235px;
+    font-family: 'Work Sans', sans-serif;
 }

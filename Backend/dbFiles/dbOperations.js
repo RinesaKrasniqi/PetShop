@@ -65,6 +65,8 @@ const updateUser = async (Client_id,name, surname,email,phone) => {
     }
   };
 
+
+
   
 const delUser= async(Client_id)=> {
     try {
@@ -95,6 +97,40 @@ const countClient = async (Client_id) => {
     throw error;
   }
 };
+const getStatus1 = async (Client_id) => {
+  try {
+    let pool =await sql.connect(config);
+    let cart1 = pool.request().query(`Select * from Cart where status=1 and Client_id=${Client_id}`)
+    console.log(cart1);
+    return cart1;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getStatus0 = async (Client_id) => {
+  try {
+    let pool =await sql.connect(config);
+    let cart0 = pool.request().query(`Select * from Cart where status=0 and Client_id=${Client_id}`)
+    console.log(cart0);
+    return cart0;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const purchased = async (res,req) => {
+  try {
+    let pool =await sql.connect(config);
+    let purchased = pool.request().query(`Select * from Cart where status=1`)
+    console.log(purchased);
+    return purchased;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 
 /////////////////////////////////////
 
@@ -105,5 +141,8 @@ module.exports={
     delUser,
     editUs,
     countClient,
-    getUser
+    getUser,
+    getStatus0,
+    getStatus1,
+    purchased
 }

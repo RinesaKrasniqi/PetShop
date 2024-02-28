@@ -1,8 +1,11 @@
 ﻿create database ProjektiLAB1
 use ProjektiLAB1
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 4c932adcf0ca96a9fb120bbb52bd9e0d88fe578b
 create table Role(
  role_id int primary key,
  role_name varchar(255) not null
@@ -186,3 +189,7 @@ insert into Products values('Vet’s Best Natural', 'Tick Home Spray', 5 , 8 , 5
 insert into Products values('Combo Cat', 'Frontline', 10 , 15 , 5 , 12 , '1695594552927.jpg', 5);
 
 
+<<<<<<< HEAD
+=======
+drop database ProjektiLAB1
+>>>>>>> 4c932adcf0ca96a9fb120bbb52bd9e0d88fe578b

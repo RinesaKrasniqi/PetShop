@@ -22,7 +22,7 @@ const getProduct= async()=> {
 const getDog= async()=> {
     try{
         let pool =await sql.connect(config);
-        let product = await pool.request().query('SELECT * FROM Products WHERE Category like \'%Dog%\'');
+        let product = await pool.request().query('SELECT * FROM Products WHERE category_id = 2');
         console.log(product);
         return product;
     }catch(error){
@@ -33,7 +33,7 @@ const getDog= async()=> {
 const getCat= async()=> {
     try{
         let pool =await sql.connect(config);
-        let product = await pool.request().query('SELECT * FROM Products WHERE Category like \'%Cat%\'');
+        let product = await pool.request().query('SELECT * FROM Products WHERE category_id = 1');
         console.log(product);
         return product;
     }catch(error){
@@ -44,7 +44,7 @@ const getCat= async()=> {
 const getFish= async()=> {
     try{
         let pool =await sql.connect(config);
-        let product = await pool.request().query('SELECT * FROM Products WHERE Category like \'%Fish%\'');
+        let product = await pool.request().query('SELECT * FROM Products WHERE category_id = 4');
         console.log(product);
         return product;
     }catch(error){
@@ -55,7 +55,7 @@ const getFish= async()=> {
 const getFleasAndTicks= async()=> {
   try{
       let pool =await sql.connect(config);
-      let product = await pool.request().query('SELECT * FROM Products WHERE Category like \'%fleas%\'');
+      let product = await pool.request().query('SELECT * FROM Products WHERE category_id = 5');
       console.log(product);
       return product;
   }catch(error){
@@ -66,7 +66,7 @@ const getFleasAndTicks= async()=> {
 const getPony= async()=> {
     try{
         let pool =await sql.connect(config);
-        let product = await pool.request().query('SELECT * FROM Products WHERE Category like \'%Pony%\'');
+        let product = await pool.request().query('SELECT * FROM Products WHERE category_id= 3');
         console.log(product);
         return product;
     }catch(error){
@@ -139,7 +139,6 @@ const delProduct= async(Product_id)=> {
       console.log(error);
     }
   };
-
   
 
   const countProducts = async (Product_id) => {
@@ -166,7 +165,7 @@ const delProduct= async(Product_id)=> {
       const query = `
         SELECT COUNT(*) AS ProductCount
         FROM Cart C 
-        WHERE client_id = @userId`;
+        WHERE client_id = @userId and C.status=0`;
           
       let request = pool.request();
       request.input('userId', userId);
@@ -242,8 +241,73 @@ const delProduct= async(Product_id)=> {
     }
   };
 
+  const editQuantity = async (Cart_Id) => {
+    try {
+      let pool = await sql.connect(config);
+      let request = pool.request();
+      request.input('Cart_Id', sql.Int, Cart_Id); 
+      let cart = await request.query(`SELECT * FROM Cart WHERE Cart_Id =@Cart_id`);
+      console.log(cart);
+      return cart;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+  
+  
+  const updateQuantity = async (quantity, Cart_Id) => {
+    try {
+      let pool = await sql.connect(config);
+      let request = pool.request();
+      request.input('quantity', sql.Int, quantity);
+      request.input('Cart_Id', sql.Int, Cart_Id);
+
+      let cart = await request.query(
+        `UPDATE Cart 
+         SET quantity = @quantity
+         WHERE Cart_id = @Cart_Id`
+      );
+  
+      console.log(cart);
+      return cart;
+    } catch (error) {
+      console.log(error);
+      throw error; 
+    }
+  };
+  
+  const getCategory= async()=> {
+    try{
+        let pool =await sql.connect(config);
+        let category = await pool.request().query('SELECT* FROM Category');
+        console.log(category);
+        return category;
+    }catch(error){
+        console.log(error);
+    }
+}
 
 
+const updateStatus = async (Cart_Id) => {
+  try {
+    let pool = await sql.connect(config);
+    let request = pool.request();
+    request.input('Cart_Id', sql.Int, Cart_Id);
+
+    let cart = await request.query(
+      `UPDATE Cart 
+       SET satus = 1
+       WHERE Cart_id = @Cart_Id`
+    );
+
+    console.log(cart);
+    return cart;
+  } catch (error) {
+    console.log(error);
+    throw error; 
+  }
+};
 
 
 
@@ -261,5 +325,10 @@ module.exports={
     cart,
     editShop,
     countCart,
-    totalPrice
+    totalPrice,
+    editQuantity,
+    updateQuantity,
+    getCategory,
+    updateStatus,
+   
 }

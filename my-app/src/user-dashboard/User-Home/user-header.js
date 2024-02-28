@@ -46,7 +46,7 @@ const LoadUserN = async () => {
 
 useEffect(() => {
   LoadUserN();
-},);
+},[]);
 
 useEffect(() => {
   try {
