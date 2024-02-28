@@ -21,7 +21,7 @@ function AdminProducts() {
   const [pro, setPro] = useState([]);
   const [productCount, setProductCount] = useState(0);
   const[file, setFile]=useState();
-   const [foto, setFoto] = useState({ image: '' });
+  const [foto, setFoto] = useState({ image: '' });
 
   const LoadProduct = async () => {
     const response = await axios.get('http://localhost:5000/product');

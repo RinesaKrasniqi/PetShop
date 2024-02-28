@@ -165,7 +165,7 @@ const delProduct= async(Product_id)=> {
       const query = `
         SELECT COUNT(*) AS ProductCount
         FROM Cart C 
-        WHERE client_id = @userId`;
+        WHERE client_id = @userId and C.status=0`;
           
       let request = pool.request();
       request.input('userId', userId);
@@ -289,6 +289,26 @@ const delProduct= async(Product_id)=> {
 }
 
 
+const updateStatus = async (Cart_Id) => {
+  try {
+    let pool = await sql.connect(config);
+    let request = pool.request();
+    request.input('Cart_Id', sql.Int, Cart_Id);
+
+    let cart = await request.query(
+      `UPDATE Cart 
+       SET satus = 1
+       WHERE Cart_id = @Cart_Id`
+    );
+
+    console.log(cart);
+    return cart;
+  } catch (error) {
+    console.log(error);
+    throw error; 
+  }
+};
+
 
 
 module.exports={
@@ -308,5 +328,7 @@ module.exports={
     totalPrice,
     editQuantity,
     updateQuantity,
-    getCategory
+    getCategory,
+    updateStatus,
+   
 }

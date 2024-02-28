@@ -13,7 +13,9 @@ insert into Role values(3, 'normal user');
 
 select* from Role
 
--- Create the Client table
+drop table Role
+
+
 CREATE TABLE Client (
   Client_id int identity(1,1) primary key,
   name varchar(50) not null,
@@ -25,10 +27,13 @@ CREATE TABLE Client (
   constraint role_fk foreign key (role_id) references Role(role_id)
 );
 
-INSERT INTO Client (name, surname, email, phone, password, role_id)
-VALUES ('Margita', 'Rahimi', 'margita@gmail.com', '045457596', 'margita', 3),
-       ('hello', 'hello', 'hello@gmail.com', '045457596', 'hello', 3);
 
+
+select* from client
+
+
+INSERT INTO Client (name, surname, email, phone, password, role_id) VALUES ('Margita', 'Rahimi', 'margita@gmail.com', '045457596', 'margita', 3);
+INSERT INTO Client VALUES ('hello', 'hello', 'hello@gmail.com', '045457596', 'hello', 3);
 INSERT INTO Client VALUES  ('admin', 'admin', 'admin@gmail.com', '044208318', 'admin', 1);
 INSERT INTO Client VALUES  ('postman', 'postman', 'postman@gmail.com', '044340801', 'postman', 2);
 
@@ -52,6 +57,10 @@ insert into Category values(3, 'pony');
 insert into Category values(4, 'fish');
 insert into Category values(5, 'fleas and ticks');
 
+select* from Category
+
+drop table Category
+
 
 CREATE TABLE Products(
   Product_id int identity(1,1) primary key,
@@ -66,6 +75,10 @@ CREATE TABLE Products(
   constraint FK_Category foreign key (category_id) references Category(category_id)
 );
 
+select* from Products
+
+drop table Products
+
 CREATE TABLE Cart(
   Cart_Id int identity(1,1) primary key,
   Description varchar(255),
@@ -76,38 +89,44 @@ CREATE TABLE Cart(
   Price_before_discount int,
   quantity int not null,
   foto varchar(255),
+  status BIT,
   Product_id int,
   Client_id int,
   constraint client_cart foreign key (Client_id) references Client(Client_id),
   constraint Product_cart foreign key (Product_id) references Products(Product_id)
 );
 
+ALTER TABLE Cart
+ADD CONSTRAINT DF_Cart_Status DEFAULT 0 FOR status;
+
+Select * from Cart where status=1
+
+select* from Cart
+
+SELECT COUNT(*) AS ProductCount
+        FROM Cart C 
+        WHERE client_id = 6 and C.status=0;
+
+SELECT* 
+FROM Cart where
+status=1 and Client_id=1;
+
+SELECT* 
+FROM Cart where
+status=1 and Client_id=6;
+
+
+UPDATE Cart
+        SET status = 1
+        WHERE Client_id = 1;
 drop table Cart
 
-DROP TABLE Products; -- Drop only if necessary, use with caution
+SELECT p.Product_id, p.Name, c.Cart_Id, cg.category_name
+FROM Cart c
+INNER JOIN Products p ON c.product_id = p.Product_id
+inner join Category cg on p.category_id=cg.category_id;
 
 
-Select * from products
-
-drop table Cart
-
-create table Purchase(
-  Purchase_id int identity(1,1) primary key,
-  Quantity int not null,
-  Purchase_date date not null,
-  Price decimal not null,
-  City varchar(50) not null,
-  Country varchar(50) not null,
-  Street varchar(50) not null,
-  House_number int not null,
-  Admin_id int not null,
-  Client_id int not null,
-  Product_id int not null,
-  constraint admin_fk foreign key (Admin_id) references Admin(Admin_id),
-  constraint Client_Purchase_fk foreign key (Client_id) references Client(Client_id),
-  constraint Product_Purchase_fk foreign key (Product_id) references Products(Product_id)
-
-);
 
 create table Deliveries(
   Shipping_id int identity(1,1) primary key,
@@ -120,43 +139,6 @@ create table Deliveries(
 );
 
 
-/*create table Ndertesa56179(
-  id int identity(1,1) primary key,
-  emertim56179 varchar(255) not null,
-  dataPt date 
-);
-
-
-create table Ashensori56179(
-  ashensori_id int identity (1,1) primary key,
-  emertim56179 varchar(255) not null,
-  id int ,
-  constraint fk_crud foreign key (id) references Ndertesa56179(id)
-);
-
-
-drop table Ndertesa56179; 
-drop table Ashensori56179; */
-
-insert into Admin values('admin','admin')
-insert into Postman values('postman','postman', '044208318')
-
-
-insert into Client values('Rinesa','Krasniqi','rinesa@gmail.com','045919115','rinesa')
-insert into Client values('Margita','Rahimi','margita@gmail.com','045457596','margita')
-insert into Client values('Fjolla','Krasniqi','fjolla@gmail.com','045457596','73737')
-insert into Client values('Fatjona','Krasniqi','fatjona@gmail.com','045457596','99922')
-insert into Client values('Albina','Rahimi','albina@gmail.com','045457596','882828')
-
-
-SELECT * FROM Products WHERE Category like '%Dog%'
-
-select * from Products
-
-drop Database ProjektiLAB1
-
-select * from Cart
-
 select* from CLIENT WHERE client_id=1;
 
 select cl.name,cl.surname, c.name
@@ -164,9 +146,6 @@ from cart c inner join Client cl
 on c.client_id=cl.client_id
 where cl.client_id=1 and c.nr_in_stock=15
 
-select * from Products
-
-select* from Cart
 
 
 insert into Products values('Dry Kitten Food','Kit Cat No Grain Kitten',30,50,5,26, '1695591325634.jpg', 1);
@@ -205,4 +184,4 @@ insert into Products values('Vet’s Best Natural', 'Tick Home Spray', 5 , 8 , 5
 insert into Products values('Combo Cat', 'Frontline', 10 , 15 , 5 , 12 , '1695594552927.jpg', 5);
 
 
-drop table Products
+drop database ProjektiLAB1

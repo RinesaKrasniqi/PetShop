@@ -9,6 +9,8 @@ import PayButton from "../../payment/PayButton.js";
 import EditCart from "./editcart.js";
 import {FaPlus, FaMinus } from 'react-icons/fa';
 
+const Client_id = Cookies.get('Client_id');
+
 function UserCart() {
   const [cartItems, setCartItems] = useState([]);
   const [foto, setFoto] = useState("");
@@ -16,6 +18,7 @@ function UserCart() {
   const [userName, setUserName] = useState('');
   const [buttonPopup, setButtonPopup] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [status, setStatus] = useState(0);
   const [selectedProductId, setSelectedProductId] = useState(null);
 
 
@@ -79,16 +82,20 @@ const updateCartItemQuantity = async (Cart_Id, updatedQuantity) => {
 
   const LoadCart = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/carts', {
+      const Client_id = Cookies.get('Client_id');
+      const response = await axios.get(`http://localhost:5000/status0/${Client_id}`, {
         withCredentials: true,
       });
-      // console.log(response.data);
-      setCartItems(response.data);
+      if (Array.isArray(response.data)) {
+        setCartItems(response.data);
+      } else {
+        console.error('Data received is not an array:', response.data);
+      }
     } catch (error) {
-      console.error(error);
+      console.error('Error loading cart:', error);
     }
   };
-
+  
   const LoadUserN = async () => {
     try {
       const response = await axios.get('http://localhost:5000/userName', {
@@ -140,7 +147,6 @@ const updateCartItemQuantity = async (Cart_Id, updatedQuantity) => {
           <>
             {cartItems.map((product) => (
               <div key={product.Cart_Id}>
-                {/* Your existing cart item display code */}
                 <div className='cart-second'>
                   <div className='cart-img-2'><img src={`Img/${product.foto}`} className='cart-img-2' /></div>
                   <div className='p-cart-1'>

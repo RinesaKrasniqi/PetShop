@@ -200,6 +200,7 @@ app.put('/users/update/:Client_id', async(req, res) => {
 
 
 
+
 app.delete('/user/:Client_id', (req, res) => {
   const { Client_id } = req.params;
   dboperations.delUser(Client_id).then(result=>{
@@ -275,7 +276,7 @@ app.post('/cart', async (req, res) => {
       return res.status(400).json({ message: 'Quantity cannot be null.' });
     }
 
-    const sqlQuery = 'INSERT INTO Cart (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, quantity, foto, Client_id) VALUES (@Product_id, @Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @quantity, @foto, @Client_id)';
+    const sqlQuery = 'INSERT INTO Cart (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, quantity, foto, status, Client_id) VALUES (@Product_id, @Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @quantity, @foto, 0, @Client_id)';
 
     request.input('Product_id', sql.Int, Product_id);
     request.input('Description', sql.NVarChar, Description);
@@ -304,6 +305,72 @@ app.get('/carts', (req, res) => {
     // console.log(result);
   });
 });
+
+app.get('/status0/:Client_id', async (req, res) => {
+  try {
+    const { Client_id } = req.params;
+    const cart0 = await dboperations.getStatus0(Client_id);
+    res.json(cart0);
+  } catch (error) {
+    console.error('Error fetching status 0:', error);
+    res.status(500).json({ error: 'An error occurred while fetching status 0' });
+  }
+});
+
+
+app.get('/status1/:Client_id', async (req, res) => {
+  try {
+    const { Client_id } = req.params;
+    const cart1 = await dboperations.getStatus1(Client_id);
+    res.json(cart1);
+  } catch (error) {
+    console.error('Error fetching status 1:', error);
+    res.status(500).json({ error: 'An error occurred while fetching status 1' });
+  }
+});
+
+app.get('/purchased', (req, res) => {
+  dboperations.purchased(req).then(result => {
+    res.send(result);
+    // console.log(result);
+  });
+});
+// app.get('/purchased', (req, res) => {
+//   dbProductoperations.cart(req).then(result => {
+//     res.send(result);
+//     // console.log(result);
+//   });
+// });
+ 
+// app.put('/purchased/:Cart_id', async(req, res) => {
+//   const  {Cart_Id} = req.params;
+//    await dbProductoperations.updateStatus(Cart_id); 
+// });
+
+app.get('/purchaseProduct', async (req, res) => {
+  try {
+  const { Client_id } = req.query;
+    console.log('Received UserId:', Client_id);
+
+    const pool = await sql.connect(config);
+    const Clientid = parseInt(Client_id, 10);
+    const result = await pool.request()
+      .input('Client_id', sql.Int, Clientid)
+      .query(
+        `UPDATE Cart
+        SET status = 1
+        WHERE Client_id = @Client_id`
+      );
+
+      res.redirect(`http://localhost:3000/user-purchased`);
+  } catch (error) {
+    console.error('Error handling success:', error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
+
+
 
 app.delete('/cart/:Cart_Id', (req, res) => {
   const { Cart_Id } = req.params;
@@ -373,6 +440,7 @@ app.get('/cart/edit/:Cart_id', async (req, res) => {
     return res.status(500).json({ error: 'Failed to retrieve cart details for editing' });
   }
 });
+
 
 
 app.put('/cart/update/:Cart_id', async (req, res) => {
