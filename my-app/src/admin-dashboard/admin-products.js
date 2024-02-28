@@ -1,150 +1,143 @@
-import { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './admin-dashboardcss.css';
 import axios from 'axios';
-import { FaRegStar } from 'react-icons/fa';
-import { FaPaw } from 'react-icons/fa';
-import { FaOpencart } from 'react-icons/fa';
-import { FaCartPlus } from 'react-icons/fa';
-import { FaStar } from 'react-icons/fa';
-import { FaKey } from 'react-icons/fa';
-import { FaUserAlt } from 'react-icons/fa';
-import { FaMoneyBill } from 'react-icons/fa';
-import { FaShoppingBasket } from 'react-icons/fa';
-import { FaTelegramPlane } from 'react-icons/fa';
-import { FaHome } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { FaUserAlt, FaShoppingBasket, FaMoneyBill, FaTelegramPlane, FaHome } from 'react-icons/fa';
+import Pagination from './Pagination'; 
 import Header from '../Components/header.js';
 import Footer from '../Components/footer.js';
 import { Link } from 'react-router-dom';
 
 function AdminProducts() {
   const [pro, setPro] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 5;
   const [productCount, setProductCount] = useState(0);
-  const[file, setFile]=useState();
+  const [file, setFile] = useState(null); 
   const [foto, setFoto] = useState({ image: '' });
 
-  const LoadProduct = async () => {
-    const response = await axios.get('http://localhost:5000/product');
-    console.log(response.data);
-    setPro(response.data);
+  const loadProduct = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/product');
+      setPro(response.data);
+    } catch (error) {
+      console.log('Error loading products:', error);
+    }
   };
 
-  const deleteProduct = async (Product_id) => {
+  const deleteProduct = async (productId) => {
     try {
-      await axios.delete(`http://localhost:5000/product/${Product_id}`);
-      LoadProduct();
+      await axios.delete(`http://localhost:5000/product/${productId}`);
+      loadProduct();
     } catch (error) {
       console.log('Error deleting product:', error);
     }
   };
 
-  const handleInsert=()=>{
-    const formdata=new FormData();
-    formdata.append('foto', file);
-    axios.post('http://localhost:3000/insert', formdata)
-    .then(res=>console.log(res))
-    .catch(err=>console.log(err));
- }
-
- useEffect(() => {
-    axios.get('http://localhost:5000/')
-    .then(res => {
-       console.log('API Response:', res); // Log the entire response
-       if (Array.isArray(res.data) && res.data.length > 0) {
-          const i=0;
-          setFoto(res.data[i]);
-       } else {
-          console.error('No data received from the API.');
-       }
-    })
-    .catch(err => console.error('Error fetching data:', err));
- }, []);
-
+  const handleInsert = () => {
+    const formData = new FormData();
+    formData.append('foto', file);
+    axios.post('http://localhost:3000/insert', formData)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
 
   useEffect(() => {
-    LoadProduct();
-  }, []);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/');
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setFoto(response.data[0]); // Assuming you want the first item from response.data
+        } else {
+          console.error('No data received from the API.');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []); 
+
+  useEffect(() => {
+    loadProduct();
+  }, []); 
 
   useEffect(() => {
     setProductCount(pro.length);
   }, [pro]);
 
+
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = pro.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  
+
   return (
     <div className="back-dash">
       <div className="first-div-a">
         <div className="Admin-Dash-Title">
-          <p className="FaHome">Dashboard</p>
+          <p className="FaHome"><FaHome /> Dashboard</p>
         </div>
-
         <div className="elements">
           <div className="elements-1">
             <FaUserAlt color="white" size="22px" />
-            <Link to="/admin-dashboard" className="link">
-              Users
-            </Link>
+            <Link to="/admin-dashboard" className="link">Users</Link>
           </div>
           <div className="elements-1">
             <FaShoppingBasket color="white" size="22px" />
-            <Link to="/admin-products" className="link">
-              Products
-            </Link>
+            <Link to="/admin-products" className="link">Products</Link>
           </div>
           <div className="elements-1">
             <FaMoneyBill color="white" size="22px" />
-            <Link to="/admin-purchases" className="link">
-              Purchases
-            </Link>
+            <Link to="/admin-purchases" className="link">Purchases</Link>
           </div>
           <div className="elements-1">
             <FaTelegramPlane color="white" size="22px" />
-            <Link to="/admin-deliveries" className="link">
-              Deliveries
-            </Link>
+            <Link to="/admin-deliveries" className="link">Deliveries</Link>
           </div>
           <div className="elements-3">
-            <img className="add-product-img" src="./Img/add-product.png" />
+            <img className="add-product-img" src="./Img/add-product.png" alt="Add Product" />
             <Link to="/add">
               <button className="add-product">Add product</button>
             </Link>
           </div>
-          <div className="elements-2">
-            <img className="amdin-logout" src="./Img/logout-admin.png" />
-            <Link to="/home">
-              <button className="a-d-logout">Log out</button>
-            </Link>
-          </div>
+          <div className='elements-2'>
+            <img className='amdin-logout' src='./Img/logout-admin.png'></img>
+            <Link to='/home'><button class='a-d-logout'>Log out</button></Link>
+            </div>
         </div>
       </div>
 
       <div className="both-back">
         <div className="user-div-nr">
           <div className="acc-dash">
-            <img className="acc-dash-pic" src="./Img/acc-dash.png" />
+            <img className="acc-dash-pic" src="./Img/acc-dash.png" alt="Account Dashboard" />
           </div>
           <p className="acc-dash-p">Products:</p>
           <p className="acc-dash-pp">{productCount}</p>
         </div>
 
         <div className="second-div-a">
-          <h2 className="user-h2">Product list:</h2>
           <div className="user">
             <table className="user-table">
               <thead className="user-head">
                 <tr className="user-tr">
-                  <td className="user-td">Id</td>
-                  <td className="user-td">Description</td>
-                  <td className="user-td">Name</td>
-                  <td className="user-td">Price</td>
-                  <td className="user-td">In Stock</td>
-                  <td className="user-td">Stars</td>
-                  <td className="user-td">Category</td>
-                  <td className="user-td">IMG-src</td>
-                  <td className="user-td">Update</td>
-                  <td className="user-td">Delete</td>
+                  <th className="user-td">Id</th>
+                  <th className="user-td">Description</th>
+                  <th className="user-td">Name</th>
+                  <th className="user-td">Price</th>
+                  <th className="user-td">In Stock</th>
+                  <th className="user-td">Stars</th>
+                  <th className="user-td">Category</th>
+                  <th className="user-td">IMG-src</th>
+                  <th className="user-td">Update</th>
+                  <th className="user-td">Delete</th>
                 </tr>
               </thead>
               <tbody className="bottom-table">
-                {pro.map((product, index) => (
+                {currentProducts.map(product => (
                   <tr className="bottom-tr" key={product.Product_id}>
                     <td className="bottom-td">{product.Product_id}</td>
                     <td className="bottom-td">{product.Description}</td>
@@ -154,10 +147,7 @@ function AdminProducts() {
                     <td className="bottom-td">{product.nr_of_stars}</td>
                     <td className="bottom-td">{product.Category}</td>
                     <td className="bottom-td">
-                    <img
-                      className='foto-rresht'
-                      src={`Img/${product.foto}`}
-                    />
+                      <img className='foto-rresht' src={`Img/${product.foto}`} alt={product.Name} />
                     </td>
                     <td className="bottom-td">
                       <Link to={`/updateProduct/${product.Product_id}`}>
@@ -165,12 +155,7 @@ function AdminProducts() {
                       </Link>
                     </td>
                     <td className="bottom-td">
-                      <button
-                        className="dltt-btn"
-                        onClick={() => deleteProduct(product.Product_id)}
-                      >
-                        Delete
-                      </button>
+                      <button className="dltt-btn" onClick={() => deleteProduct(product.Product_id)}>Delete</button>
                     </td>
                   </tr>
                 ))}
@@ -178,8 +163,15 @@ function AdminProducts() {
             </table>
           </div>
         </div>
-      </div>
+        <Pagination
+        totalPages={Math.ceil(pro.length / productsPerPage)}
+        currentPage={currentPage}
+        onPageChange={paginate}
+      />
     </div>
+      </div> 
+
+      
   );
 }
 

@@ -1,11 +1,8 @@
 ﻿create database ProjektiLAB1
 use ProjektiLAB1
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 4c932adcf0ca96a9fb120bbb52bd9e0d88fe578b
 create table Role(
  role_id int primary key,
  role_name varchar(255) not null
@@ -38,6 +35,7 @@ select* from client
 
 
 INSERT INTO Client (name, surname, email, phone, password, role_id) VALUES ('Margita', 'Rahimi', 'margita@gmail.com', '045457596', 'margita', 3);
+INSERT INTO Client (name, surname, email, phone, password, role_id) VALUES ('Rinesa', 'Krasniqi', 'rinesa@gmail.com', '045919115', 'rinesa', 3);
 INSERT INTO Client VALUES ('hello', 'hello', 'hello@gmail.com', '045457596', 'hello', 3);
 INSERT INTO Client VALUES  ('admin', 'admin', 'admin@gmail.com', '044208318', 'admin', 1);
 INSERT INTO Client VALUES  ('postman', 'postman', 'postman@gmail.com', '044340801', 'postman', 2);
@@ -189,7 +187,3 @@ insert into Products values('Vet’s Best Natural', 'Tick Home Spray', 5 , 8 , 5
 insert into Products values('Combo Cat', 'Frontline', 10 , 15 , 5 , 12 , '1695594552927.jpg', 5);
 
 
-<<<<<<< HEAD
-=======
-drop database ProjektiLAB1
->>>>>>> 4c932adcf0ca96a9fb120bbb52bd9e0d88fe578b
