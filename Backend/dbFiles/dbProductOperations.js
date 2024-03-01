@@ -205,6 +205,31 @@ const delProduct= async(Product_id)=> {
       throw error;
     }
   }
+
+  const totalPriceStatus0= async(req)=>{
+    try{
+      let pool = await sql.connect(config);
+      const userId = req.params.Client_id;
+      const query = `
+      select sum(c.price* c.quantity) as TotalPrice
+      from Cart c inner join Products p
+      on c.Product_id=p.Product_id
+      WHERE Client_id = @userId and c.status=0`;
+          
+      let request = pool.request();
+      request.input('userId', userId);
+  
+      let result = await request.query(query);
+      console.log("Total price",result);
+  
+      return result;
+
+
+    }catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
   
 
 
@@ -297,15 +322,39 @@ const updateStatus = async (Cart_Id) => {
 
     let cart = await request.query(
       `UPDATE Cart 
-       SET satus = 1
+       SET status = 1
        WHERE Cart_id = @Cart_Id`
     );
-
     console.log(cart);
     return cart;
   } catch (error) {
     console.log(error);
     throw error; 
+  }
+};
+
+const delPurchase= async(Cart_Id)=> {
+  try {
+      let pool = await sql.connect(config);
+      let result = await pool.request()
+        .input('Cart_Id', sql.Int, Cart_Id )
+        .query(`DELETE FROM Cart WHERE Cart_Id=@Cart_Id`);
+      return result;
+    } catch (error) {
+      console.error(error);
+    }
+}
+
+
+const purchased = async () => {
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool.request().query(`SELECT * FROM Cart WHERE status = 1`);
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 };
 
@@ -330,5 +379,8 @@ module.exports={
     updateQuantity,
     getCategory,
     updateStatus,
+    totalPriceStatus0,
+    delPurchase,
+    purchased
    
 }

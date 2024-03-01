@@ -194,14 +194,14 @@ const router = createBrowserRouter([
     path: "/loginheader",
     element: <div><LoginHeader/></div>
   },
-  {
-    path: "/cart/edit/:Cart_id",
-    element: <div></div>
-  },
-  {
-    path: "/cart/update/:Cart_id",
-    element: <div></div>
-  },
+  // {
+  //   path: "/cart/edit/:Cart_id",
+  //   element: <div></div>
+  // },
+  // {
+  //   path: "/cart/update/:Cart_id",
+  //   element: <div></div>
+  // },
   {
     path: "/category",
     element: <div></div>
@@ -218,6 +218,14 @@ const router = createBrowserRouter([
     path: "/stripe/purchaseProduct/:Client_id",
     element: <div></div>
   },
+  {
+    path: "/cartpurchase/:Cart_Id",
+    element: <div></div>
+  },
+  {
+    path: "/purchased",
+    element: <div></div>
+  }
 
 ]);
 

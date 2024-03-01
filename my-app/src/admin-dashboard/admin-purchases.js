@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaUserAlt, FaMoneyBill, FaShoppingBasket, FaTelegramPlane, FaHome } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import Cart from '../addtocart/addtocart';
 
 function AdminPurchases() {
   const [pro, setPro] = useState([]);
-
   const loadPurchases = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/purchased`, {
@@ -17,13 +17,30 @@ function AdminPurchases() {
         console.error('Data received is not an array:', response.data);
       }
     } catch (error) {
-      console.error('Error loading products:', error);
+      console.error('Error loading cart:', error);
     }
   };
+  
+  const deletePurchase = async (Cart_Id) => {
+    try {
+      console.log('Deleting purchase with Cart_id:', Cart_Id);
+      await axios.delete(`http://localhost:5000/cartpurchase/${Cart_Id}`);
+      loadPurchases();
+    } catch (error) {
+      console.log('Error deleting purchase:', error);
+    }
+  };
+
+
 
   useEffect(() => {
     loadPurchases();
   }, []);
+  
+  useEffect(() => {
+    console.log('Purchases:', pro);
+  }, [pro]);
+  
 
   return (
     <div className="back-dash">
@@ -87,20 +104,20 @@ function AdminPurchases() {
             <table className="user-table">
               <thead className="user-head">
                 <tr className="user-tr">
-                  <th className="user-td">product Id</th>
-                  <th className="user-td">client id</th>
+                  <th className="user-td">Cart Id</th>
+                  <th className="user-td">Client Id</th>
                   <th className="user-td">Description</th>
                   <th className="user-td">Name</th>
                   <th className="user-td">Price</th>
-                  <th className="user-td">nr purchased</th>
+                  <th className="user-td">Quantity Purchased</th>
                   <th className="user-td">Update</th>
                   <th className="user-td">Delete</th>
                 </tr>
               </thead>
               <tbody className="bottom-table">
                 {pro.map((product) => (
-                  <tr key={product.Product_id} className="bottom-tr">
-                    <td className="bottom-td">{product.Product_id}</td>
+                  <tr key={product.Cart_Id} className="bottom-tr">
+                    <td className="bottom-td">{product.Cart_Id}</td>
                     <td className="bottom-td">{product.Client_id}</td>
                     <td className="bottom-td">{product.Description}</td>
                     <td className="bottom-td">{product.Name}</td>
@@ -108,7 +125,12 @@ function AdminPurchases() {
                     <td className="bottom-td">{product.quantity}</td>
                     <td className="bottom-td">Update</td>
                     <td className="bottom-td">
-                      <button className="dltt-btn">Delete</button>
+                      <button
+                        className="dltt-btn"
+                        onClick={() => deletePurchase(product.Cart_id)}
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 ))}

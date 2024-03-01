@@ -1,6 +1,7 @@
 ﻿create database ProjektiLAB1
 use ProjektiLAB1
 
+
 create table Role(
  role_id int primary key,
  role_name varchar(255) not null
@@ -90,11 +91,20 @@ CREATE TABLE Cart(
   quantity int not null,
   foto varchar(255),
   status BIT,
+  delivery varchar(255) not null,
   Product_id int,
   Client_id int,
   constraint client_cart foreign key (Client_id) references Client(Client_id),
   constraint Product_cart foreign key (Product_id) references Products(Product_id)
 );
+
+DELETE FROM Cart WHERE Client_id =3 and Cart_id=1;
+
+select* from cart
+
+select* from Client
+
+drop table cart
 
 ALTER TABLE Cart
 ADD CONSTRAINT DF_Cart_Status DEFAULT 0 FOR status;
@@ -106,6 +116,12 @@ select* from Cart
 SELECT COUNT(*) AS ProductCount
         FROM Cart C 
         WHERE client_id = 6 and C.status=0;
+
+
+select sum(c.price* c.quantity) as TotalPrice
+      from Cart c inner join Products p
+      on c.Product_id=p.Product_id
+      WHERE Client_id = 1 and c.status=0;
 
 SELECT* 
 FROM Cart where
@@ -119,7 +135,7 @@ status=1 and Client_id=6;
 UPDATE Cart
         SET status = 1
         WHERE Client_id = 1;
-drop table Cart
+
 
 SELECT p.Product_id, p.Name, c.Cart_Id, cg.category_name
 FROM Cart c

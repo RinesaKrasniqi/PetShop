@@ -61,15 +61,22 @@ function UserPurchased() {
                 <p>Total Price</p>
                 <p>{item.Price * item.quantity}$</p>
               </div>
-              <div className='p-pur-5'>
+              {/* <div className='p-pur-5'>
                 <div className="pur-c"></div>
                 <Link to='#' className="logout-p">Delivered</Link>
+              </div> */}
+              <div className='p-pur-6'>
+                <div className="pur-c-6"></div>
+                <Link to='#' className="logout-p6">On the way</Link>
               </div>
             </div>
           </div>
         ))
       ) : (
-        <div>No purchased items found.</div>
+        <div> 
+        <img src="./Img/pet-food-cart.png" className="img-pet-cart"></img>
+        <p className="no-product-p">You havent purchased anything yet!</p>
+      </div> 
       )}
 
       <div className='devider-cart'></div>

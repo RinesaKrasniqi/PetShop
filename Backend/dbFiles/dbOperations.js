@@ -119,16 +119,7 @@ const getStatus0 = async (Client_id) => {
   }
 };
 
-const purchased = async (res,req) => {
-  try {
-    let pool =await sql.connect(config);
-    let purchased = pool.request().query(`Select * from Cart where status=1`)
-    console.log(purchased);
-    return purchased;
-  } catch (error) {
-    console.log(error);
-  }
-};
+
 
 
 
@@ -144,5 +135,5 @@ module.exports={
     getUser,
     getStatus0,
     getStatus1,
-    purchased
+    
 }
