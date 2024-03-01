@@ -1,0 +1,25 @@
+.pagination-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .pagination-button {
+    background-color: pink;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .pagination-button.active {
+    background-color: black;
+    color: pink;
+  }
+  
+  .pagination-button:hover:not(.active) {
+    background-color: black;
+    color: pink;
+  }
+  
