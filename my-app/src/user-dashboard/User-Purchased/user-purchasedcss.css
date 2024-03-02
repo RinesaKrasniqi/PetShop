@@ -8,6 +8,7 @@
     display: flex;
     margin-left: 500px;
     margin-top: 28px;
+    margin-bottom: 20px;
 }
 
 .cart-img-1{
@@ -24,7 +25,6 @@
 .devider-cart{
     border: 1px solid rgb(245, 149, 164);
     margin-left: 120px;
-    margin-top: 25px;
     width: 960px;
 }
 
@@ -162,4 +162,36 @@
     position: relative;
     top: 9px;
     left: 3px;
+}
+
+.img-pet-purchase{
+    width: 150px;
+    height: 160px;
+    position: relative;
+    left: 525px;
+    top: 40px;
+}
+
+
+.no-pushase{
+    font-size: 25px;
+    position: relative;
+    top: 80px;
+    left: 400px;
+}
+
+.no-purchase-p{
+    position: relative;
+    top: 80px;
+    width: 470px;
+    font-size: 15px;
+    left: 407px;
+}
+
+.no-purchase-pp{
+    position: relative;
+    top: 76px;
+    width: 470px;
+    font-size: 15px;
+    left: 450px;
 }

@@ -69,7 +69,12 @@ function UserPurchased() {
           </div>
         ))
       ) : (
-        <div>No purchased items found.</div>
+        <div> 
+        <img src="./Img/pet-food-cart.png" className="img-pet-purchase"></img>
+        <h3 className="no-pushase">You haven't made any purchases yet. </h3>
+        <p className="no-purchase-p">Seems like your purchase history is as blank as a fresh canvas.</p>
+        <p className="no-purchase-pp"> Let's jazz it up with something special, shall we?</p>
+      </div> 
       )}
 
       <div className='devider-cart'></div>
