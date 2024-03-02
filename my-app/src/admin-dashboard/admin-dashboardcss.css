@@ -196,6 +196,23 @@
     padding-top: 20px;
     color: #fa3838;
     cursor: pointer;
+    
+}
+
+.delete-button{
+    position: relative;
+    left: 110px;
+    background: none;
+    text-decoration: none;
+    border:white;
+    font-weight: 600;
+    font-size: medium;
+    font-family: 'Work Sans', sans-serif;
+    padding-top: 20px;
+    color: #fa3838;
+    cursor: pointer;
+    display: inline-block;
+    
 }
 
 

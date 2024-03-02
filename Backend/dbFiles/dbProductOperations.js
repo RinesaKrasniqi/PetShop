@@ -333,17 +333,18 @@ const updateStatus = async (Cart_Id) => {
   }
 };
 
-const delPurchase= async(Cart_Id)=> {
+const delPurchase = async (Cart_Id) => {
   try {
-      let pool = await sql.connect(config);
-      let result = await pool.request()
-        .input('Cart_Id', sql.Int, Cart_Id )
-        .query(`DELETE FROM Cart WHERE Cart_Id=@Cart_Id`);
-      return result;
-    } catch (error) {
-      console.error(error);
-    }
-}
+    let pool = await sql.connect(config);
+    let result = await pool.request()
+      .input('Cart_Id', sql.Int, Cart_Id)
+      .query(`DELETE FROM Cart WHERE Cart_Id = @Cart_Id`);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}; 
 
 
 const purchased = async () => {
@@ -359,6 +360,48 @@ const purchased = async () => {
 };
 
 
+const editPurchase = async (Cart_id) => {
+  try {
+    let pool = await sql.connect(config);
+    let request = pool.request();
+    request.input('Cart_id', sql.Int, Cart_id); 
+    let cart = await request.query(`SELECT * FROM Cart WHERE Cart_Id =@Cart_id`);
+    console.log(cart);
+    return cart;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+
+const updatePurchase = async (Cart_id, Description, Name, Price, quantity) => {
+  try {
+    let pool = await sql.connect(config);
+    let request = pool.request();
+    request.input('Cart_Id', sql.Int, Cart_id);
+    request.input('Description', sql.NVarChar, Description);
+    request.input('Name', sql.NVarChar, Name);
+    request.input('Price', sql.Decimal, Price);
+    request.input('quantity', sql.Int, quantity);
+
+    let cart = await request.query(
+      `UPDATE Cart 
+      SET 
+      Description = @Description, 
+      Name = @Name, 
+      Price = @Price, 
+      quantity = @quantity 
+      WHERE Cart_Id = @Cart_id`
+    );
+
+    console.log(cart);
+    return cart;
+  } catch (error) {
+    console.log(error);
+    throw error; 
+  }
+};
 
 module.exports={
     getProduct,
@@ -381,6 +424,8 @@ module.exports={
     updateStatus,
     totalPriceStatus0,
     delPurchase,
-    purchased
+    purchased,
+    editPurchase,
+    updatePurchase
    
 }

@@ -385,7 +385,7 @@ app.delete('/cart/:Cart_Id', (req, res) => {
   dbProductoperations.delCart(Cart_Id).then(result=>{
   res.send(result);
   }) 
-});
+});  
 
 app.get('/cartcount/:Client_id', async (req, res) => {
   try {
@@ -446,8 +446,8 @@ app.put('/products/update/:Product_id', async(req, res) => {
 
 app.delete('/cartpurchase/:Cart_Id', async (req, res) => {
   try {
-    const {Cart_Id} =req.params;
-    const result = await dbProductoperations.delPurchase(Cart_id); 
+    const { Cart_Id } = req.params; // Ensure the parameter name matches here
+    const result = await dbProductoperations.delPurchase(Cart_Id);
     res.send(result);
   } catch (error) {
     console.error(error);
@@ -464,6 +464,33 @@ app.get('/purchased', (req, res) => {
   });
 });
 
+app.get('/purchase/edit/:Cart_id', async (req, res) => {
+  const { Cart_id } = req.params;
+  console.log(Cart_id);
+  try {
+    const cart = await dbProductoperations.editPurchase(Cart_id);
+    return res.json(cart);
+  
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Failed to retrieve cart details for editing' });
+  }
+});
+
+
+
+app.put('/purchase/update/:Cart_id', async (req, res) => {
+  const { Cart_id } = req.params;
+  const { Description, Name, Price, quantity} = req.body;
+  
+  try {
+    await dbProductoperations.updatePurchase(Cart_id, Description, Name, Price, quantity);
+    return res.status(200).json({ message: 'Cart quantity updated successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Failed to update cart quantity' });
+  }
+});
 
 ``
 app.use(cors({

@@ -135,7 +135,7 @@ function UserCart() {
     } catch (error) {
       console.error('Error deleting cart:', error);
     }
-  };
+  }; 
 
   useEffect(() => {
     LoadCart();

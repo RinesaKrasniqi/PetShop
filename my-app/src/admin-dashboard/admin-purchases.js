@@ -3,9 +3,11 @@ import axios from 'axios';
 import { FaUserAlt, FaMoneyBill, FaShoppingBasket, FaTelegramPlane, FaHome } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import Cart from '../addtocart/addtocart';
+import './admin-dashboardcss.css';
 
 function AdminPurchases() {
   const [pro, setPro] = useState([]);
+
   const loadPurchases = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/purchased`, {
@@ -23,15 +25,12 @@ function AdminPurchases() {
   
   const deletePurchase = async (Cart_Id) => {
     try {
-      console.log('Deleting purchase with Cart_id:', Cart_Id);
       await axios.delete(`http://localhost:5000/cartpurchase/${Cart_Id}`);
       loadPurchases();
     } catch (error) {
-      console.log('Error deleting purchase:', error);
-    }
+      console.error('Error deleting cart:', error);
+    } 
   };
-
-
 
   useEffect(() => {
     loadPurchases();
@@ -40,7 +39,6 @@ function AdminPurchases() {
   useEffect(() => {
     console.log('Purchases:', pro);
   }, [pro]);
-  
 
   return (
     <div className="back-dash">
@@ -112,6 +110,7 @@ function AdminPurchases() {
                   <th className="user-td">Quantity Purchased</th>
                   <th className="user-td">Update</th>
                   <th className="user-td">Delete</th>
+                  <th className="user-td">Validate</th>
                 </tr>
               </thead>
               <tbody className="bottom-table">
@@ -123,13 +122,22 @@ function AdminPurchases() {
                     <td className="bottom-td">{product.Name}</td>
                     <td className="bottom-td">{product.Price}$</td>
                     <td className="bottom-td">{product.quantity}</td>
-                    <td className="bottom-td">Update</td>
                     <td className="bottom-td">
-                      <button
-                        className="dltt-btn"
-                        onClick={() => deletePurchase(product.Cart_id)}
+                       <Link to={`/purchase/update/${product.Cart_Id}`}>
+                        <button className="upd-btn">Update</button>
+                      </Link>
+                     
+                    </td>
+                    <td className="bottom-td">
+                      <button className="delete-button"
+                        onClick={() => deletePurchase(product.Cart_Id)}
                       >
                         Delete
+                      </button>
+                    </td>
+                    <td className="bottom-td">
+                      <button className="validate-btn">
+                        Validate
                       </button>
                     </td>
                   </tr>

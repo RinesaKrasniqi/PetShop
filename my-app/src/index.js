@@ -34,7 +34,7 @@ import UserFleas from './user-dashboard/User-Home/user-fleas';
 import UserShop from './user-dashboard/User-Home/usershop';
 import UserHeader from './user-dashboard/User-Home/user-header';
 import LoginHeader from './Components/loginheader';
-
+import UpdatePurchase from './admin-dashboard/updatepurchase.js';
 
 
 import {
@@ -132,6 +132,14 @@ const router = createBrowserRouter([
     element: <div><UpdateProduct/></div>
   },
   {
+    path: "/purchase/update/:Cart_id",
+    element: <div><UpdatePurchase/></div>
+  }, 
+  {
+    path: "/purchase/edit/:Cart_id",
+    element: <div></div>
+  }, 
+  {
     path: "post-purchases",
     element: <div><PostDash/></div>
   },
@@ -225,7 +233,8 @@ const router = createBrowserRouter([
   {
     path: "/purchased",
     element: <div></div>
-  }
+  },
+  
 
 ]);
 

@@ -86,7 +86,7 @@ CREATE TABLE Cart(
   Name varchar(50),
   Price int,
   nr_in_stock int,
-  nr_of_stars int,
+  nr_of_stars int,  
   Price_before_discount int,
   quantity int not null,
   foto varchar(255),
@@ -112,6 +112,12 @@ ADD CONSTRAINT DF_Cart_Status DEFAULT 0 FOR status;
 Select * from Cart where status=1
 
 select* from Cart
+
+
+Select * from Cart where CART_ID=3
+
+DELETE FROM Cart WHERE Cart_Id = 2
+
 
 SELECT COUNT(*) AS ProductCount
         FROM Cart C 
@@ -198,6 +204,35 @@ insert into Products values('Tropiclean Flea ', 'Pet Powder ', 19 , 30 , 5 , 21 
 insert into Products values('Lice Comb', 'Trixie Flea ', 10 , 15 , 4 , 12 , '1695594416886.jpg', 5);
 insert into Products values('Vet’s Best Natural', 'Tick Home Spray', 5 , 8 , 5 , 7 , '1695594497213.jpg', 5);
 insert into Products values('Combo Cat', 'Frontline', 10 , 15 , 5 , 12 , '1695594552927.jpg', 5);
+
+
+
+//
+create table Sculptor(
+ SculptorId int identity(1,1) primary key ,
+ Name varchar(255) not null,
+ BirthYear int not null,
+ isDeleted BIT not null
+
+);
+
+ADD CONSTRAINT DF_Sculptor_isDeleted DEFAULT 0 FOR isDeleted;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 drop database ProjektiLAB1
