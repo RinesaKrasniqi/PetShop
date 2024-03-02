@@ -364,7 +364,7 @@ const editPurchase = async (Cart_id) => {
   try {
     let pool = await sql.connect(config);
     let request = pool.request();
-    request.input('Cart_id', sql.Int, Cart_id); 
+    request.input('Cart_Id', sql.Int, Cart_id); 
     let cart = await request.query(`SELECT * FROM Cart WHERE Cart_Id =@Cart_id`);
     console.log(cart);
     return cart;
@@ -386,7 +386,7 @@ const updatePurchase = async (Cart_id, Description, Name, Price, quantity) => {
     request.input('quantity', sql.Int, quantity);
 
     let cart = await request.query(
-      `UPDATE Cart 
+     `UPDATE Cart 
       SET 
       Description = @Description, 
       Name = @Name, 

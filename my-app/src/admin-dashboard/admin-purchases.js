@@ -1,54 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaUserAlt, FaMoneyBill, FaShoppingBasket, FaTelegramPlane, FaHome } from "react-icons/fa";
-import { Link } from 'react-router-dom';
-<<<<<<< HEAD
-import Cart from '../addtocart/addtocart';
-import './admin-dashboardcss.css';
-=======
+import { Link, useParams } from 'react-router-dom';
 import Pagination from './Pagination';
->>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
 
 function AdminPurchases() {
+  const { Cart_id} = useParams(); 
   const [purchases, setPurchases] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [description, setDescription] = useState('');
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [quantity, setQuantity] = useState('');
+
   const purchasesPerPage = 5;
 
   const loadPurchases = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/purchased`, {
-        withCredentials: true,
-      });
-      if (Array.isArray(response.data)) {
-        setPurchases(response.data);
-      } else {
-        console.error('Data received is not an array:', response.data);
-      }
+      const response = await axios.get('http://localhost:5000/purchased');
+      setPurchases(response.data);
     } catch (error) {
-<<<<<<< HEAD
-      console.error('Error loading cart:', error);
-=======
-      console.error('Error loading purchases:', error);
->>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
+      console.log('Error loading products:', error);
     }
   };
   
-  const deletePurchase = async (Cart_Id) => {
+  const deletePurchase = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/cartpurchase/${Cart_Id}`);
+      await axios.delete(`http://localhost:5000/cartpurchase/${id}`);
       loadPurchases();
     } catch (error) {
       console.error('Error deleting cart:', error);
     } 
   };
 
-  useEffect(() => {
-    loadPurchases();
-  }, []);
-  
-  useEffect(() => {
-    console.log('Purchases:', pro);
-  }, [pro]);
+   useEffect(() => {
+  //   console.log("Cart_Id:", Cart_id);
+    loadPurchases(); 
+  //   const getPurchaseId = async () => {
+  //     try { 
+  //       const response = await axios.get(`http://localhost:5000/purchase/edit/${Cart_id}`);
+  //       const purchase = response.data;
+  //       setDescription(purchase.Description);
+  //       setName(purchase.Name);
+  //       setPrice(purchase.Price);
+  //       setQuantity(purchase.quantity);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   getPurchaseId();
+   }, []);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -104,7 +105,7 @@ function AdminPurchases() {
           <p className="acc-dash-pp">{purchases.length}</p>
         </div>
 
-        <div className="second-div-a">
+        <div className="second-div-a"> 
           <h2 className="user-h2">Product list:</h2>
           <div className="user">
             <table className="user-table">
@@ -122,35 +123,24 @@ function AdminPurchases() {
                 </tr>
               </thead>
               <tbody className="bottom-table">
-<<<<<<< HEAD
-                {pro.map((product) => (
-                  <tr key={product.Cart_Id} className="bottom-tr">
-                    <td className="bottom-td">{product.Cart_Id}</td>
-                    <td className="bottom-td">{product.Client_id}</td>
-                    <td className="bottom-td">{product.Description}</td>
-                    <td className="bottom-td">{product.Name}</td>
-                    <td className="bottom-td">{product.Price}$</td>
-                    <td className="bottom-td">{product.quantity}</td>
-=======
                 {currentPurchases.map((purchase) => (
-                  <tr key={purchase.Product_id} className="bottom-tr">
-                    <td className="bottom-td">{purchase.Product_id}</td>
+                  <tr key={purchase.Cart_Id} className="bottom-tr">
+                    <td className="bottom-td">{purchase.Cart_Id}</td>
                     <td className="bottom-td">{purchase.Client_id}</td>
                     <td className="bottom-td">{purchase.Description}</td>
                     <td className="bottom-td">{purchase.Name}</td>
                     <td className="bottom-td">{purchase.Price}$</td>
                     <td className="bottom-td">{purchase.quantity}</td>
                     <td className="bottom-td">Update</td>
->>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
                     <td className="bottom-td">
-                       <Link to={`/purchase/update/${product.Cart_Id}`}>
+                       <Link to={`/purchase/update/${purchase.Cart_Id}`}>
                         <button className="upd-btn">Update</button>
                       </Link>
                      
                     </td>
                     <td className="bottom-td">
-                      <button className="delete-button"
-                        onClick={() => deletePurchase(product.Cart_Id)}
+                      <button className="delete-button" 
+                        onClick={() => deletePurchase(purchase.Cart_Id)}
                       >
                         Delete
                       </button>

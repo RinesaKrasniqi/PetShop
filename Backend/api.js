@@ -459,10 +459,11 @@ app.delete('/cartpurchase/:Cart_Id', async (req, res) => {
 
 app.get('/purchased', (req, res) => {
   dbProductoperations.purchased(req).then(result => {
+    console.log(result);
     res.send(result);
-    // console.log(result);
+    // console.log(result); 
   });
-});
+}); 
 
 app.get('/purchase/edit/:Cart_id', async (req, res) => {
   const { Cart_id } = req.params;
@@ -492,7 +493,6 @@ app.put('/purchase/update/:Cart_id', async (req, res) => {
   }
 });
 
-``
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true,
