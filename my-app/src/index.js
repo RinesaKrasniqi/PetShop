@@ -34,15 +34,19 @@ import UserFleas from './user-dashboard/User-Home/user-fleas';
 import UserShop from './user-dashboard/User-Home/usershop';
 import UserHeader from './user-dashboard/User-Home/user-header';
 import LoginHeader from './Components/loginheader';
+<<<<<<< HEAD
 import UpdatePurchase from './admin-dashboard/updatepurchase.js';
+=======
+import PostDeliveries from './postman-dashboard/post-deliveries';
+import PostDash from './postman-dashboard/postman-dashboard';
+
+>>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
 
 
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import PostDeliveries from './postman-dashboard/post-deliveries';
-import PostDash from './postman-dashboard/postman-dashboard';
 
 
 const router = createBrowserRouter([

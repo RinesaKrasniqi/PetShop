@@ -18,15 +18,15 @@ function Header() {
       <div class="shop-nav">
         <nav class="nav2">
          <ul class="nav2-list"> 
-          <li>
-            <a>shop</a>
-            <ul class="dropdown">
+            <li>
+              <a>shop</a>
+              <ul class="dropdown">
                 <li><Link to='/dog'>dog</Link></li>
                 <li><Link to='/cat' >cat</Link></li>
                 <li><Link to='/fish'>fish</Link></li>
                 <li><Link to='/pony'>pony</Link></li>
-            </ul>
-           </li> 
+              </ul>
+            </li> 
           </ul>
         </nav>
       </div>

@@ -18,7 +18,7 @@
 .first-div-a{
     background-color: #121111;
     width:240px;
-    height: 600px;
+    height: 400px;
     color: white;
 }
 
@@ -64,7 +64,7 @@
     top: 60px; 
 }
 .amdin-logout{
-    width: 25px;
+    width: 20px;
     margin-left: 4px;
 }
 .a-d-logout{
@@ -148,7 +148,7 @@
     background-color: #ebe4e4;
     border-radius: 15px;
     position: relative;
-    top:100px;
+    top:10px;
     left: 45px;
 }
 

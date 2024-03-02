@@ -5,9 +5,9 @@ const router = express.Router();
 const sql=require('mssql');
 
 var config={
-  user:"Margita",
+  user:"Rinesa",
   password: "123",
-  server: "MARGITA1083\\MSSQLSERVER01",
+  server: "DISCORD\\SQLEXPRESS",
   database : "ProjektiLAB1",
   driver: "msnodesqlv8",
   options:{
