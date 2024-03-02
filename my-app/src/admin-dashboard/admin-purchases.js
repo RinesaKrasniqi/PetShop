@@ -2,12 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaUserAlt, FaMoneyBill, FaShoppingBasket, FaTelegramPlane, FaHome } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
-import Cart from '../addtocart/addtocart';
-import './admin-dashboardcss.css';
-=======
 import Pagination from './Pagination';
->>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
 
 function AdminPurchases() {
   const [purchases, setPurchases] = useState([]);
@@ -25,11 +20,7 @@ function AdminPurchases() {
         console.error('Data received is not an array:', response.data);
       }
     } catch (error) {
-<<<<<<< HEAD
-      console.error('Error loading cart:', error);
-=======
       console.error('Error loading purchases:', error);
->>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
     }
   };
   
@@ -122,16 +113,6 @@ function AdminPurchases() {
                 </tr>
               </thead>
               <tbody className="bottom-table">
-<<<<<<< HEAD
-                {pro.map((product) => (
-                  <tr key={product.Cart_Id} className="bottom-tr">
-                    <td className="bottom-td">{product.Cart_Id}</td>
-                    <td className="bottom-td">{product.Client_id}</td>
-                    <td className="bottom-td">{product.Description}</td>
-                    <td className="bottom-td">{product.Name}</td>
-                    <td className="bottom-td">{product.Price}$</td>
-                    <td className="bottom-td">{product.quantity}</td>
-=======
                 {currentPurchases.map((purchase) => (
                   <tr key={purchase.Product_id} className="bottom-tr">
                     <td className="bottom-td">{purchase.Product_id}</td>
@@ -141,7 +122,6 @@ function AdminPurchases() {
                     <td className="bottom-td">{purchase.Price}$</td>
                     <td className="bottom-td">{purchase.quantity}</td>
                     <td className="bottom-td">Update</td>
->>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
                     <td className="bottom-td">
                        <Link to={`/purchase/update/${product.Cart_Id}`}>
                         <button className="upd-btn">Update</button>
