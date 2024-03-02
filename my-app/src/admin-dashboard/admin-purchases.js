@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaUserAlt, FaMoneyBill, FaShoppingBasket, FaTelegramPlane, FaHome } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
+import Cart from '../addtocart/addtocart';
+import './admin-dashboardcss.css';
+=======
 import Pagination from './Pagination';
+>>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
 
 function AdminPurchases() {
   const [purchases, setPurchases] = useState([]);
@@ -20,13 +25,30 @@ function AdminPurchases() {
         console.error('Data received is not an array:', response.data);
       }
     } catch (error) {
+<<<<<<< HEAD
+      console.error('Error loading cart:', error);
+=======
       console.error('Error loading purchases:', error);
+>>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
     }
+  };
+  
+  const deletePurchase = async (Cart_Id) => {
+    try {
+      await axios.delete(`http://localhost:5000/cartpurchase/${Cart_Id}`);
+      loadPurchases();
+    } catch (error) {
+      console.error('Error deleting cart:', error);
+    } 
   };
 
   useEffect(() => {
     loadPurchases();
   }, []);
+  
+  useEffect(() => {
+    console.log('Purchases:', pro);
+  }, [pro]);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -88,17 +110,28 @@ function AdminPurchases() {
             <table className="user-table">
               <thead className="user-head">
                 <tr className="user-tr">
-                  <th className="user-td">product Id</th>
-                  <th className="user-td">client id</th>
+                  <th className="user-td">Cart Id</th>
+                  <th className="user-td">Client Id</th>
                   <th className="user-td">Description</th>
                   <th className="user-td">Name</th>
                   <th className="user-td">Price</th>
-                  <th className="user-td">nr purchased</th>
+                  <th className="user-td">Quantity Purchased</th>
                   <th className="user-td">Update</th>
                   <th className="user-td">Delete</th>
+                  <th className="user-td">Validate</th>
                 </tr>
               </thead>
               <tbody className="bottom-table">
+<<<<<<< HEAD
+                {pro.map((product) => (
+                  <tr key={product.Cart_Id} className="bottom-tr">
+                    <td className="bottom-td">{product.Cart_Id}</td>
+                    <td className="bottom-td">{product.Client_id}</td>
+                    <td className="bottom-td">{product.Description}</td>
+                    <td className="bottom-td">{product.Name}</td>
+                    <td className="bottom-td">{product.Price}$</td>
+                    <td className="bottom-td">{product.quantity}</td>
+=======
                 {currentPurchases.map((purchase) => (
                   <tr key={purchase.Product_id} className="bottom-tr">
                     <td className="bottom-td">{purchase.Product_id}</td>
@@ -108,8 +141,24 @@ function AdminPurchases() {
                     <td className="bottom-td">{purchase.Price}$</td>
                     <td className="bottom-td">{purchase.quantity}</td>
                     <td className="bottom-td">Update</td>
+>>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
                     <td className="bottom-td">
-                      <button className="dltt-btn">Delete</button>
+                       <Link to={`/purchase/update/${product.Cart_Id}`}>
+                        <button className="upd-btn">Update</button>
+                      </Link>
+                     
+                    </td>
+                    <td className="bottom-td">
+                      <button className="delete-button"
+                        onClick={() => deletePurchase(product.Cart_Id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                    <td className="bottom-td">
+                      <button className="validate-btn">
+                        Validate
+                      </button>
                     </td>
                   </tr>
                 ))}

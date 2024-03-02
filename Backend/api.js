@@ -36,7 +36,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-
+//User api calls
 app.get('/user', (req, res) => {
   dboperations.getLoginDetails().then(result=>{
   res.send(result); 
@@ -128,7 +128,35 @@ app.get('/logout', (req, res) => {
 });
 
 
-//insert for admin
+
+app.put('/users/update/:Client_id', async(req, res) => {
+  const  {Client_id } = req.params;
+  const { name, surname,email,phone } = req.body;
+   await dboperations.updateUser( Client_id, name, surname,email,phone);
+});
+
+
+
+
+app.delete('/user/:Client_id', (req, res) => {
+  const { Client_id } = req.params;
+  dboperations.delUser(Client_id).then(result=>{
+  res.send(result);
+  }) 
+});
+
+ 
+
+app.get('/users/edit/:Client_id', (req, res) => {
+  const Client_id  = req.params;
+  console.log(Client_id);
+  dboperations.editUs(Client_id).then(x=>{
+  return res.json(x); 
+  })
+});
+
+//Insert for admin
+//Product apis
 
 const multer = require('multer');
 const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024;
@@ -179,35 +207,6 @@ app.get('/', (req,res)=>{
     console.log(result);
    })
 })
-
- 
-
-app.get('/users/edit/:Client_id', (req, res) => {
-  const Client_id  = req.params;
-  console.log(Client_id);
-  dboperations.editUs(Client_id).then(x=>{
-  return res.json(x); 
-  })
-});
-
-
-
-app.put('/users/update/:Client_id', async(req, res) => {
-  const  {Client_id } = req.params;
-  const { name, surname,email,phone } = req.body;
-   await dboperations.updateUser( Client_id, name, surname,email,phone);
-});
-
-
-
-
-app.delete('/user/:Client_id', (req, res) => {
-  const { Client_id } = req.params;
-  dboperations.delUser(Client_id).then(result=>{
-  res.send(result);
-  }) 
-});
-
 
 
 app.get('/product', (req, res) => {
@@ -265,6 +264,34 @@ app.get('/product/fleasandticks', (req, res) => {
   })
 });
 
+app.delete('/product/:Product_id', (req,res)=>{
+  const {Product_id} =req.params;
+  dbProductoperations.delProduct(Product_id).then(result=>{
+    res.send(result);
+  })
+
+})
+
+//product update
+
+app.get('/products/edit/:Product_id', (req, res) => {
+  const Product_id  = req.params;
+  console.log(Product_id);
+  dbProductoperations.editProduct(Product_id).then(x=>{
+  return res.json(x); 
+  })
+});
+
+app.get('/shop/:Product_id', (req, res) => {
+  const Product_id  = req.params;
+  console.log(Product_id);
+  dbProductoperations.editShop(Product_id).then(x=>{
+  return res.json(x); 
+  })
+});
+
+//CART apis
+
 app.post('/cart', async (req, res) => {
   try {
     await sql.connect(config);
@@ -276,7 +303,8 @@ app.post('/cart', async (req, res) => {
       return res.status(400).json({ message: 'Quantity cannot be null.' });
     }
 
-    const sqlQuery = 'INSERT INTO Cart (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, quantity, foto, status, Client_id) VALUES (@Product_id, @Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @quantity, @foto, 0, @Client_id)';
+    const sqlQuery = 'INSERT INTO Cart (Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, quantity, foto, status, delivery, Client_id) VALUES (@Product_id, @Description, @Name, @Price, @nr_in_stock, @nr_of_stars, @Price_before_discount, @quantity, @foto, 0, @delivery, @Client_id)';
+    const deliveryStatus = 'On the way'; // Set the delivery status
 
     request.input('Product_id', sql.Int, Product_id);
     request.input('Description', sql.NVarChar, Description);
@@ -287,6 +315,7 @@ app.post('/cart', async (req, res) => {
     request.input('Price_before_discount', sql.Int, Price_before_discount);
     request.input('quantity', sql.Int, quantity);
     request.input('foto', sql.NVarChar, foto);
+    request.input('delivery', sql.NVarChar, deliveryStatus); // Set the delivery status parameter
     request.input('Client_id', sql.Int, Client_id);
   
     const result = await request.query(sqlQuery);
@@ -329,24 +358,6 @@ app.get('/status1/:Client_id', async (req, res) => {
   }
 });
 
-app.get('/purchased', (req, res) => {
-  dboperations.purchased(req).then(result => {
-    res.send(result);
-    // console.log(result);
-  });
-});
-// app.get('/purchased', (req, res) => {
-//   dbProductoperations.cart(req).then(result => {
-//     res.send(result);
-//     // console.log(result);
-//   });
-// });
- 
-// app.put('/purchased/:Cart_id', async(req, res) => {
-//   const  {Cart_Id} = req.params;
-//    await dbProductoperations.updateStatus(Cart_id); 
-// });
-
 app.get('/purchaseProduct', async (req, res) => {
   try {
   const { Client_id } = req.query;
@@ -369,43 +380,12 @@ app.get('/purchaseProduct', async (req, res) => {
   }
 });
 
-
-
-
 app.delete('/cart/:Cart_Id', (req, res) => {
   const { Cart_Id } = req.params;
   dbProductoperations.delCart(Cart_Id).then(result=>{
   res.send(result);
   }) 
-});
-
-//products
-
-app.delete('/product/:Product_id', (req,res)=>{
-  const {Product_id} =req.params;
-  dbProductoperations.delProduct(Product_id).then(result=>{
-    res.send(result);
-  })
-
-})
-
-//product update
-
-app.get('/products/edit/:Product_id', (req, res) => {
-  const Product_id  = req.params;
-  console.log(Product_id);
-  dbProductoperations.editProduct(Product_id).then(x=>{
-  return res.json(x); 
-  })
-});
-
-app.get('/shop/:Product_id', (req, res) => {
-  const Product_id  = req.params;
-  console.log(Product_id);
-  dbProductoperations.editShop(Product_id).then(x=>{
-  return res.json(x); 
-  })
-});
+});  
 
 app.get('/cartcount/:Client_id', async (req, res) => {
   try {
@@ -419,7 +399,7 @@ app.get('/cartcount/:Client_id', async (req, res) => {
 
 app.get('/totalprice/:Client_id', async (req, res) => {
   try {
-    const price = await dbProductoperations.totalPrice(req);
+    const price = await dbProductoperations.totalPriceStatus0(req);
     res.json({ price }); 
   } catch (error) {
     console.error('API request failed:', error);
@@ -462,6 +442,54 @@ app.put('/products/update/:Product_id', async(req, res) => {
   const  {Product_id } = req.params;
   const { Description, Name,Price,nr_in_stock, nr_of_stars, Price_before_discount, Category } = req.body;
    await dbProductoperations.updateProduct( Product_id, Description, Name, Price, nr_in_stock, nr_of_stars, Price_before_discount, Category );
+});
+
+app.delete('/cartpurchase/:Cart_Id', async (req, res) => {
+  try {
+    const { Cart_Id } = req.params; // Ensure the parameter name matches here
+    const result = await dbProductoperations.delPurchase(Cart_Id);
+    res.send(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'An error occurred while deleting the purchase.' });
+  }
+});
+
+//Purchase(Cart) operations
+
+app.get('/purchased', (req, res) => {
+  dbProductoperations.purchased(req).then(result => {
+    res.send(result);
+    // console.log(result);
+  });
+});
+
+app.get('/purchase/edit/:Cart_id', async (req, res) => {
+  const { Cart_id } = req.params;
+  console.log(Cart_id);
+  try {
+    const cart = await dbProductoperations.editPurchase(Cart_id);
+    return res.json(cart);
+  
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Failed to retrieve cart details for editing' });
+  }
+});
+
+
+
+app.put('/purchase/update/:Cart_id', async (req, res) => {
+  const { Cart_id } = req.params;
+  const { Description, Name, Price, quantity} = req.body;
+  
+  try {
+    await dbProductoperations.updatePurchase(Cart_id, Description, Name, Price, quantity);
+    return res.status(200).json({ message: 'Cart quantity updated successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Failed to update cart quantity' });
+  }
 });
 
 ``

@@ -21,18 +21,37 @@ function UserCart() {
   const [status, setStatus] = useState(0);
   const [selectedProductId, setSelectedProductId] = useState(null);
 
+  const handlePopup = (productData) => {
+    setButtonPopup(true);
+    setSelectedProductId(productData.Cart_Id); // Set the selected product ID
+    setQuantity(productData.quantity); // Set the quantity of the selected product
+  };
+
 
   
-const updateCartItemQuantity = async (Cart_Id, updatedQuantity) => {
-  try {
-    await axios.put(`http://localhost:5000/cart/update/${Cart_Id}`, { quantity: updatedQuantity });
-    // Refresh the cart items after the update
-    LoadCart();
-  } catch (error) {
-    console.error('Error updating quantity:', error);
-    // Handle errors appropriately
-  }
-};
+  const updateCartItemQuantity = async (Cart_Id, updatedQuantity) => {
+    try {
+      await axios.put(`http://localhost:5000/cart/update/${Cart_Id}`, { quantity: updatedQuantity });
+      // Refresh the cart items after the update
+      LoadCart();
+      setButtonPopup(false);
+  
+      // Recalculate total price
+      let updatedTotalPrice = 0;
+      cartItems.forEach(item => {
+        if (item.Cart_Id === Cart_Id) {
+          updatedTotalPrice += item.Price * updatedQuantity;
+        } else {
+          updatedTotalPrice += item.Price * item.quantity;
+        }
+      });
+      setTotalPrice(updatedTotalPrice);
+    } catch (error) {
+      console.error('Error updating quantity:', error);
+      // Handle errors appropriately
+    }
+  };
+  
 
   const Client_id = Cookies.get('Client_id');
 
@@ -116,7 +135,7 @@ const updateCartItemQuantity = async (Cart_Id, updatedQuantity) => {
     } catch (error) {
       console.error('Error deleting cart:', error);
     }
-  };
+  }; 
 
   useEffect(() => {
     LoadCart();
@@ -170,7 +189,7 @@ const updateCartItemQuantity = async (Cart_Id, updatedQuantity) => {
                   </div>
                 </div>
                 <div className='p-cart-8'>
-                  <button className="edit-a-t" onClick={() => setButtonPopup(true)}> Edit</button>
+                <button className='edit-a-t' onClick={() => handlePopup(product)}>Edit</button>
                 </div>
                 <div className='devider-cart-gita'></div>
               </div>
@@ -191,7 +210,7 @@ const updateCartItemQuantity = async (Cart_Id, updatedQuantity) => {
           </div> 
         )}
       </div>
-      <EditCart trigger={buttonPopup} setTrigger={setButtonPopup}>
+      <EditCart trigger={buttonPopup} setTrigger={setButtonPopup} productID={selectedProductId}>
         <h2 className='h2-post'>Edit quantity</h2>
         <div className="shop-pickquantity">
           <p className="quantity1">Quantity: </p>
@@ -214,13 +233,11 @@ const updateCartItemQuantity = async (Cart_Id, updatedQuantity) => {
             </button>
           </div>
         </div>
-        {cartItems.map((product) => (
-          <div key={product.Cart_Id}>
-            <Link to={`/cart/update/${product.Cart_Id}`}>
-            <button className='save' onClick={() => updateCartItemQuantity(product.Cart_Id, quantity)}>Save</button>
+          <div key={selectedProductId}>
+            <Link to={`/cart/update/${selectedProductId}`}  onClick={(e) => e.preventDefault()}>
+            <button className='save' onClick={() => updateCartItemQuantity(selectedProductId, quantity)}>Save</button>
             </Link>
           </div>
-        ))}
       </EditCart>
       <Footer />
     </div>

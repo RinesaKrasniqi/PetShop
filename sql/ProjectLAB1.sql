@@ -2,7 +2,10 @@
 use ProjektiLAB1
 
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
 create table Role(
  role_id int primary key,
  role_name varchar(255) not null
@@ -88,16 +91,25 @@ CREATE TABLE Cart(
   Name varchar(50),
   Price int,
   nr_in_stock int,
-  nr_of_stars int,
+  nr_of_stars int,  
   Price_before_discount int,
   quantity int not null,
   foto varchar(255),
   status BIT,
+  delivery varchar(255) not null,
   Product_id int,
   Client_id int,
   constraint client_cart foreign key (Client_id) references Client(Client_id),
   constraint Product_cart foreign key (Product_id) references Products(Product_id)
 );
+
+DELETE FROM Cart WHERE Client_id =3 and Cart_id=1;
+
+select* from cart
+
+select* from Client
+
+drop table cart
 
 ALTER TABLE Cart
 ADD CONSTRAINT DF_Cart_Status DEFAULT 0 FOR status;
@@ -106,9 +118,21 @@ Select * from Cart where status=1
 
 select* from Cart
 
+
+Select * from Cart where CART_ID=3
+
+DELETE FROM Cart WHERE Cart_Id = 2
+
+
 SELECT COUNT(*) AS ProductCount
         FROM Cart C 
         WHERE client_id = 6 and C.status=0;
+
+
+select sum(c.price* c.quantity) as TotalPrice
+      from Cart c inner join Products p
+      on c.Product_id=p.Product_id
+      WHERE Client_id = 1 and c.status=0;
 
 SELECT* 
 FROM Cart where
@@ -122,7 +146,7 @@ status=1 and Client_id=6;
 UPDATE Cart
         SET status = 1
         WHERE Client_id = 1;
-drop table Cart
+
 
 SELECT p.Product_id, p.Name, c.Cart_Id, cg.category_name
 FROM Cart c
@@ -187,3 +211,36 @@ insert into Products values('Vet’s Best Natural', 'Tick Home Spray', 5 , 8 , 5
 insert into Products values('Combo Cat', 'Frontline', 10 , 15 , 5 , 12 , '1695594552927.jpg', 5);
 
 
+<<<<<<< HEAD
+
+//
+create table Sculptor(
+ SculptorId int identity(1,1) primary key ,
+ Name varchar(255) not null,
+ BirthYear int not null,
+ isDeleted BIT not null
+
+);
+
+ADD CONSTRAINT DF_Sculptor_isDeleted DEFAULT 0 FOR isDeleted;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+drop database ProjektiLAB1
+=======
+>>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed

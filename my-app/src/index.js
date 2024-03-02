@@ -34,9 +34,13 @@ import UserFleas from './user-dashboard/User-Home/user-fleas';
 import UserShop from './user-dashboard/User-Home/usershop';
 import UserHeader from './user-dashboard/User-Home/user-header';
 import LoginHeader from './Components/loginheader';
+<<<<<<< HEAD
+import UpdatePurchase from './admin-dashboard/updatepurchase.js';
+=======
 import PostDeliveries from './postman-dashboard/post-deliveries';
 import PostDash from './postman-dashboard/postman-dashboard';
 
+>>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
 
 
 import {
@@ -132,6 +136,14 @@ const router = createBrowserRouter([
     element: <div><UpdateProduct/></div>
   },
   {
+    path: "/purchase/update/:Cart_id",
+    element: <div><UpdatePurchase/></div>
+  }, 
+  {
+    path: "/purchase/edit/:Cart_id",
+    element: <div></div>
+  }, 
+  {
     path: "post-purchases",
     element: <div><PostDash/></div>
   },
@@ -194,14 +206,14 @@ const router = createBrowserRouter([
     path: "/loginheader",
     element: <div><LoginHeader/></div>
   },
-  {
-    path: "/cart/edit/:Cart_id",
-    element: <div></div>
-  },
-  {
-    path: "/cart/update/:Cart_id",
-    element: <div></div>
-  },
+  // {
+  //   path: "/cart/edit/:Cart_id",
+  //   element: <div></div>
+  // },
+  // {
+  //   path: "/cart/update/:Cart_id",
+  //   element: <div></div>
+  // },
   {
     path: "/category",
     element: <div></div>
@@ -218,6 +230,15 @@ const router = createBrowserRouter([
     path: "/stripe/purchaseProduct/:Client_id",
     element: <div></div>
   },
+  {
+    path: "/cartpurchase/:Cart_Id",
+    element: <div></div>
+  },
+  {
+    path: "/purchased",
+    element: <div></div>
+  },
+  
 
 ]);
 
