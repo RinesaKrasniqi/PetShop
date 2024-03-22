@@ -350,7 +350,7 @@ const delPurchase = async (Cart_Id) => {
 const purchased = async () => {
   try {
     let pool = await sql.connect(config);
-    let result = await pool.request().query(`SELECT * FROM Cart WHERE status = 1`);
+    let result = await pool.request().query(`SELECT * FROM Cart WHERE status = 1 and delivered = 0`);
     console.log(result);
     return result;
   } catch (error) {
@@ -403,6 +403,188 @@ const updatePurchase = async (Cart_id, Description, Name, Price, quantity) => {
   }
 };
 
+
+const adminDelivered = async () => {
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool.request().query("SELECT * FROM Cart WHERE delivered = 1 AND delivery LIKE '%On the way%'");
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+
+
+///Postman
+
+const editDelivery = async (Cart_Id) => {
+  try {
+    let pool = await sql.connect(config);
+    let request = pool.request();
+    request.input('Cart_Id', sql.Int, Cart_Id); 
+    let cart = await request.query(`SELECT * FROM Cart WHERE Cart_Id =@Cart_id`);
+    console.log(cart);
+    return cart;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+
+const updateDelivery = async (delivery, Cart_Id) => {
+  try {
+    let pool = await sql.connect(config);
+    let request = pool.request();
+    request.input('delivery', sql.NVarChar, delivery);
+    request.input('Cart_Id', sql.Int, Cart_Id);
+
+    let cart = await request.query(
+      `UPDATE Cart 
+       SET delivery = @delivery
+       WHERE Cart_id = @Cart_Id`
+    );
+
+    console.log(cart);
+    return cart;
+  } catch (error) {
+    console.log(error);
+    throw error; 
+  }
+};
+
+const postmanDelivered = async () => {
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool.request().query("SELECT * FROM Cart WHERE delivered = 1 AND delivery LIKE '%Delivered%'");
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+
+//////////////////////////////////////////CRUD1
+
+const getCrud1= async()=> {
+  try{
+      let pool =await sql.connect(config);
+      let product = pool.request().query('Select * from team')
+      console.log(product);
+      return product;
+  }catch(error){
+      console.log(error);
+  }
+}
+
+const editCrud1 = async (TeamId) => {
+  try {
+    let pool = await sql.connect(config);
+    let user = await pool
+      .request()
+      .query(`SELECT * FROM team WHERE TeamId = ${TeamId}`);
+    console.log(user);
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+const updateCrud1 = async (TeamId,name) => {
+  try {
+  //   console.log(AdminID + ' ' + Email + ' ' + AdminRoli);
+    let pool = await sql.connect(config);
+    let adminet = await pool
+      .request()
+      .query(
+        `UPDATE team SET name = '${name}'  WHERE TeamId = ${TeamId}`
+      );
+
+    console.log(adminet);
+    return adminet;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// const delSculptor= async(sculptorId)=> {
+//   try {
+//       let pool = await sql.connect(config);
+//       let result = await pool.request()
+//         .input('sculptorId', sql.VarChar, sculptorId)
+//         .query('DELETE FROM ssculptor WHERE sculptorId = @sculptorId');
+//       return result;
+//     } catch (error) {
+//       console.error(error);
+//     }
+// }
+
+////////////CRUD2
+
+const getCrud2= async()=> {
+  try{
+      let pool =await sql.connect(config);
+      let product = pool.request().query('Select * from Player')
+      console.log(product);
+      return product;
+  }catch(error){
+      console.log(error);
+  }
+}
+
+const delCrud2= async(PlayerId)=> {
+  try {
+      let pool = await sql.connect(config);
+      let result = await pool.request()
+        .input('PlayerId', sql.VarChar, PlayerId)
+        .query('DELETE FROM player WHERE PlayerId = @PlayerId');
+      return result;
+    } catch (error) {
+      console.error(error);
+    }
+}
+
+const editCrud2 = async (sculptureId) => {
+  try {
+    let pool = await sql.connect(config);
+    let user = await pool
+      .request()
+      .query(`SELECT * FROM sculpture WHERE sculptureId = ${sculptureId}`);
+    console.log(user);
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+const updateCrud2 = async (sculptureId, title,material,sculptorId) => {
+  try {
+    let pool = await sql.connect(config);
+    let adminet = await pool
+      .request()
+      .input('sculptureId', sql.NVarChar, sculptureId)
+      .input('title', sql.NVarChar, title) 
+      .input('material', sql.NVarChar, material) 
+      .input('sculptorId', sql.Int, sculptorId)
+      .query(
+        'UPDATE sculpture SET title = @title, material = @material, sculptorId = @sculptorId WHERE sculptureId = @sculptureId'
+      );
+
+    console.log(adminet);
+    return adminet;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 module.exports={
     getProduct,
     getDog,
@@ -426,6 +608,18 @@ module.exports={
     delPurchase,
     purchased,
     editPurchase,
-    updatePurchase
-   
+    updatePurchase,
+    adminDelivered,
+    editDelivery,
+    updateDelivery,
+    postmanDelivered,
+
+    getCrud1,
+    editCrud1,
+    updateCrud1,
+
+    getCrud2,
+    delCrud2,
+    editCrud2,
+    updateCrud2
 }

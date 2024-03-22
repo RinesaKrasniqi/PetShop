@@ -67,22 +67,17 @@ function UserPurchased() {
               </div> */}
               <div className='p-pur-6'>
                 <div className="pur-c-6"></div>
-                <Link to='#' className="logout-p6">On the way</Link>
+                <p to='#' className="logout-p6">{item.delivery}</p>
               </div>
             </div>
           </div>
         ))
       ) : (
         <div> 
-<<<<<<< HEAD
         <img src="./Img/pet-food-cart.png" className="img-pet-purchase"></img>
         <h3 className="no-pushase">You haven't made any purchases yet. </h3>
         <p className="no-purchase-p">Seems like your purchase history is as blank as a fresh canvas.</p>
         <p className="no-purchase-pp"> Let's jazz it up with something special, shall we?</p>
-=======
-        <img src="./Img/pet-food-cart.png" className="img-pet-cart"></img>
-        <p className="no-product-p">You havent purchased anything yet!</p>
->>>>>>> 370894d7c9365ff2033614589ea9cd332f8c9cf3
       </div> 
       )}
 

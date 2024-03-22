@@ -5,7 +5,7 @@ import './addcss.css';
 import axios from 'axios';
 
 const UpdateProduct = () => {
-  const { Product_id } = useParams(); // Make sure parameter name matches the route parameter
+  const { Product_id } = useParams(); 
   const [product, setProduct] = useState({});
   const [Description, setDescription] = useState('');
   const [Name, setName] = useState('');

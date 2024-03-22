@@ -34,14 +34,17 @@ import UserFleas from './user-dashboard/User-Home/user-fleas';
 import UserShop from './user-dashboard/User-Home/usershop';
 import UserHeader from './user-dashboard/User-Home/user-header';
 import LoginHeader from './Components/loginheader';
-<<<<<<< HEAD
 import UpdatePurchase from './admin-dashboard/updatepurchase.js';
-=======
 import PostDeliveries from './postman-dashboard/post-deliveries';
 import PostDash from './postman-dashboard/postman-dashboard';
 
->>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
+import Crud1 from './detyra/Crud1.js';
+import UpdateCrud1 from './detyra/UpdateCrud1.js';
+import AddCrud1 from './detyra/AddCrud1.js';
 
+import Crud2 from './detyra/Crud2.js';
+import UpdateCrud2 from './detyra/UpdateCrud2.js';
+import AddCrud2 from './detyra/AddCrud2.js';
 
 import {
   createBrowserRouter,
@@ -237,8 +240,73 @@ const router = createBrowserRouter([
   {
     path: "/purchased",
     element: <div></div>
+  }
+  ,
+  {
+    path: "/validate/:Cart_Id",
+    element: <div></div>
+  }
+  ,
+  {
+    path: "/delivery/edit/:Cart_id",
+    element: <div></div>
   },
-  
+  {
+    path: "/delivery/update/:Cart_id",
+    element: <div></div>
+  },
+
+
+  {
+    path: "/crud1",
+    element: <div><Crud1/></div>
+  },
+  {
+    path: "/sculptor/del/:sculptorId",
+    element: <div></div>
+  },
+  {
+    path: "/crud1/edit/:TeamId",
+    element: <div></div>
+  },
+  {
+    path: "/crud1/update/:TeamId",
+    element: <div></div>
+  },
+  {
+    path: "/crud1/updateC/:TeamId",
+    element: <div><UpdateCrud1/></div>
+  },
+  {
+    path: "/addcrud1",
+    element: <div><AddCrud1/></div>
+  }
+  ,
+  {
+    path: "/crud2",
+    element: <div><Crud2/></div>
+  }, 
+  {
+    path: "/crud2/del/:sculptureId",
+    element: <div></div>
+  },
+  ,
+  {
+    path: "/crud2/updateC/:sculptureId",
+    element: <div><UpdateCrud2/></div>
+  },
+  {
+    path: "/crud2/edit/:sculptureId",
+    element: <div></div>
+  },
+  {
+    path: "/crud2/update/:sculptureId",
+    element: <div></div>
+  },
+  {
+    path: "/addcrud2",
+    element: <div><AddCrud2/></div>
+  }
 
 ]);
 

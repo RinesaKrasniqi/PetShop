@@ -144,7 +144,7 @@
     font-family: 'Work Sans', sans-serif;
 }
 .user{
-    width: 900px;
+    width: 1000px;
     background-color: #ebe4e4;
     border-radius: 15px;
     position: relative;
@@ -201,7 +201,6 @@
 
 .delete-button{
     position: relative;
-    left: 110px;
     background: none;
     text-decoration: none;
     border:white;
@@ -215,6 +214,24 @@
     
 }
 
+.validate-btn{
+    position: relative;
+    background: none;
+    text-decoration: none;
+    border:white;
+    font-weight: 600;
+    font-size: medium;
+    font-family: 'Work Sans', sans-serif;
+    padding-top: 20px;
+    color: #bf0606;
+    cursor: pointer;
+    display: inline-block;
+    
+}
+.validated {
+    opacity: 0.5; 
+  
+}
 
 /*Product dash*/
 .elements-3{

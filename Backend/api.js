@@ -36,6 +36,171 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
+
+///////////////////////////////Crud1
+
+app.get('/crud1', (req, res) => {
+  dbProductoperations.getCrud1().then(result=>{
+  res.send(result); 
+  })
+});
+
+// app.delete('/sculptor/:sculptorId', (req,res)=>{
+//   const {sculptorId} =req.params;
+//   dbProductoperations.delSculptor(sculptorId).then(result=>{
+//     res.send(result);
+//   })
+
+// })
+
+app.put('/sculptor/del/:sculptorId', async (req, res) => {
+  try {
+    const { sculptorId } = req.params;
+    console.log('Received sculptorId:', sculptorId);
+    
+    const pool = await sql.connect(config);
+    const sculptorid = parseInt(sculptorId, 10);
+
+    const result = await pool.request()
+      .input('sculptorId', sql.Int, sculptorid)
+      .input('isDeleted', sql.Bit, 1) 
+      .query(
+        `UPDATE ssculptor
+        SET isDeleted = @isDeleted
+        WHERE sculptorId = @sculptorId`
+      );
+    
+    res.status(200).json({ message: 'Resource updated successfully' });
+  } catch (error) {
+    console.error('Error handling success:', error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
+
+app.get('/crud1/edit/:sculptorId', async (req, res) => {
+  const { sculptorId } = req.params;
+  console.log(sculptorId);
+  try {
+    const cart = await dbProductoperations.editCrud1(sculptorId);
+    return res.json(cart);
+  
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Failed to retrieve cart details for editing' });
+  }
+});
+
+app.put('/crud1/update/:sculptorId', async (req, res) => {
+  const { sculptorId } = req.params;
+  const { name, birthYear} = req.body;
+  
+  try {
+    await dbProductoperations.updateCrud1(sculptorId, name, birthYear);
+    return res.status(200).json({ message: 'Cart quantity updated successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Failed to update cart quantity' });
+  }
+});
+
+app.post("/add/crud1", async (req, res) => {
+  try {
+    await sql.connect(config);
+    const request = new sql.Request();
+
+    const { name} = req.body;
+    const sqlQuery = "INSERT INTO team (name) VALUES (@name)";
+
+    request.input('name', sql.NVarChar, name);
+
+    const result = await request.query(sqlQuery);
+    res.json(result);
+  } catch (error) {
+    console.error('Error executing SQL query:', error);
+    res.status(500).json({ message: "An error occurred while executing the SQL query." });
+  }
+});
+
+
+////////////////////////////////CRUD2
+
+app.get('/crud2', (req, res) => {
+  dbProductoperations.getCrud2().then(result=>{
+  res.send(result); 
+  })
+});
+
+app.delete('/crud2/:PlayerId', (req, res) => {
+  const { PlayerId } = req.params;
+  dbProductoperations.delCrud2(PlayerId).then(result=>{
+  res.send(result);
+  }) 
+});
+
+app.put('/crud2/del/:sculptureId', async (req, res) => {
+  try {
+    const { sculptureId } = req.params;
+    console.log('Received sculptorId:', sculptureId);
+    
+    const pool = await sql.connect(config);
+    const sculptorid = parseInt(sculptureId, 10);
+
+    const result = await pool.request()
+      .input('sculptureId', sql.Int, sculptorid)
+      .input('isDeleted', sql.Bit, 1) 
+      .query(
+        `UPDATE sculpture
+        SET isDeleted = @isDeleted
+        WHERE sculptureId = @sculptureId`
+      );
+    
+    res.status(200).json({ message: 'Resource updated successfully' });
+  } catch (error) {
+    console.error('Error handling success:', error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
+app.get('/crud2/edit/:sculptureId', (req, res) => {
+  const { sculptureId } = req.params;
+  console.log(sculptureId);
+  dbProductoperations.editCrud2(sculptureId).then(x=>{
+  return res.json(x); 
+  })
+});
+
+app.put('/crud2/update/:sculptureId', async (req, res) => {
+  const { sculptureId } = req.params;
+  const { title, material, sculptorId } = req.body; 
+  await dbProductoperations.updateCrud2(sculptureId, title, material, sculptorId);
+  res.sendStatus(200); 
+});
+
+app.post("/add/crud2", async (req, res) => {
+  try {
+    await sql.connect(config);
+    const request = new sql.Request();
+
+    const { name, number, birthYear, TeamId} = req.body;
+    const sqlQuery = "INSERT INTO player (name, number,birthYear,TeamId) VALUES (@name, @number, @birthYear, @TeamId)";
+
+    request.input('name', sql.NVarChar, name);
+    request.input('number', sql.Int, number);
+    request.input('birthYear', sql.Int, birthYear);
+    request.input('TeamId', sql.Int, TeamId);
+
+    const result = await request.query(sqlQuery);
+    res.json(result);
+  } catch (error) {
+    console.error('Error executing SQL query:', error);
+    res.status(500).json({ message: "An error occurred while executing the SQL query." });
+  }
+});
+
+
+
+///////////////////////////////////////////
 //User api calls
 app.get('/user', (req, res) => {
   dboperations.getLoginDetails().then(result=>{
@@ -455,14 +620,16 @@ app.delete('/cartpurchase/:Cart_Id', async (req, res) => {
   }
 });
 
+
+
 //Purchase(Cart) operations
 
 app.get('/purchased', (req, res) => {
   dbProductoperations.purchased(req).then(result => {
     res.send(result);
-    // console.log(result);
   });
 });
+
 
 app.get('/purchase/edit/:Cart_id', async (req, res) => {
   const { Cart_id } = req.params;
@@ -492,7 +659,82 @@ app.put('/purchase/update/:Cart_id', async (req, res) => {
   }
 });
 
-``
+
+app.put('/validate/:Cart_Id', async (req, res) => {
+  try {
+    const { Cart_Id } = req.params;
+    console.log('Received Cart_Id:', Cart_Id);
+    
+    const pool = await sql.connect(config);
+    const Cartid = parseInt(Cart_Id, 10);
+
+    const result = await pool.request()
+      .input('Cart_Id', sql.Int, Cartid)
+      .input('Delivered', sql.Bit, 1) 
+      .query(
+        `UPDATE Cart
+        SET delivered = @Delivered
+        WHERE Cart_Id = @Cart_Id`
+      );
+    
+    res.status(200).json({ message: 'Resource updated successfully' });
+  } catch (error) {
+    console.error('Error handling success:', error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
+
+//
+
+
+app.get('/adminDelivered', (req, res) => {
+  dbProductoperations.adminDelivered().then(result=>{
+  res.send(result); 
+  console.log(result);
+  })
+});
+
+
+//
+
+app.get('/postmanDelivered', (req, res) => {
+  dbProductoperations.postmanDelivered().then(result=>{
+  res.send(result); 
+  console.log(result);
+  })
+});
+
+app.get('/delivery/edit/:Cart_id', async (req, res) => {
+  const { Cart_id } = req.params;
+  console.log(Cart_id);
+  try {
+    const cart = await dbProductoperations.editDelivery(Cart_id);
+    return res.json(cart);
+  
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Failed to retrieve cart details for editing' });
+  }
+});
+
+
+app.put('/delivery/update/:Cart_id', async (req, res) => {
+  const { Cart_id } = req.params;
+  const { delivery } = req.body;
+  
+  try {
+    await dbProductoperations.updateDelivery(delivery, Cart_id);
+    return res.status(200).json({ message: 'Cart quantity updated successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Failed to update cart quantity' });
+  }
+});
+
+
+
+
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true,

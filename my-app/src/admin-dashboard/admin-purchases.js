@@ -7,6 +7,8 @@ import Pagination from './Pagination';
 function AdminPurchases() {
   const [purchases, setPurchases] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [pro, setPro] = useState([]);
+  const [product, setProduct] = useState([]);
   const purchasesPerPage = 5;
 
   const loadPurchases = async () => {
@@ -32,6 +34,17 @@ function AdminPurchases() {
       console.error('Error deleting cart:', error);
     } 
   };
+
+
+  const validatePurchase = async (Cart_Id) => {
+    try {
+      await axios.put(`http://localhost:5000/validate/${Cart_Id}`);
+      loadPurchases();
+    } catch (error) {
+      console.error('Error validating purchase:', error);
+    } 
+  };
+
 
   useEffect(() => {
     loadPurchases();
@@ -96,7 +109,7 @@ function AdminPurchases() {
         </div>
 
         <div className="second-div-a">
-          <h2 className="user-h2">Product list:</h2>
+          {/* <h2 className="user-h2">Product list:</h2> */}
           <div className="user">
             <table className="user-table">
               <thead className="user-head">
@@ -121,22 +134,17 @@ function AdminPurchases() {
                     <td className="bottom-td">{purchase.Name}</td>
                     <td className="bottom-td">{purchase.Price}$</td>
                     <td className="bottom-td">{purchase.quantity}</td>
-                    <td className="bottom-td">Update</td>
                     <td className="bottom-td">
                        <Link to={`/purchase/update/${product.Cart_Id}`}>
                         <button className="upd-btn">Update</button>
                       </Link>
-                     
                     </td>
                     <td className="bottom-td">
-                      <button className="delete-button"
-                        onClick={() => deletePurchase(product.Cart_Id)}
-                      >
-                        Delete
-                      </button>
+                      <button className="delete-button" onClick={() => deletePurchase(product.Cart_Id)}>
+                        Delete</button>
                     </td>
                     <td className="bottom-td">
-                      <button className="validate-btn">
+                      <button className="validate-btn" onClick={() => validatePurchase(purchase.Cart_Id)}>
                         Validate
                       </button>
                     </td>

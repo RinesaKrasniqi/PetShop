@@ -1,4 +1,5 @@
 import {useRef, useState, useEffect} from 'react';
+import axios from 'axios';
 import './postman-dashboardcss.css'
 import { FaRegStar } from "react-icons/fa";
 import { FaPaw } from "react-icons/fa";
@@ -17,6 +18,21 @@ import  Footer from '../Components/footer.js';
 var Link = require('react-router-dom').Link
 
 function PostDeliveries(){
+  const [postmanDelivered, setPostmanDelivered] = useState([]);
+
+  const loadDelivered= async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/postmanDelivered');
+      setPostmanDelivered(response.data);
+    } catch (error) {
+      console.log('Error loading users:', error);
+    }
+  };
+
+  useEffect(() => {
+    loadDelivered();
+  }, []);
+
     return(
         <div class='back-dash'>
           
@@ -53,26 +69,20 @@ function PostDeliveries(){
                 <thead class="post-head" >
                     <tr className='post-tr'>
                       <td className='post-td'>Shiping ID</td>
-                      <td className='post-td'>First Name</td>
-                      <td className='post-td'>Last Name</td>
-                      <td className='post-td'>Address</td>
+                      <td className='post-td'>Client Id</td>
                       <td className='post-td'>Product Name</td>
-                      <td className='post-td'>Status</td>
-                      <td className='post-td'>Date</td>
-                      <td className='post-td'>Update</td>
+
                     </tr>
                 </thead>
                 <tbody class='bottom-table-post'>
-                      <tr class='bottom-tr-post'>
-                          <td class='bottom-td-post'>hello</td>
-                          <td class='bottom-td-post'>hello</td>
-                          <td class='bottom-td-post'>hello</td>
-                          <td class='bottom-td-post'>hello</td>
-                          <td class='bottom-td-post'>hello</td>
-                          <td class='bottom-td-post'>hello</td>
-                          <td class='bottom-td-post'>hello</td>
-                          <td class='upd-btn'>Update</td>
-                      </tr>
+                   {postmanDelivered.map((purchase) => (
+                     <tr key={purchase.Product_id} className='bottom-tr-post'>
+                     <td className='bottom-td-post'>{purchase.Product_id}</td>
+                     <td className='bottom-td-post'>{purchase.Client_id}</td>
+                     <td className='bottom-td-post'>{purchase.Name}</td>
+                     <td className='bottom-td-post'>{purchase.delivery}</td>
+                     </tr>
+                    ))}
                   </tbody>
                </table>
                </div>

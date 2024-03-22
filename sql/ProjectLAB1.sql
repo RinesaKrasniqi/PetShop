@@ -2,10 +2,77 @@
 use ProjektiLAB1
 
 
-<<<<<<< HEAD
-=======
+create table Team(
+   TeamId int identity(1,1) primary key ,
+   name varchar(255)
+);
 
->>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
+INSERT INTO Team (name) VALUES ('FC Barcelona');
+
+select *
+from Team
+
+
+create table Player(
+   PlayerId int identity(1,1) primary key ,
+   name varchar(255),
+   number INT,
+   birthYear INT,
+   TeamId INT,
+   constraint FK_Team foreign key (TeamId) references Team(TeamId)
+);
+
+INSERT INTO Player (name, number, birthYear, TeamId) VALUES ('Lionel Messi', 30, 1987, 1);
+
+select *
+from Player
+
+
+
+
+create table ssculptor(
+   sculptorId int identity(1,1) primary key ,
+   name varchar(255),
+   birthYear date,
+   isDeleted BIT 
+
+);
+
+ALTER TABLE ssculptor
+ADD CONSTRAINT DF_Sculptor_isDeleted DEFAULT 0 FOR isDeleted;
+
+INSERT INTO ssculptor (name, birthYear) VALUES ('rinesa', '2000-01-01');
+INSERT INTO ssculptor (name, birthYear) VALUES ('margita', '2004-01-01');
+
+select *
+from ssculptor 
+where isDeleted = 1
+
+
+create table sculpture(
+   sculptureId int identity(1,1) primary key ,
+   title varchar(255),
+   material varchar(255),
+   isDeleted BIT ,
+   sculptorId INT,
+   constraint FK_Sculptor foreign key (sculptorId) references ssculptor(sculptorId)
+);
+
+ALTER TABLE sculpture
+ADD CONSTRAINT DF_Sculpture_isDeleted DEFAULT 0 FOR isDeleted
+
+INSERT INTO sculpture (title, material, sculptorId)
+VALUES ('Sculpture Title', 'Material Used', 1);
+
+INSERT INTO sculpture (title, material, sculptorId)
+VALUES ('Rii', 'QQ', 3);
+
+select *
+from sculpture 
+where isDeleted = 0
+
+
+
 create table Role(
  role_id int primary key,
  role_name varchar(255) not null
@@ -96,6 +163,7 @@ CREATE TABLE Cart(
   quantity int not null,
   foto varchar(255),
   status BIT,
+  delivered BIT,
   delivery varchar(255) not null,
   Product_id int,
   Client_id int,
@@ -103,25 +171,21 @@ CREATE TABLE Cart(
   constraint Product_cart foreign key (Product_id) references Products(Product_id)
 );
 
-DELETE FROM Cart WHERE Client_id =3 and Cart_id=1;
-
-select* from cart
-
-select* from Client
-
 drop table cart
 
 ALTER TABLE Cart
 ADD CONSTRAINT DF_Cart_Status DEFAULT 0 FOR status;
 
-Select * from Cart where status=1
+ALTER TABLE Cart
+ADD CONSTRAINT DF_Cart_Delivered DEFAULT 0 FOR delivered;
 
-select* from Cart
 
 
-Select * from Cart where CART_ID=3
+SELECT *
+FROM Cart
+WHERE delivery LIKE '%On the way%' and delivered=1;
 
-DELETE FROM Cart WHERE Cart_Id = 2
+Select * from Cart where delivered=0 
 
 
 SELECT COUNT(*) AS ProductCount
@@ -133,14 +197,6 @@ select sum(c.price* c.quantity) as TotalPrice
       from Cart c inner join Products p
       on c.Product_id=p.Product_id
       WHERE Client_id = 1 and c.status=0;
-
-SELECT* 
-FROM Cart where
-status=1 and Client_id=1;
-
-SELECT* 
-FROM Cart where
-status=1 and Client_id=6;
 
 
 UPDATE Cart
@@ -211,36 +267,6 @@ insert into Products values('Vet’s Best Natural', 'Tick Home Spray', 5 , 8 , 5
 insert into Products values('Combo Cat', 'Frontline', 10 , 15 , 5 , 12 , '1695594552927.jpg', 5);
 
 
-<<<<<<< HEAD
-
-//
-create table Sculptor(
- SculptorId int identity(1,1) primary key ,
- Name varchar(255) not null,
- BirthYear int not null,
- isDeleted BIT not null
-
-);
-
-ADD CONSTRAINT DF_Sculptor_isDeleted DEFAULT 0 FOR isDeleted;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-drop database ProjektiLAB1
-=======
->>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
