@@ -120,12 +120,6 @@ const getStatus0 = async (Client_id) => {
 };
 
 
-
-
-
-/////////////////////////////////////
-
-
 module.exports={
     getLoginDetails,
     updateUser,
@@ -134,6 +128,7 @@ module.exports={
     countClient,
     getUser,
     getStatus0,
-    getStatus1,
+    getStatus1
+
     
 }

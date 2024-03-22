@@ -38,6 +38,21 @@ import PostDeliveries from './postman-dashboard/post-deliveries';
 import PostDash from './postman-dashboard/postman-dashboard';
 import UpdatePurchase from './admin-dashboard/updatepurchase.js';
 
+///
+ import Sculptor from './lab-crud/team.js';
+ import Sculpture from './lab-crud/player.js';
+ import AddSculptor from './lab-crud/addteam.js';
+ import AddSculpture from './lab-crud/addplayer.js';
+//  import UpdateSculptor from './lab-crud/updatesculptor.js';
+//  import UpdateSculpture from './lab-crud/updatesculpture.js';
+
+import AddPlayer from './lab-crud/addplayer.js';
+import AddTeam from './lab-crud/addteam.js';
+import Player from './lab-crud/player.js';
+import Team from './lab-crud/team.js';
+import UpdateTeam from './lab-crud/updateteam.js';
+
+
 
 import {
   createBrowserRouter,
@@ -232,6 +247,62 @@ const router = createBrowserRouter([
   },
   {
     path: "/purchased",
+    element: <div></div>
+  },
+
+
+
+
+
+
+  {
+    path: "/Team",
+    element: <div><Team/></div>
+  },
+  {
+    path: "/addTeam",
+    element: <div><AddTeam/></div>
+  },
+  {
+    path: "/updateTeam/:TeamId",
+    element: <div><UpdateTeam/></div>
+  },
+  {
+    path: "/Team/edit/:TeamId",
+    element: <div></div>
+  },
+  // {
+  //   path: "/delSculptor/:SculptorId",
+  //   element: <div></div>
+  // },
+  // {
+  //   path: "/deleteSculptor/:SculptorId",
+  //   element: <div></div>
+  // },
+
+
+
+
+
+
+  {
+    path: "/Player",
+    element: <div><Sculpture/></div>
+  },
+  // {
+  //   path: "/Sculpture/edit/:SculptureId",
+  //   element: <div><UpdateSculpture/></div>
+  // },
+  // {
+  //   path: "/updateSculpture/:SculptureId",
+  //   element: <div><UpdateSculpture/></div>
+  // },
+  {
+    path: "/addPlayer",
+    element: <div><AddPlayer/></div>
+  },
+  {
+    path: "/deletePlayer/:PlayerId",
     element: <div></div>
   },
   

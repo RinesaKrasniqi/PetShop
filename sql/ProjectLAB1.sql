@@ -1,11 +1,6 @@
 ﻿create database ProjektiLAB1
 use ProjektiLAB1
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
 create table Role(
  role_id int primary key,
  role_name varchar(255) not null
@@ -17,7 +12,6 @@ insert into Role values(2, 'Postman');
 insert into Role values(3, 'normal user');
 
 select* from Role
-
 drop table Role
 
 
@@ -33,13 +27,11 @@ CREATE TABLE Client (
 );
 
 
-
 select* from client
 
 
-INSERT INTO Client (name, surname, email, phone, password, role_id) VALUES ('Margita', 'Rahimi', 'margita@gmail.com', '045457596', 'margita', 3);
-INSERT INTO Client (name, surname, email, phone, password, role_id) VALUES ('Rinesa', 'Krasniqi', 'rinesa@gmail.com', '045919115', 'rinesa', 3);
-INSERT INTO Client VALUES ('hello', 'hello', 'hello@gmail.com', '045457596', 'hello', 3);
+INSERT INTO Client (name, surname, email, phone, password, role_id) VALUES ('Margita', 'Rahimi', 'margita@gmail.com', '000000000', 'margita', 3);
+INSERT INTO Client (name, surname, email, phone, password, role_id) VALUES ('Rinesa', 'Krasniqi', 'rinesa@gmail.com', '000000000', 'rinesa', 3);
 INSERT INTO Client VALUES  ('admin', 'admin', 'admin@gmail.com', '044208318', 'admin', 1);
 INSERT INTO Client VALUES  ('postman', 'postman', 'postman@gmail.com', '044340801', 'postman', 2);
 
@@ -103,9 +95,11 @@ CREATE TABLE Cart(
   constraint Product_cart foreign key (Product_id) references Products(Product_id)
 );
 
+
 DELETE FROM Cart WHERE Client_id =3 and Cart_id=1;
 
 select* from cart
+
 
 select* from Client
 
@@ -153,19 +147,6 @@ FROM Cart c
 INNER JOIN Products p ON c.product_id = p.Product_id
 inner join Category cg on p.category_id=cg.category_id;
 
-
-
-create table Deliveries(
-  Shipping_id int identity(1,1) primary key,
-  Status varchar(50) not null,
-  Delivery_date date not null,
-  Purchase_id int not null,
-  Postman_id int not null,
-  constraint Purchase_fk foreign key (Purchase_id) references Purchase(Purchase_id),
-  constraint Postman_fk foreign key (Postman_id) references Postman(Postman_id)
-);
-
-
 select* from CLIENT WHERE client_id=1;
 
 select cl.name,cl.surname, c.name
@@ -211,36 +192,5 @@ insert into Products values('Vet’s Best Natural', 'Tick Home Spray', 5 , 8 , 5
 insert into Products values('Combo Cat', 'Frontline', 10 , 15 , 5 , 12 , '1695594552927.jpg', 5);
 
 
-<<<<<<< HEAD
-
-//
-create table Sculptor(
- SculptorId int identity(1,1) primary key ,
- Name varchar(255) not null,
- BirthYear int not null,
- isDeleted BIT not null
-
-);
-
-ADD CONSTRAINT DF_Sculptor_isDeleted DEFAULT 0 FOR isDeleted;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 drop database ProjektiLAB1
-=======
->>>>>>> 336bb8c0fcd2eea29294383de0d334a9696cbeed
+
