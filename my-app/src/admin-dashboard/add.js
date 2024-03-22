@@ -63,6 +63,19 @@ function Add() {
     }
   };
 
+  useEffect(() => {
+    const fetchCategoryNames = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/category');
+        setCategoryNames(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCategoryNames();
+  }, []);
+
   return (
     <div>
       <div className="formaadd">
@@ -86,7 +99,7 @@ function Add() {
             onChange={(e) => setName(e.target.value)}
             value={Name}
           />
-          <select
+         <select
   className="inputform"
   onChange={(e) => setSelectedCategory(e.target.value)}
   value={SelectedCategory}

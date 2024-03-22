@@ -626,9 +626,14 @@ app.delete('/cartpurchase/:Cart_Id', async (req, res) => {
 
 app.get('/purchased', (req, res) => {
   dbProductoperations.purchased(req).then(result => {
+    console.log(result);
     res.send(result);
+<<<<<<< HEAD
+=======
+    // console.log(result); 
+>>>>>>> bd8255833c9bda787a4ad0ecd9ffc138e4b0f301
   });
-});
+}); 
 
 
 app.get('/purchase/edit/:Cart_id', async (req, res) => {
@@ -659,6 +664,7 @@ app.put('/purchase/update/:Cart_id', async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 
 app.put('/validate/:Cart_Id', async (req, res) => {
   try {
@@ -735,12 +741,15 @@ app.put('/delivery/update/:Cart_id', async (req, res) => {
 
 
 
+=======
+>>>>>>> bd8255833c9bda787a4ad0ecd9ffc138e4b0f301
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
 
 
 app.use((req, res, next) => {

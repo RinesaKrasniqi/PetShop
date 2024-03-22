@@ -11,14 +11,13 @@ const UpdatePurchase = () => {
   const [Price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
   const navigate = useNavigate();
-
+  
   useEffect(() => {
-  console.log("Cart_Id:", Cart_id);
-   const getPurchaseId = async () => {
-      try {
+    console.log("Cart_Id:", Cart_id);
+    const getPurchaseId = async () => {
+      try { 
         const response = await axios.get(`http://localhost:5000/purchase/edit/${Cart_id}`);
         const purchase = response.data[0];
-        console.log(purchase);
         setDescription(purchase.Description);
         setName(purchase.Name);
         setPrice(purchase.Price);
@@ -26,11 +25,9 @@ const UpdatePurchase = () => {
       } catch (error) {
         console.error(error);
       }
-     };
+    };
     getPurchaseId();
   }, [Cart_id]);
-  
-  
 
   const update =  (e) => {
     e.preventDefault();

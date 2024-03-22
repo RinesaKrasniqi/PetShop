@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 function AdminProducts() {
   const [pro, setPro] = useState([]);
+  const [categoryMap, setCategoryMap] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 5;
   const [productCount, setProductCount] = useState(0);
@@ -24,6 +25,19 @@ function AdminProducts() {
     }
   };
 
+  const loadCategory = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/category');
+      const categoryData = {};
+      response.data.forEach(category => {
+        categoryData[category.Category_id] = category.category_name;
+      });
+      setCategoryMap(categoryData);
+    } catch (error) {
+      console.log('Error loading categories:', error);
+    }
+  };
+
   const deleteProduct = async (productId) => {
     try {
       await axios.delete(`http://localhost:5000/product/${productId}`);
@@ -33,46 +47,20 @@ function AdminProducts() {
     }
   };
 
-  const handleInsert = () => {
-    const formData = new FormData();
-    formData.append('foto', file);
-    axios.post('http://localhost:3000/insert', formData)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
-  }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/');
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setFoto(response.data[0]); // Assuming you want the first item from response.data
-        } else {
-          console.error('No data received from the API.');
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, []); 
-
   useEffect(() => {
     loadProduct();
-  }, []); 
+    loadCategory();
+  }, []);
 
   useEffect(() => {
     setProductCount(pro.length);
   }, [pro]);
-
-
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = pro.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  
 
   return (
     <div className="back-dash">
@@ -145,7 +133,7 @@ function AdminProducts() {
                     <td className="bottom-td">{product.Price}</td>
                     <td className="bottom-td">{product.nr_in_stock}</td>
                     <td className="bottom-td">{product.nr_of_stars}</td>
-                    <td className="bottom-td">{product.Category}</td>
+                    <td className="bottom-td">{product.category}</td>
                     <td className="bottom-td">
                       <img className='foto-rresht' src={`Img/${product.foto}`} alt={product.Name} />
                     </td>

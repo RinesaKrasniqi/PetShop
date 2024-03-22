@@ -20,7 +20,7 @@ const UpdateProduct = () => {
     const getProductId = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/products/edit/${Product_id}`);
-        const product = response.data;
+        const product = response.data[0];
         // console.log('name'+ product.Name);
       
         setDescription(product.Description);
