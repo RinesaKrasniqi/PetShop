@@ -101,7 +101,7 @@ function AdminProducts() {
       <div className="both-back">
         <div className="user-div-nr">
           <div className="acc-dash">
-            <img className="acc-dash-pic" src="./Img/snacks.png" alt="Account Dashboard" />
+          <FaShoppingBasket color="white" size="45px" style={{ marginLeft: '9px' }} />
           </div>
           <p className="acc-dash-p">Products:</p>
           <p className="acc-dash-pp">{productCount}</p>

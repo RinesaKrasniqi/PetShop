@@ -1,24 +1,21 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import './postman-dashboardcss.css';
-import { FaTelegramPlane } from 'react-icons/fa';
-import { motion } from 'framer-motion';
-import Header from '../Components/header.js';
-import Footer from '../Components/footer.js';
+import { FaUserAlt, FaMoneyBill, FaShoppingBasket, FaTelegramPlane, FaHome } from "react-icons/fa";
 import Popup from './popup.js';
 
 function PostDash() {
   const { Cart_id } = useParams();
   const [adminDelivered, setAdminDelivered] = useState([]);
   const [buttonPopup, setButtonPopup] = useState(false);
-  const [delivery, setDelivery] = useState('');
+  const [deliveryStatus, setDeliveryStatus] = useState('');
   const [selectedProductId, setSelectedProductId] = useState(null);
 
   const handlePopup = (productData) => {
     setButtonPopup(true);
     setSelectedProductId(productData.Cart_Id);
-    setDelivery(productData.delivery);
+    setDeliveryStatus(productData.delivery);
   };
 
   const loadDelivery = async () => {
@@ -30,23 +27,20 @@ function PostDash() {
     }
   };
 
-  
   const updateDelivery = async (Cart_Id, delivery) => {
     try {
       await axios.put(`http://localhost:5000/delivery/update/${Cart_Id}`, { delivery: delivery });
-  
+
       loadDelivery();
       setButtonPopup(false);
-  
     } catch (error) {
-      console.error('Error updating quantity:', error);
-
+      console.error('Error updating delivery:', error);
     }
   };
 
   const handleDeliveryChange = (e) => {
-    let newDelivery = (e.target.value);
-    setDelivery(newDelivery);
+    let newDeliveryStatus = e.target.value;
+    setDeliveryStatus(newDeliveryStatus);
   };
 
   useEffect(() => {
@@ -59,22 +53,20 @@ function PostDash() {
         <div className='Admin-Dash-Title'>
           <p className='FaHome-post'>Dashboard</p>
         </div>
-
         <div className='elements-post'>
           <div className='elements-1-post'>
-            <FaTelegramPlane color='white' size='22px' />
+          <FaMoneyBill color="white" size="22px" />
             <Link to='/post-purchases' className='link'>
               Purchases Made
             </Link>
           </div>
           <div className='elements-1-post'>
-            <FaTelegramPlane color='white' size='22px' />
+          <FaTelegramPlane color='white' size='22px' />
             <Link to='/post-deliveries' className='link'>
               Deliveries Sent
             </Link>
           </div>
           <div className='elements-2-post'>
-            <img className='amdin-logout' src='./Img/logout-admin.png' alt='Logout' />
             <Link to='/home'>
               <button className='a-d-logout'>Log out</button>
             </Link>
@@ -116,18 +108,15 @@ function PostDash() {
       <Popup trigger={buttonPopup} setTrigger={setButtonPopup} productID={selectedProductId}>
         <h2 className='h2-post'>Shipment</h2>
         <div className='registerform-post'>
-          <input
-            className='inputform-post'
-            type='text'
-            value={delivery}
-            onChange={handleDeliveryChange}
-          />
+          <select className='inputform-post' value={deliveryStatus} onChange={handleDeliveryChange}>
+            <option value=''>Select Delivery Status</option>
+            <option value='on the way'>On the Way</option>
+            <option value='delivered'>Delivered</option>
+          </select>
         </div>
         <div key={selectedProductId}>
-            <Link to={`/delivery/update/${selectedProductId}`}  onClick={(e) => e.preventDefault()}>
-            <button className='save' onClick={() => updateDelivery(selectedProductId, delivery)}>Save</button>
-            </Link>
-          </div>
+          <button className='save' onClick={() => updateDelivery(selectedProductId, deliveryStatus)}>Save</button>
+        </div>
       </Popup>
     </div>
   );

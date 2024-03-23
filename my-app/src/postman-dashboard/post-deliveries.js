@@ -44,7 +44,7 @@ function PostDeliveries(){
   
             <div class='elements-post'>
               <div className='elements-1-post'>
-              <FaTelegramPlane color="white" size='22px'/>
+              <FaMoneyBill color="white" size="22px" />
               <Link to='/post-purchases' className='link'>Purchases Made</Link>
               </div>
               <div className='elements-1-post'>
@@ -71,6 +71,7 @@ function PostDeliveries(){
                       <td className='post-td'>Shiping ID</td>
                       <td className='post-td'>Client Id</td>
                       <td className='post-td'>Product Name</td>
+                      <td className='post-td'>Delivery Status</td>
 
                     </tr>
                 </thead>

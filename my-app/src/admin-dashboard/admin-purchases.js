@@ -1,56 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaUserAlt, FaMoneyBill, FaShoppingBasket, FaTelegramPlane, FaHome } from "react-icons/fa";
-<<<<<<< HEAD
 import { Link } from 'react-router-dom';
-=======
-import { Link, useParams } from 'react-router-dom';
->>>>>>> bd8255833c9bda787a4ad0ecd9ffc138e4b0f301
 import Pagination from './Pagination';
 
 function AdminPurchases() {
-  const { Cart_id} = useParams(); 
   const [purchases, setPurchases] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-<<<<<<< HEAD
   const [pro, setPro] = useState([]);
   const [product, setProduct] = useState([]);
-=======
-  const [description, setDescription] = useState('');
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [quantity, setQuantity] = useState('');
-
->>>>>>> bd8255833c9bda787a4ad0ecd9ffc138e4b0f301
   const purchasesPerPage = 5;
 
   const loadPurchases = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/purchased');
-      setPurchases(response.data);
+      const response = await axios.get(`http://localhost:5000/purchased`, {
+        withCredentials: true,
+      });
+      if (Array.isArray(response.data)) {
+        setPurchases(response.data);
+      } else {
+        console.error('Data received is not an array:', response.data);
+      }
     } catch (error) {
-<<<<<<< HEAD
       console.error('Error loading purchases:', error);
-=======
-      console.log('Error loading products:', error);
->>>>>>> bd8255833c9bda787a4ad0ecd9ffc138e4b0f301
     }
   };
   
-  const deletePurchase = async (id) => {
+  const deletePurchase = async (Cart_id) => {
     try {
-      await axios.delete(`http://localhost:5000/cartpurchase/${id}`);
+      await axios.delete(`http://localhost:5000/cartpurchase/${Cart_id}`);
       loadPurchases();
     } catch (error) {
       console.error('Error deleting cart:', error);
     } 
   };
 
-<<<<<<< HEAD
 
-  const validatePurchase = async (Cart_Id) => {
+  const validatePurchase = async (Cart_id) => {
     try {
-      await axios.put(`http://localhost:5000/validate/${Cart_Id}`);
+      await axios.put(`http://localhost:5000/validate/${Cart_id}`);
       loadPurchases();
     } catch (error) {
       console.error('Error validating purchase:', error);
@@ -65,25 +53,6 @@ function AdminPurchases() {
   useEffect(() => {
     console.log('Purchases:', pro);
   }, [pro]);
-=======
-   useEffect(() => {
-  //   console.log("Cart_Id:", Cart_id);
-    loadPurchases(); 
-  //   const getPurchaseId = async () => {
-  //     try { 
-  //       const response = await axios.get(`http://localhost:5000/purchase/edit/${Cart_id}`);
-  //       const purchase = response.data;
-  //       setDescription(purchase.Description);
-  //       setName(purchase.Name);
-  //       setPrice(purchase.Price);
-  //       setQuantity(purchase.quantity);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   getPurchaseId();
-   }, []);
->>>>>>> bd8255833c9bda787a4ad0ecd9ffc138e4b0f301
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -133,19 +102,14 @@ function AdminPurchases() {
       <div className="both-back">
         <div className="user-div-nr">
           <div className="acc-dash">
-            <img className="acc-dash-pic" src="./Img/acc-dash.png" alt="Account Dashboard" />
+          <FaMoneyBill color="white" size="40px" style={{ marginLeft: '9px', marginTop: '5px' }}/>
           </div>
-          <p className="acc-dash-p">Products:</p>
+          <p className="acc-dash-p">Purchases:</p>
           <p className="acc-dash-pp">{purchases.length}</p>
         </div>
 
-<<<<<<< HEAD
         <div className="second-div-a">
           {/* <h2 className="user-h2">Product list:</h2> */}
-=======
-        <div className="second-div-a"> 
-          <h2 className="user-h2">Product list:</h2>
->>>>>>> bd8255833c9bda787a4ad0ecd9ffc138e4b0f301
           <div className="user">
             <table className="user-table">
               <thead className="user-head">
@@ -163,33 +127,22 @@ function AdminPurchases() {
               </thead>
               <tbody className="bottom-table">
                 {currentPurchases.map((purchase) => (
-                  <tr key={purchase.Cart_Id} className="bottom-tr">
-                    <td className="bottom-td">{purchase.Cart_Id}</td>
+                  <tr key={purchase.Product_id} className="bottom-tr">
+                    <td className="bottom-td">{purchase.Product_id}</td>
                     <td className="bottom-td">{purchase.Client_id}</td>
                     <td className="bottom-td">{purchase.Description}</td>
                     <td className="bottom-td">{purchase.Name}</td>
                     <td className="bottom-td">{purchase.Price}$</td>
                     <td className="bottom-td">{purchase.quantity}</td>
-<<<<<<< HEAD
-=======
-                    <td className="bottom-td">Update</td>
->>>>>>> bd8255833c9bda787a4ad0ecd9ffc138e4b0f301
                     <td className="bottom-td">
-                       <Link to={`/purchase/update/${purchase.Cart_Id}`}>
-                        <button className="upd-btn">Update</button>
-                      </Link>
+                    <Link to={`/purchase/update/${purchase.Cart_Id}`}>
+                    <button className="upd-btn">Update</button>
+                    </Link>
+
                     </td>
                     <td className="bottom-td">
-<<<<<<< HEAD
-                      <button className="delete-button" onClick={() => deletePurchase(product.Cart_Id)}>
+                      <button className="delete-button" onClick={() => deletePurchase(purchase.Cart_Id)}>
                         Delete</button>
-=======
-                      <button className="delete-button" 
-                        onClick={() => deletePurchase(purchase.Cart_Id)}
-                      >
-                        Delete
-                      </button>
->>>>>>> bd8255833c9bda787a4ad0ecd9ffc138e4b0f301
                     </td>
                     <td className="bottom-td">
                       <button className="validate-btn" onClick={() => validatePurchase(purchase.Cart_Id)}>

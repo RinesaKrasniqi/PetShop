@@ -34,38 +34,9 @@ import UserFleas from './user-dashboard/User-Home/user-fleas';
 import UserShop from './user-dashboard/User-Home/usershop';
 import UserHeader from './user-dashboard/User-Home/user-header';
 import LoginHeader from './Components/loginheader';
-<<<<<<< HEAD
-import UpdatePurchase from './admin-dashboard/updatepurchase.js';
-=======
->>>>>>> bd8255833c9bda787a4ad0ecd9ffc138e4b0f301
 import PostDeliveries from './postman-dashboard/post-deliveries';
 import PostDash from './postman-dashboard/postman-dashboard';
 import UpdatePurchase from './admin-dashboard/updatepurchase.js';
-
-///
- import Sculptor from './lab-crud/team.js';
- import Sculpture from './lab-crud/player.js';
- import AddSculptor from './lab-crud/addteam.js';
- import AddSculpture from './lab-crud/addplayer.js';
-//  import UpdateSculptor from './lab-crud/updatesculptor.js';
-//  import UpdateSculpture from './lab-crud/updatesculpture.js';
-
-import AddPlayer from './lab-crud/addplayer.js';
-import AddTeam from './lab-crud/addteam.js';
-import Player from './lab-crud/player.js';
-import Team from './lab-crud/team.js';
-import UpdateTeam from './lab-crud/updateteam.js';
-
-<<<<<<< HEAD
-import Crud1 from './detyra/Crud1.js';
-import UpdateCrud1 from './detyra/UpdateCrud1.js';
-import AddCrud1 from './detyra/AddCrud1.js';
-=======
->>>>>>> bd8255833c9bda787a4ad0ecd9ffc138e4b0f301
-
-import Crud2 from './detyra/Crud2.js';
-import UpdateCrud2 from './detyra/UpdateCrud2.js';
-import AddCrud2 from './detyra/AddCrud2.js';
 
 import {
   createBrowserRouter,
@@ -264,7 +235,7 @@ const router = createBrowserRouter([
   }
   ,
   {
-    path: "/validate/:Cart_Id",
+    path: "/validate/:Cart_id",
     element: <div></div>
   }
   ,
@@ -272,122 +243,7 @@ const router = createBrowserRouter([
     path: "/delivery/edit/:Cart_id",
     element: <div></div>
   },
-<<<<<<< HEAD
-  {
-    path: "/delivery/update/:Cart_id",
-    element: <div></div>
-  },
-
-
-  {
-    path: "/crud1",
-    element: <div><Crud1/></div>
-  },
-  {
-    path: "/sculptor/del/:sculptorId",
-    element: <div></div>
-  },
-  {
-    path: "/crud1/edit/:TeamId",
-    element: <div></div>
-  },
-  {
-    path: "/crud1/update/:TeamId",
-    element: <div></div>
-  },
-  {
-    path: "/crud1/updateC/:TeamId",
-    element: <div><UpdateCrud1/></div>
-  },
-  {
-    path: "/addcrud1",
-    element: <div><AddCrud1/></div>
-  }
-  ,
-  {
-    path: "/crud2",
-    element: <div><Crud2/></div>
-  }, 
-  {
-    path: "/crud2/del/:sculptureId",
-    element: <div></div>
-  },
-  ,
-  {
-    path: "/crud2/updateC/:sculptureId",
-    element: <div><UpdateCrud2/></div>
-  },
-  {
-    path: "/crud2/edit/:sculptureId",
-    element: <div></div>
-  },
-  {
-    path: "/crud2/update/:sculptureId",
-    element: <div></div>
-  },
-  {
-    path: "/addcrud2",
-    element: <div><AddCrud2/></div>
-  }
-=======
-
-
-
-
-
-
-  {
-    path: "/Team",
-    element: <div><Team/></div>
-  },
-  {
-    path: "/addTeam",
-    element: <div><AddTeam/></div>
-  },
-  {
-    path: "/updateTeam/:TeamId",
-    element: <div><UpdateTeam/></div>
-  },
-  {
-    path: "/Team/edit/:TeamId",
-    element: <div></div>
-  },
-  // {
-  //   path: "/delSculptor/:SculptorId",
-  //   element: <div></div>
-  // },
-  // {
-  //   path: "/deleteSculptor/:SculptorId",
-  //   element: <div></div>
-  // },
-
-
-
-
-
-
-  {
-    path: "/Player",
-    element: <div><Sculpture/></div>
-  },
-  // {
-  //   path: "/Sculpture/edit/:SculptureId",
-  //   element: <div><UpdateSculpture/></div>
-  // },
-  // {
-  //   path: "/updateSculpture/:SculptureId",
-  //   element: <div><UpdateSculpture/></div>
-  // },
-  {
-    path: "/addPlayer",
-    element: <div><AddPlayer/></div>
-  },
-  {
-    path: "/deletePlayer/:PlayerId",
-    element: <div></div>
-  },
   
->>>>>>> bd8255833c9bda787a4ad0ecd9ffc138e4b0f301
 
 ]);
 

@@ -14,9 +14,24 @@ import { FaHome} from "react-icons/fa";
 import {motion} from "framer-motion";
 import  Header from '../Components/header.js';
 import  Footer from '../Components/footer.js';
+import axios from 'axios';
 var Link = require('react-router-dom').Link
 
 function AdminDeliveries(){
+  const [postmanDelivered, setPostmanDelivered] = useState([]);
+
+  const loadDelivered= async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/postmanDelivered');
+      setPostmanDelivered(response.data);
+    } catch (error) {
+      console.log('Error loading users:', error);
+    }
+  };
+
+  useEffect(() => {
+    loadDelivered();
+  }, []);
     return(
         <div class='back-dash'>
           
@@ -53,9 +68,9 @@ function AdminDeliveries(){
   
           <div className='both-back'>
            <div className='user-div-nr'>
-              <div className='acc-dash'><img className='acc-dash-pic' src='./Img/acc-dash.png'></img></div>
+              <div className='acc-dash'> <FaTelegramPlane color="white" size="35px" style={{ marginLeft: '6px', marginTop: '5px' }}/></div>
               <p className='acc-dash-p'>Deliveries:</p>
-              <p className='acc-dash-pp'>2,500</p>
+              <p className='acc-dash-pp'>{postmanDelivered.length}</p>
            </div>
   
           
@@ -65,27 +80,26 @@ function AdminDeliveries(){
               <table  class="user-table">
                 <thead class="user-head" >
                     <tr className='user-tr'>
-                      <td className='user-td'>ID</td>
-                      <td className='user-td'>First Name</td>
-                      <td className='user-td'>Last Name</td>
-                      <td className='user-td'>Phone</td>
-                      <td className='user-td'>Email</td>
-                      <td className='user-td'>Password</td>
-                      <td className='user-td'>Update</td>
-                      <td className='user-td'>Delete</td>
+                      <td className='user-td'>Client ID</td>
+                      <td className='user-td'>Product ID</td>
+                      <td className='user-td'>Delivery ID</td>
+                      <td className='user-td'>Delivery status</td>
+                      <td className='user-td'>Product name</td>
+                      {/* <td className='user-td'>Update</td>
+                      <td className='user-td'>Delete</td> */}
                     </tr>
                 </thead>
-                <tbody class='bottom-table'>
-                      <tr class='bottom-tr'>
-                          <td class='bottom-td'>hello</td>
-                          <td class='bottom-td'>hello</td>
-                          <td class='bottom-td'>hello</td>
-                          <td class='bottom-td'>hello</td>
-                          <td class='bottom-td'>hello</td>
-                          <td class='bottom-td'>hello</td>
-                          <td class='upd-btn'>Update</td>
-                          <td class='dlt-btn'>Delete</td>
-                      </tr>
+                <tbody class='bottom-table-post'>
+                   {postmanDelivered.map((purchase) => (
+                     <tr key={purchase.Product_id} className='bottom-tr-post'>
+                      <td className='bottom-td-post'>{purchase.Client_id}</td>
+                     <td className='bottom-td-post'>{purchase.Product_id}</td>
+                     <td className='bottom-td-post'>{purchase.Cart_Id}</td>
+                     <td className='bottom-td-post'>{purchase.delivery}</td>
+                     <td className='bottom-td-post'>{purchase.Name}</td>
+                     
+                     </tr>
+                    ))}
                   </tbody>
                </table>
                </div>

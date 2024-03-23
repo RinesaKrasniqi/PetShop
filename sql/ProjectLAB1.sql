@@ -1,81 +1,6 @@
 ﻿create database ProjektiLAB1
 use ProjektiLAB1
 
-<<<<<<< HEAD
-
-create table Team(
-   TeamId int identity(1,1) primary key ,
-   name varchar(255)
-);
-
-INSERT INTO Team (name) VALUES ('FC Barcelona');
-
-select *
-from Team
-
-
-create table Player(
-   PlayerId int identity(1,1) primary key ,
-   name varchar(255),
-   number INT,
-   birthYear INT,
-   TeamId INT,
-   constraint FK_Team foreign key (TeamId) references Team(TeamId)
-);
-
-INSERT INTO Player (name, number, birthYear, TeamId) VALUES ('Lionel Messi', 30, 1987, 1);
-
-select *
-from Player
-
-
-
-
-create table ssculptor(
-   sculptorId int identity(1,1) primary key ,
-   name varchar(255),
-   birthYear date,
-   isDeleted BIT 
-
-);
-
-ALTER TABLE ssculptor
-ADD CONSTRAINT DF_Sculptor_isDeleted DEFAULT 0 FOR isDeleted;
-
-INSERT INTO ssculptor (name, birthYear) VALUES ('rinesa', '2000-01-01');
-INSERT INTO ssculptor (name, birthYear) VALUES ('margita', '2004-01-01');
-
-select *
-from ssculptor 
-where isDeleted = 1
-
-
-create table sculpture(
-   sculptureId int identity(1,1) primary key ,
-   title varchar(255),
-   material varchar(255),
-   isDeleted BIT ,
-   sculptorId INT,
-   constraint FK_Sculptor foreign key (sculptorId) references ssculptor(sculptorId)
-);
-
-ALTER TABLE sculpture
-ADD CONSTRAINT DF_Sculpture_isDeleted DEFAULT 0 FOR isDeleted
-
-INSERT INTO sculpture (title, material, sculptorId)
-VALUES ('Sculpture Title', 'Material Used', 1);
-
-INSERT INTO sculpture (title, material, sculptorId)
-VALUES ('Rii', 'QQ', 3);
-
-select *
-from sculpture 
-where isDeleted = 0
-
-
-
-=======
->>>>>>> bd8255833c9bda787a4ad0ecd9ffc138e4b0f301
 create table Role(
  role_id int primary key,
  role_name varchar(255) not null
@@ -171,8 +96,7 @@ CREATE TABLE Cart(
   constraint Product_cart foreign key (Product_id) references Products(Product_id)
 );
 
-<<<<<<< HEAD
-=======
+
 
 DELETE FROM Cart WHERE Client_id =3 and Cart_id=1;
 
@@ -181,7 +105,6 @@ select* from cart
 
 select* from Client
 
->>>>>>> bd8255833c9bda787a4ad0ecd9ffc138e4b0f301
 drop table cart
 
 ALTER TABLE Cart
@@ -264,11 +187,5 @@ insert into Products values('Lice Comb', 'Trixie Flea ', 10 , 15 , 4 , 12 , '169
 insert into Products values('Vet’s Best Natural', 'Tick Home Spray', 5 , 8 , 5 , 7 , '1695594497213.jpg', 5);
 insert into Products values('Combo Cat', 'Frontline', 10 , 15 , 5 , 12 , '1695594552927.jpg', 5);
 
-
-<<<<<<< HEAD
-
-
-=======
 drop database ProjektiLAB1
->>>>>>> bd8255833c9bda787a4ad0ecd9ffc138e4b0f301
 
