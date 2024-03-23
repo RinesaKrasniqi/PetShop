@@ -34,4 +34,6 @@
 - Ndjekja e porosive dhe ndryshimi i statusit të tyre pas dërgesës
 
 
-### Shembuj te pamjes se Fur-ever Friends
+## Shembuj të pamjës së Fur-ever Friends
+### Home Page
+
