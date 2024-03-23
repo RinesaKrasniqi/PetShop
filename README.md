@@ -37,7 +37,7 @@
   
 
 
-## Shembuj të pamjës së Fur-ever Friends (vetëm disa nga faqet e disponueshme)
+## Shembuj të pamjës së Fur-ever Friends (vetëm disa nga faqet)
 ### Home Page
 ![screencapture-localhost-3000-home-2024-03-23-23_20_36](https://github.com/RinesaKrasniqi/PetShop/assets/120459149/2fbc8bfe-0ca3-488f-b0a9-1efc954a5ce8)
 ### Sign-in Page
@@ -56,4 +56,6 @@
 ![screencapture-localhost-3000-admin-products-2024-03-23-23_29_24](https://github.com/RinesaKrasniqi/PetShop/assets/120459149/8c64352d-17e1-49a3-8521-ff74f8bf65a2)
 ### Postman Delivery status update site
 ![screencapture-localhost-3000-post-purchases-2024-03-23-23_31_39](https://github.com/RinesaKrasniqi/PetShop/assets/120459149/d267b76d-7906-4f5e-83fc-4f19d994b8fd)
+### Administrator deliveries dashboard
+![screencapture-localhost-3000-admin-deliveries-2024-03-23-23_32_20](https://github.com/RinesaKrasniqi/PetShop/assets/120459149/e8cc99b2-e880-4683-953a-fdf0761eaa61)
 
