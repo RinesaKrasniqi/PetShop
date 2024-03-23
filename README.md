@@ -12,6 +12,7 @@
 - **Frontend**: React JS
 - **Backend**: Node JS
 - **Database**: MSSQL
+- **Integrime të Palës së Tretë**: Stripe (për pagesat)
 
 ## Përmbledhja e Funksionaliteteve
 ### Për Përdoruesit Normalë:
@@ -31,3 +32,6 @@
 
 ### Për Postierin:
 - Ndjekja e porosive dhe ndryshimi i statusit të tyre pas dërgesës
+
+
+### Shembuj te pamjes se Fur-ever Friends
