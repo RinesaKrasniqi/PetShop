@@ -37,7 +37,7 @@
   
 
 
-## Shembuj të pamjës së Fur-ever Friends
+## Shembuj të pamjës së Fur-ever Friends (vetëm disa nga faqet e disponueshme)
 ### Home Page
 ![screencapture-localhost-3000-home-2024-03-23-23_20_36](https://github.com/RinesaKrasniqi/PetShop/assets/120459149/2fbc8bfe-0ca3-488f-b0a9-1efc954a5ce8)
 ### Sign-in Page
@@ -45,11 +45,15 @@
 ### Log-in Page
 ![screencapture-localhost-3000-login-2024-03-23-23_22_31](https://github.com/RinesaKrasniqi/PetShop/assets/120459149/8709feb3-46f8-4231-aa4e-e85ba2aa73d1)
 ### Products page
-![Uploading screencapture-localhost-3000-cat-2024-03-23-23_21_10.png…]()
+![screencapture-localhost-3000-cat-2024-03-23-23_21_10](https://github.com/RinesaKrasniqi/PetShop/assets/120459149/4d5ad59a-55a4-4c62-9c0d-d787b1edc37a)
 ### User Cart
-![Uploading screencapture-localhost-3000-user-cart-2024-03-23-23_27_59.png…]()
+![screencapture-localhost-3000-user-cart-2024-03-23-23_27_59](https://github.com/RinesaKrasniqi/PetShop/assets/120459149/774c08e1-6474-45fa-ada5-f1ae2929e472)
 ### Payment
 ![screencapture-checkout-stripe-c-pay-cs-test-b10EcWAC6yoVrixmONPbSd92xY89Nk41doGyWR1mgsj4ZrquTgfJ752shR-2024-03-23-23_28_18](https://github.com/RinesaKrasniqi/PetShop/assets/120459149/7acb833f-8db4-42da-a544-5dff4fdd531b)
 ### User Purchases site
 ![screencapture-localhost-3000-user-purchased-2024-03-23-23_28_53](https://github.com/RinesaKrasniqi/PetShop/assets/120459149/652de875-f89e-47fc-b4de-3cbb8c90a074)
+### Administrator Products Dashboard
+![screencapture-localhost-3000-admin-products-2024-03-23-23_29_24](https://github.com/RinesaKrasniqi/PetShop/assets/120459149/8c64352d-17e1-49a3-8521-ff74f8bf65a2)
+### Postman Delivery status update site
+![screencapture-localhost-3000-post-purchases-2024-03-23-23_31_39](https://github.com/RinesaKrasniqi/PetShop/assets/120459149/d267b76d-7906-4f5e-83fc-4f19d994b8fd)
 
