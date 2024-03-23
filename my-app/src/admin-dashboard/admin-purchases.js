@@ -84,12 +84,6 @@ function AdminPurchases() {
             <FaTelegramPlane color="white" size="22px" />
             <Link to="/admin-deliveries" className="link">Deliveries</Link>
           </div>
-          <div className="elements-3">
-            <img className="add-product-img" src="./Img/add-product.png" alt="Add product" />
-            <Link to="/add">
-              <button className="add-product">Add product</button>
-            </Link>
-          </div>
           <div className="elements-2">
             <img className="amdin-logout" src="./Img/logout-admin.png" alt="Admin Logout" />
             <Link to="/home">
