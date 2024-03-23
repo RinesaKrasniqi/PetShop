@@ -36,4 +36,5 @@
 
 ## Shembuj të pamjës së Fur-ever Friends
 ### Home Page
+![screencapture-localhost-3000-home-2024-03-23-23_20_36](https://github.com/RinesaKrasniqi/PetShop/assets/120459149/2fbc8bfe-0ca3-488f-b0a9-1efc954a5ce8)
 
