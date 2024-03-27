@@ -102,7 +102,7 @@ DELETE FROM Cart WHERE Client_id =3 and Cart_id=1;
 
 select* from cart
 
-
+Delete from Cart where quantity=1;
 select* from Client
 
 drop table cart
