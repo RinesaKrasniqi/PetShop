@@ -28,7 +28,7 @@ function UserDog(){
    const LoadDog=async()=>{
       const response= await axios.get('http://localhost:5000/product/dog');
       console.log(response.data);
-      setPro(response.data)
+      setPro(response.data.recordset)
     }
 
     const handleAddToCart = async (productId) => {

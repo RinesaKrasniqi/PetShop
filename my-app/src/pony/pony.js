@@ -23,7 +23,7 @@ function Pony(){
    const LoadPony=async()=>{
       const response= await axios.get('http://localhost:5000/product/pony');
       console.log(response.data);
-      setPro(response.data)
+      setPro(response.data.recordset)
     }
 
     const handleCart = () => {

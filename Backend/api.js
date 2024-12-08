@@ -97,15 +97,17 @@ app.post("/login", async (req, res) => {
 
     console.log("Result:", result);
 
-    if (result !== undefined && result.length > 0) {
+    // Check if the recordset array contains at least one result
+    if (result.recordset && result.recordset.length > 0) {
       
-      const userId = result[0].Client_id;
+      const userId = result.recordset[0].Client_id;
 
+      // Set cookies for authenticated user
       res.cookie('Client_id', userId, { httpOnly: true });
       res.cookie('user', 'authenticated', { httpOnly: true });
 
-      console.log("Login successful:", result);
-      res.send(result);
+      console.log("Login successful:", result.recordset);
+      res.send(result.recordset); // Send the user data back
     } else {
       console.log("*Wrong credentials!");
       res.send({ message: "*Wrong credentials!" });
@@ -115,6 +117,7 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ message: "An error occurred while executing the SQL query." });
   }
 });
+
 
 
 
@@ -204,12 +207,6 @@ app.post('/insert', upload.single('foto'), async (req, res) => {
 });
 
 
-app.get('/', (req,res)=>{
-  dbProductoperations.getProduct().then(result=>{
-    res.send(result); 
-    console.log(result);
-   })
-})
 
 
 app.get('/product', (req, res) => {

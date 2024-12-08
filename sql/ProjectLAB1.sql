@@ -26,6 +26,7 @@ CREATE TABLE Client (
   constraint role_fk foreign key (role_id) references Role(role_id)
 );
 
+drop table client
 
 select* from client
 

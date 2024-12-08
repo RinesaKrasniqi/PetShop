@@ -28,7 +28,7 @@ function Pony(){
    const LoadPony=async()=>{
       const response= await axios.get('http://localhost:5000/product/pony');
       console.log(response.data);
-      setPro(response.data)
+      setPro(response.data.recordset)
     }
     const handleAddToCart = async (productId) => {
       const selectedProduct = pro.find((product) => product.Product_id === productId);

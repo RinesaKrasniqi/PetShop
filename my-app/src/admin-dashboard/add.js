@@ -20,7 +20,7 @@ function Add() {
     const fetchCategoryNames = async () => {
       try {
         const response = await axios.get('http://localhost:5000/category');
-        setCategoryNames(response.data);
+        setCategoryNames(response.data.recordset);
       } catch (error) {
         console.error(error);
       }
@@ -67,7 +67,7 @@ function Add() {
     const fetchCategoryNames = async () => {
       try {
         const response = await axios.get('http://localhost:5000/category');
-        setCategoryNames(response.data);
+        setCategoryNames(response.data.recordset);
       } catch (error) {
         console.error(error);
       }

@@ -17,8 +17,6 @@ import reportWebVitals from './reportWebVitals';
 import Home from  './home/home.js';
 import AdminDash from './admin-dashboard/admin-dashboard';
 import AdminProducts from './admin-dashboard/admin-products';
-import AdminPurchases from './admin-dashboard/admin-purchases';
-import AdminDeliveries from './admin-dashboard/admin-deliveries';
 import Add from './admin-dashboard/add.js';
 import UpdateUser from './admin-dashboard/updateUser.js';
 import UserCart from './user-dashboard/User-Cart/user-cart.js';
@@ -36,7 +34,7 @@ import UserHeader from './user-dashboard/User-Home/user-header';
 import LoginHeader from './Components/loginheader';
 import PostDeliveries from './postman-dashboard/post-deliveries';
 import PostDash from './postman-dashboard/postman-dashboard';
-import UpdatePurchase from './admin-dashboard/updatepurchase.js';
+
 
 import {
   createBrowserRouter,
@@ -56,6 +54,10 @@ const router = createBrowserRouter([
   {
     path: "signup",
     element: <div><Register/></div>
+  },
+  {
+    path: "admin-products",
+    element: <div><AdminProducts/></div>
   },
   {
     path: "cat",
@@ -107,18 +109,6 @@ const router = createBrowserRouter([
     element: <div><AdminDash/></div>
   },
   {
-    path: "admin-products",
-    element: <div><AdminProducts/></div>
-  },
-  {
-    path: "admin-purchases",
-    element: <div><AdminPurchases/></div>
-  },
-  {
-    path: "admin-deliveries",
-    element: <div><AdminDeliveries/></div>
-  },
-  {
     path: "add",
     element: <div><Add/></div>
   },
@@ -130,10 +120,7 @@ const router = createBrowserRouter([
     path: "updateProduct/:Product_id",
     element: <div><UpdateProduct/></div>
   },
-  {
-    path: "/purchase/update/:Cart_id",
-    element: <div><UpdatePurchase/></div>
-  }, 
+  
   {
     path: "/purchase/edit/:Cart_id",
     element: <div></div>

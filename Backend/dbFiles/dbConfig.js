@@ -1,12 +1,13 @@
 var config={
     user:"Margita",
     password: "123",
-    server: "MARGITA1083\\MSSQLSERVER01",
+    server: "MARGITA",
     database : "ProjektiLAB1",
     driver: "msnodesqlv8",
-    options:{
-        trustedConnection:true
-    }
+    options: {
+        encrypt: false,
+        trustServerCertificate: true,
+      }
 };
 
  module.exports = config;

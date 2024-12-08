@@ -3,45 +3,40 @@ import axios from 'axios';
 import './admin-dashboardcss.css';
 import { FaUserAlt, FaShoppingBasket, FaMoneyBill, FaTelegramPlane, FaHome } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import Pagination from './Pagination';
 
 function AdminDash() {
   const [users, setUsers] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 5;
   const [userCount, setUserCount] = useState(0);
 
+  // Load users from the server
   const loadUsers = async () => {
     try {
       const response = await axios.get('http://localhost:5000/user');
-      setUsers(response.data);
+      setUsers(response.data.recordset); // assuming response.data is an array of users
     } catch (error) {
       console.log('Error loading users:', error);
     }
   };
 
+  // Delete user
   const deleteUser = async (clientId) => {
     try {
       await axios.delete(`http://localhost:5000/user/${clientId}`);
-      loadUsers();
+      loadUsers(); // Reload users after deletion
     } catch (error) {
       console.log('Error deleting user:', error);
     }
   };
 
+  // Load users when component mounts
   useEffect(() => {
     loadUsers();
   }, []);
 
+  // Update user count when users array changes
   useEffect(() => {
     setUserCount(users.length);
   }, [users]);
-
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUserPage = users.slice(indexOfFirstUser, indexOfLastUser);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="back-dash">
@@ -58,18 +53,11 @@ function AdminDash() {
             <FaShoppingBasket color="white" size="22px" />
             <Link to="/admin-products" className="link">Products</Link>
           </div>
-          <div className="elements-1">
-            <FaMoneyBill color="white" size="22px" />
-            <Link to="/admin-purchases" className="link">Purchases</Link>
-          </div>
-          <div className="elements-1">
-            <FaTelegramPlane color="white" size="22px" />
-            <Link to="/admin-deliveries" className="link">Deliveries</Link>
-          </div>
+          
           <div className='elements-2'>
-            <img className='amdin-logout' src='./Img/logout-admin.png'></img>
-            <Link to='/home'><button class='a-d-logout'>Log out</button></Link>
-            </div>
+            <img className='amdin-logout' src='./Img/logout-admin.png' alt="Logout" />
+            <Link to='/home'><button className='a-d-logout'>Log out</button></Link>
+          </div>
         </div>
       </div>
 
@@ -96,26 +84,26 @@ function AdminDash() {
                 </tr>
               </thead>
               <tbody className="bottom-table">
-                {currentUserPage.map((user, index) => (
+                {users.map((user) => (
                   <tr className="bottom-tr" key={user.Client_id}>
                     <td className="bottom-td">{user.Client_id}</td>
                     <td className="bottom-td">{user.name}</td>
                     <td className="bottom-td">{user.surname}</td>
                     <td className="bottom-td">{user.email}</td>
                     <td className="bottom-td">{user.phone}</td>
-              
-                      <Link to={`/updateUser/${user.Client_id}`}><button className="upd-btn">Update</button></Link>
+                    <td className="bottom-td">
+                      <Link to={`/updateUser/${user.Client_id}`}>
+                        <button className="upd-btn">Update</button>
+                      </Link>
+                    </td>
+                    <td className="bottom-td">
                       <button className="dlt-btn" onClick={() => deleteUser(user.Client_id)}>Delete</button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <Pagination
-            totalPages={Math.ceil(users.length / usersPerPage)}
-            currentPage={currentPage}
-            onPageChange={paginate}
-          />
         </div>
       </div>
     </div>

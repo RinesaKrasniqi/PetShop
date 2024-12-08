@@ -19,7 +19,7 @@ function FleasAndTicks() {
       try {
          const response = await axios.get('http://localhost:5000/product/fleasandticks');
          console.log(response.data);
-         setPro(response.data);
+         setPro(response.data.recordset);
       } catch (error) {
          console.error('Error fetching product data:', error.message);
       }

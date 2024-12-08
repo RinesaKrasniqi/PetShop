@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './admin-dashboardcss.css';
 import axios from 'axios';
 import { FaUserAlt, FaShoppingBasket, FaMoneyBill, FaTelegramPlane, FaHome } from 'react-icons/fa';
-import Pagination from './Pagination'; 
 import Header from '../Components/header.js';
 import Footer from '../Components/footer.js';
 import { Link } from 'react-router-dom';
@@ -10,8 +9,6 @@ import { Link } from 'react-router-dom';
 function AdminProducts() {
   const [pro, setPro] = useState([]);
   const [categoryMap, setCategoryMap] = useState({});
-  const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 5;
   const [productCount, setProductCount] = useState(0);
   const [file, setFile] = useState(null); 
   const [foto, setFoto] = useState({ image: '' });
@@ -19,7 +16,7 @@ function AdminProducts() {
   const loadProduct = async () => {
     try {
       const response = await axios.get('http://localhost:5000/product');
-      setPro(response.data);
+      setPro(response.data.recordset);
     } catch (error) {
       console.log('Error loading products:', error);
     }
@@ -56,12 +53,6 @@ function AdminProducts() {
     setProductCount(pro.length);
   }, [pro]);
 
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = pro.slice(indexOfFirstProduct, indexOfLastProduct);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   return (
     <div className="back-dash">
       <div className="first-div-a">
@@ -77,14 +68,7 @@ function AdminProducts() {
             <FaShoppingBasket color="white" size="22px" />
             <Link to="/admin-products" className="link">Products</Link>
           </div>
-          <div className="elements-1">
-            <FaMoneyBill color="white" size="22px" />
-            <Link to="/admin-purchases" className="link">Purchases</Link>
-          </div>
-          <div className="elements-1">
-            <FaTelegramPlane color="white" size="22px" />
-            <Link to="/admin-deliveries" className="link">Deliveries</Link>
-          </div>
+          
           <div className="elements-3">
             <img className="add-product-img" src="./Img/add-product.png" alt="Add Product" />
             <Link to="/add">
@@ -94,14 +78,14 @@ function AdminProducts() {
           <div className='elements-2'>
             <img className='amdin-logout' src='./Img/logout-admin.png'></img>
             <Link to='/home'><button class='a-d-logout'>Log out</button></Link>
-            </div>
+          </div>
         </div>
       </div>
 
       <div className="both-back">
         <div className="user-div-nr">
           <div className="acc-dash">
-          <FaShoppingBasket color="white" size="45px" style={{ marginLeft: '9px' }} />
+            <FaShoppingBasket color="white" size="45px" style={{ marginLeft: '9px' }} />
           </div>
           <p className="acc-dash-p">Products:</p>
           <p className="acc-dash-pp">{productCount}</p>
@@ -125,7 +109,7 @@ function AdminProducts() {
                 </tr>
               </thead>
               <tbody className="bottom-table">
-                {currentProducts.map(product => (
+                {pro.map(product => (
                   <tr className="bottom-tr" key={product.Product_id}>
                     <td className="bottom-td">{product.Product_id}</td>
                     <td className="bottom-td">{product.Description}</td>
@@ -133,7 +117,7 @@ function AdminProducts() {
                     <td className="bottom-td">{product.Price}</td>
                     <td className="bottom-td">{product.nr_in_stock}</td>
                     <td className="bottom-td">{product.nr_of_stars}</td>
-                    <td className="bottom-td">{product.category}</td>
+                    <td className="bottom-td">{categoryMap[product.Category_id] || 'N/A'}</td>
                     <td className="bottom-td">
                       <img className='foto-rresht' src={`Img/${product.foto}`} alt={product.Name} />
                     </td>
@@ -151,15 +135,8 @@ function AdminProducts() {
             </table>
           </div>
         </div>
-        <Pagination
-        totalPages={Math.ceil(pro.length / productsPerPage)}
-        currentPage={currentPage}
-        onPageChange={paginate}
-      />
-    </div>
       </div> 
-
-      
+    </div>
   );
 }
 

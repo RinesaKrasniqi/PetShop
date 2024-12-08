@@ -22,7 +22,7 @@ function Fish(){
    const LoadFish=async()=>{
       const response= await axios.get('http://localhost:5000/product/fish');
       console.log(response.data);
-      setPro(response.data)
+      setPro(response.data.recordset)
     }
    
     const handleInsert=()=>{
