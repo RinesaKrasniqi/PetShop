@@ -5,8 +5,10 @@ import axios from 'axios';
 import { FaTelegramPlane } from "react-icons/fa";
 
 function Ashensori() {
-  const [Ashensori58700, setAshensori58700] = useState([]);
-  const [ndertesaNames, setNdertesaNames] = useState([]); // Stores the list of ndertesa
+  const [Ashensori58700, setAshensori58700] = useState([]); // All Ashensori records
+  const [ndertesaNames, setNdertesaNames] = useState([]); // List of Ndertesa records
+  const [filteredAshensori, setFilteredAshensori] = useState([]); // Filtered Ashensori records
+  const [selectedNdertesa, setSelectedNdertesa] = useState(''); // The selected Ndertesa ID for filtering
 
   // Load Ashensori data
   const LoadAshensori58700 = async () => {
@@ -44,10 +46,26 @@ function Ashensori() {
     return ndertesa ? ndertesa.emertimi58700 : 'Unknown'; // Default to 'Unknown' if no match is found
   };
 
+  // Filter Ashensori based on selected Ndertesa
+  const filterAshensoriByNdertesa = (ndertesa_id) => {
+    setSelectedNdertesa(ndertesa_id);
+    if (ndertesa_id === '') {
+      setFilteredAshensori(Ashensori58700); // Show all Ashensori if no filter is applied
+    } else {
+      const filtered = Ashensori58700.filter((ashensori) => ashensori.ndertesa_id === parseInt(ndertesa_id)); // Filter based on Ndertesa ID
+      setFilteredAshensori(filtered);
+    }
+  };
+
   useEffect(() => {
     LoadAshensori58700();
     LoadNdertesaNames();
   }, []);
+
+  // Initially show all Ashensori
+  useEffect(() => {
+    setFilteredAshensori(Ashensori58700);
+  }, [Ashensori58700]);
 
   return (
     <div className="back-dash">
@@ -60,13 +78,13 @@ function Ashensori() {
           <div className="elements-1-post">
             <FaTelegramPlane color="white" size="22px" />
             <Link to="/ndertesa" className="link">
-              ndertesa
+              Ndertesa
             </Link>
           </div>
           <div className="elements-1-post">
             <FaTelegramPlane color="white" size="22px" />
             <Link to="/ashensori" className="link">
-              ashensori
+              Ashensori
             </Link>
           </div>
           <div className="elements-3">
@@ -86,6 +104,22 @@ function Ashensori() {
 
       <div className="second-div-a">
         <h2 className="post-h2">Ashensori:</h2>
+        <div className="filter-container">
+          <label htmlFor="ndertesaSelect">Filter by Ndertesa:</label>
+          <select
+            id="ndertesaSelect"
+            value={selectedNdertesa}
+            onChange={(e) => filterAshensoriByNdertesa(e.target.value)}
+          >
+            <option value="">All</option>
+            {ndertesaNames.map((ndertesa) => (
+              <option key={ndertesa.ndertesa_id} value={ndertesa.ndertesa_id}>
+                {ndertesa.emertimi58700}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="post">
           <table className="post-table">
             <thead className="post-head">
@@ -98,7 +132,7 @@ function Ashensori() {
               </tr>
             </thead>
             <tbody className="bottom-table-post">
-              {Ashensori58700.map((ashensori) => (
+              {filteredAshensori.map((ashensori) => (
                 <tr className="bottom-tr-post" key={ashensori.ashensori_id}>
                   <td className="bottom-td-post">{ashensori.ashensori_id}</td>
                   <td className="bottom-td-post">{ashensori.emertimi58700}</td>

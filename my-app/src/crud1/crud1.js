@@ -6,24 +6,37 @@ import { Link } from 'react-router-dom';
 
 function NdertesaDash() {
   const [ndertesas, setNdertesas] = useState([]);
-  const [ndertesaCount, setNdertesaCount] = useState(0);
+  const [filteredNdertesas, setFilteredNdertesas] = useState([]);
+  const [filterDate, setFilterDate] = useState('');
 
   // Load Ndertesa records from the server
   const loadNdertesas = async () => {
     try {
       const response = await axios.get('http://localhost:5000/Ndertesa58700');
-      console.log('API Response:', response.data.recordset);  // Log the entire response to check its structure
+      console.log('API Response:', response.data.recordset);
 
-      // Ensure the response is an array and set the data
       if (Array.isArray(response.data.recordset)) {
         setNdertesas(response.data.recordset);
       } else {
-        console.error('Unexpected response format:', response.data.recordset); // Debugging unexpected format
+        console.error('Unexpected response format:', response.data.recordset);
         setNdertesas([]); // Fallback to empty array in case of error
       }
     } catch (error) {
       console.error('Error loading Ndertesa data:', error);
       setNdertesas([]); // Fallback to empty array in case of error
+    }
+  };
+
+  // Filter Ndertesas based on the selected date
+  const filterByDate = () => {
+    if (filterDate) {
+      const filtered = ndertesas.filter((ndertesa) => {
+        const ndertesaDate = new Date(ndertesa.dataPt).toISOString().split('T')[0];
+        return ndertesaDate === filterDate;
+      });
+      setFilteredNdertesas(filtered);
+    } else {
+      setFilteredNdertesas(ndertesas); // Show all records if no date is selected
     }
   };
 
@@ -48,10 +61,10 @@ function NdertesaDash() {
     loadNdertesas();
   }, []);
 
-  // Update Ndertesa count when Ndertesa list changes
+  // Update the filtered list whenever the user changes the date
   useEffect(() => {
-    setNdertesaCount(ndertesas.length);
-  }, [ndertesas]);
+    filterByDate();
+  }, [filterDate, ndertesas]);
 
   return (
     <div className="back-dash">
@@ -86,6 +99,15 @@ function NdertesaDash() {
       <div className="both-back">
         <div className="second-div-a">
           <h2 className="user-h2">Ndertesa List:</h2>
+          <div className="filter-container">
+            <label htmlFor="filterDate">Filter by Date: </label>
+            <input
+              type="date"
+              id="filterDate"
+              value={filterDate}
+              onChange={(e) => setFilterDate(e.target.value)}
+            />
+          </div>
           <div className="user">
             <table className="user-table">
               <thead className="user-head">
@@ -98,7 +120,7 @@ function NdertesaDash() {
                 </tr>
               </thead>
               <tbody className="bottom-table">
-                {ndertesas.map((ndertesa) => (
+                {filteredNdertesas.map((ndertesa) => (
                   <tr className="bottom-tr" key={ndertesa.ndertesa_id}>
                     <td className="bottom-td">{ndertesa.ndertesa_id || 'ID not found'}</td>
                     <td className="bottom-td">{ndertesa.emertimi58700}</td>
