@@ -35,6 +35,14 @@ import LoginHeader from './Components/loginheader';
 import PostDeliveries from './postman-dashboard/post-deliveries';
 import PostDash from './postman-dashboard/postman-dashboard';
 
+import Ndertesa58700 from './crud1/crud1.js';
+import Ashensori from './crud2/crud2.js';
+import AddCrud1 from './crud1/addcrud1.js';
+import AddCrud2 from './crud2/addcrud2.js';
+import UpdateNdertesa from './crud1/updatecrud1.js';
+import UpdateAshensori from './crud2/updatecrud2.js';
+
+
 
 import {
   createBrowserRouter,
@@ -230,6 +238,48 @@ const router = createBrowserRouter([
     path: "/delivery/edit/:Cart_id",
     element: <div></div>
   },
+
+  {
+    path: "/ndertesa",
+    element: <div><Ndertesa58700/></div>
+  },
+  {
+    path: "/ashensori",
+    element: <div><Ashensori/></div>
+  },
+  {
+    path: "/addcrud1",
+    element: <div><AddCrud1/></div>
+  },
+  {
+    path: "/addcrud2",
+    element: <div><AddCrud2/></div>
+  },
+  {
+    path: "/Ndertesa58700/update/:ndertesa_id",
+    element: <div></div>
+    },
+    {
+      path: "/Ashensori58700/update/:ashensori_id",
+      element: <div></div>
+  },
+  {
+    path: "/Ndertesa58700/edit/:ndertesa_id",
+    element: <div></div>
+    },
+    {
+    path: "/Ashensori58700/edit/:ashensori_id",
+    element: <div></div>
+    },
+    {
+      path: "/updateNdertesa58700/:ndertesa_id",
+      element: <UpdateNdertesa />
+    },
+    {
+      path: "/updateashensori/:ashensori_id",
+      element: <div><UpdateAshensori/></div>
+    },
+
   
 
 ]);

@@ -567,6 +567,140 @@ app.put('/delivery/update/:Cart_id', async (req, res) => {
   }
 });
 
+app.post("/insertNdertesa58700", async (req, res) => {
+  try {
+    await sql.connect(config);
+    const request = new sql.Request();
+
+    const { emertimi58700,dataPT } = req.body;
+    const sqlQuery = "INSERT INTO Ndertesa58700 ( emertimi58700,dataPT) VALUES ( @emertimi58700,@dataPT)";
+
+    request.input('emertimi58700', sql.NVarChar, emertimi58700);
+    request.input('dataPT', sql.Date, dataPT);
+
+    const result = await request.query(sqlQuery);
+    res.json(result);
+  } catch (error) {
+    console.error('Error executing SQL query:', error);
+    res.status(500).json({ message: "An error occurred while executing the SQL query." });
+  }
+});
+
+////////////////////////////////
+
+
+
+app.get('/Ndertesa58700', (req, res) => {
+  dboperations.getNdertesaDetails().then(result=>{
+  res.send(result); 
+  console.log(result);
+  })
+});
+
+
+// Server-side code
+app.get('/Ndertesa58700/:ndertesa_id', (req, res) => {
+  const ndertesa_id = req.params.ndertesa_id;
+  // Use ndertesa_id to fetch the specific item from your data source
+  // Replace the following line with your data retrieval logic
+  const selectedNdertesa = fetchNdertesaById(ndertesa_id); // Implement this function
+
+  if (selectedNdertesa) {
+    res.json(selectedNdertesa);
+  } else {
+    res.status(404).json({ message: 'Item not found' });
+  }
+});
+
+
+// Edit Ndertesa route
+app.get('/Ndertesa58700/edit/:ndertesa_id', (req, res) => {
+  const ndertesa_id = req.params.ndertesa_id; // Correct parameter name
+  console.log(ndertesa_id);
+  dboperations.editNdertesa(ndertesa_id).then(x => {
+    return res.json(x);
+  });
+});
+
+// Update Ndertesa route
+app.put('/Ndertesa58700/update/:ndertesa_id', async (req, res) => {
+  const ndertesa_id = req.params.ndertesa_id; // Correct parameter name
+  const { emertimi58700, dataPT } = req.body;
+  await dboperations.updateNdertesa(ndertesa_id, emertimi58700, dataPT); // Include ndertesa_id
+});
+
+
+
+
+app.delete('/Ndertesa58700/:ndertesa_id', (req, res) => {
+  const { ndertesa_id } = req.params;
+  dboperations.delNdertesa(ndertesa_id).then(result => {
+    res.send(result);
+  });
+});
+
+/////////////////
+
+
+app.post("/insertAshensori58700", async (req, res) => {
+  try {
+    await sql.connect(config);
+    const request = new sql.Request();
+
+    const { emertimi58700, ndertesa_id } = req.body;
+    const sqlQuery = "INSERT INTO Ashensori58700 (emertimi58700, ndertesa_id) VALUES (@emertimi58700, @ndertesa_id)";
+
+    request.input('emertimi58700', sql.NVarChar, emertimi58700);
+    request.input('ndertesa_id', sql.Int, ndertesa_id);
+
+    const result = await request.query(sqlQuery);
+    res.json(result);
+  } catch (error) {
+    console.error('Error executing SQL query:', error);
+    res.status(500).json({ message: "An error occurred while executing the SQL query." });
+  }
+});
+
+
+app.get('/Ashensori58700', (req, res) => {
+  dboperations.getAshensoriDetails().then(result=>{
+  res.send(result); 
+  console.log(result);
+  })
+});
+
+
+app.get('/Ashensori58700/edit/:ashensori_id', (req, res) => {
+  const ashensori_id  = req.params;
+  console.log(ashensori_id);
+  dboperations.editAshensori(ashensori_id).then(x=>{
+  return res.json(x); 
+  })
+});
+
+
+app.put('/Ashensori58700/update/:ashensori_id', async(req, res) => {
+  const  {ashensori_id } = req.params;
+  const { emertimi58700, ndertesa_id} = req.body;
+   await dboperations.updateAshensori( ashensori_id, emertimi58700, ndertesa_id);
+});
+
+// Delete Ashensori route
+app.delete('/Ashensori58700/:ashensori_id', async (req, res) => {
+  const { ashensori_id } = req.params;
+
+  try {
+    // Call a function to delete the Ashensori item based on ashensori_id
+    const result = await dboperations.delAshensori(ashensori_id);
+
+    // Respond with the result or an appropriate message
+    res.send(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'An error occurred while deleting Ashensori.' });
+  }
+});
+
 
 
 
